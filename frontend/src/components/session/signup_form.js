@@ -31,7 +31,7 @@ class SignupForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let user = {
-      username: this.state.email,
+      username: this.state.username,
       password: this.state.password,
     };
 
