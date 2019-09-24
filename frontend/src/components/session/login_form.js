@@ -6,21 +6,13 @@ class LoginForm extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
+      username: '',
       password: '',
       errors: {}
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser === true) {
-      this.props.history.push('/tweets');
-    }
-
-    this.setState({errors: nextProps.errors})
   }
 
   update(field) {
@@ -33,7 +25,7 @@ class LoginForm extends React.Component {
     e.preventDefault();
 
     let user = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     };
 
