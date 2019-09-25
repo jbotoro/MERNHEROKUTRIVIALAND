@@ -10,40 +10,47 @@
 // Global pojo queried here
 // below represents entire pojo that houses all categories with each categories values are a set of 
 // dificulties with 
-let allQuestions;
-let allQuestionsCategories = Object.keys(allQuestions);
+const generateBoard1 = (allQuestions) => {
 
-let columns = {};
-for( let i = 0; i < 3; i++) {
-    let randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
-    let randomCategory = allQuestionsCategories[randomCategoryIndex];
-    
-    columns[randomCategory] = {};
-    allQuestionsCategories.splice(randomCategoryIndex, 1);
-    
-    columns.randomCategory["easy"] = [];
-    columns.randomCategory["medium"] = [];
-    columns.randomCategory["hard"] = [];
+    // let allQuestions = ; // axios call, essentially ajax call, should be in dispatch to props
+    let allQuestionsCategories = Object.keys(allQuestions);
 
-    queryReturn.forEach(question => {
-        if(question.difficulty === 'easy') {
-            columns.randomCategory["easy"].push(question);
-        } else if (question.difficulty === 'medium') {
-            columns.randomCategory["medium"].push(question);
-        } else {
-            columns.randomCategory["hard"].push(question);
+    let columns = {};
+    for (let i = 0; i < 3; i++) {
+        let randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
+        let randomCategory = allQuestionsCategories[randomCategoryIndex];
+
+        while (columns.hasOwnproperty(randomCategory)) {
+            randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
+            randomCategory = allQuestionsCategories[randomCategoryIndex];
         }
-    });
-    
-    // now insert questions from category and diffculites into our columns pojo
-    
-}
-let currentCategories = Object.keys(columns);
-let currentBoard = {};
 
-currentCategories.forEach(category => {
-       currentBoard[category] = [];
-       for(let i = 0; i < 4; i++) { // easy for 0, 1 & 2 for medium, 3 & 4 for hard
+        columns[randomCategory] = {};
+        // allQuestionsCategories.splice(randomCategoryIndex, 1);
+
+        columns.randomCategory["easy"] = [];
+        columns.randomCategory["medium"] = [];
+        columns.randomCategory["hard"] = [];
+
+        allQuestions[randomCategory].forEach(question => {
+            if (question.difficulty === 'easy') {
+                columns.randomCategory["easy"].push(question);
+            } else if (question.difficulty === 'medium') {
+                columns.randomCategory["medium"].push(question);
+            } else {
+                columns.randomCategory["hard"].push(question);
+            }
+        });
+
+        // now insert questions from category and diffculites into our columns pojo
+
+    }
+    let currentCategories = Object.keys(columns);
+    let currentBoard = {};
+
+    currentCategories.forEach(category => {
+        currentBoard[category] = [];
+        for (let i = 0; i < 4; i++) { // easy for 0, 1 & 2 for medium, 3 & 4 for hard
             if (i === 0) { //easy question
                 let randIndex = Math.floor(Math.random() * columns[category]["easy"].length);
                 let randQuestion = columns[category]["easy"][randIndex];
@@ -53,16 +60,24 @@ currentCategories.forEach(category => {
                 let randQuestion = columns[category]["medium"][randIndex];
                 currentBoard[category].push(randQuestion);
                 columns[category]["medium"].splice(randIndex, 1); // mutates array and no longer contains that question
-            } else if ( i === 3 || i === 4 ) {
+            } else if (i === 3 || i === 4) {
                 let randIndex = Math.floor(Math.random() * columns[category]["hard"].length);
                 let randQuestion = columns[category]["hard"][randIndex];
                 currentBoard[category].push(randQuestion);
                 columns[category]["hard"].splice(randIndex, 1); // mutates array and no longer contains that question
             }
-       }
-   }
-);
+        }
+    }
+    );
 
+    return currentBoard;
+}
+
+export default generateBoard1;
+
+class tile {
+    
+}
 
 
 // for loop to gather questions for each column array
