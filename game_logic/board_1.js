@@ -10,45 +10,38 @@
 // Global pojo queried here
 // below represents entire pojo that houses all categories with each categories values are a set of 
 // dificulties with 
-const generateBoard1 = (allQuestions) => {
+const generateRound1Board = (round1Questions) => {
 
-    // let allQuestions = ; // axios call, essentially ajax call, should be in dispatch to props
-    let allQuestionsCategories = Object.keys(allQuestions);
+    // let round1Questions = ; // axios call, essentially ajax call, should be in dispatch to props
+    let round1QuestionsCategories = Object.keys(round1Questions);
 
     let columns = {};
-    for (let i = 0; i < 3; i++) {
-        let randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
-        let randomCategory = allQuestionsCategories[randomCategoryIndex];
+    round1QuestionsCategories.forEach(category => {
 
-        while (columns.hasOwnproperty(randomCategory)) {
-            randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
-            randomCategory = allQuestionsCategories[randomCategoryIndex];
-        }
+        columns[category] = {};
 
-        columns[randomCategory] = {};
-        // allQuestionsCategories.splice(randomCategoryIndex, 1);
+        columns.category["easy"] = [];
+        columns.category["medium"] = [];
+        columns.category["hard"] = [];
 
-        columns.randomCategory["easy"] = [];
-        columns.randomCategory["medium"] = [];
-        columns.randomCategory["hard"] = [];
-
-        allQuestions[randomCategory].forEach(question => {
+        round1Questions[category].forEach(question => {
             if (question.difficulty === 'easy') {
-                columns.randomCategory["easy"].push(question);
+                columns.category["easy"].push(question);
             } else if (question.difficulty === 'medium') {
-                columns.randomCategory["medium"].push(question);
+                columns.category["medium"].push(question);
             } else {
-                columns.randomCategory["hard"].push(question);
+                columns.category["hard"].push(question);
             }
         });
 
         // now insert questions from category and diffculites into our columns pojo
 
     }
-    let currentCategories = Object.keys(columns);
+    )
+
     let currentBoard = {};
 
-    currentCategories.forEach(category => {
+    Object.keys(columns).forEach(category => {
         currentBoard[category] = [];
         for (let i = 0; i < 4; i++) { // easy for 0, 1 & 2 for medium, 3 & 4 for hard
             if (i === 0) { //easy question
@@ -73,12 +66,65 @@ const generateBoard1 = (allQuestions) => {
     return currentBoard;
 }
 
-export default generateBoard1;
+export default generateRound1Board;
 
-class tile {
+
+// const replacementCategory = (round1Questions, categoriesUsed) => {
     
-}
+//     let round1QuestionsCategories = Object.keys(round1Questions);
 
+//     let randomCategoryIndex = Math.floor(Math.random() * round1QuestionsCategories.length);
+//     let selectedCategory = round1QuestionsCategories[randomCategoryIndex];
+
+//     while (categoriesUsed.includes(randomCategory)) {
+//         randomCategoryIndex = Math.floor(Math.random() * round1QuestionsCategories.length);
+//         selectedCategory = round1QuestionsCategories[randomCategoryIndex];
+//     }
+
+//     let randomCategory = {};
+//     categoriesUsed.push(selectedCategory);
+//     // round1QuestionsCategories.splice(randomCategoryIndex, 1);
+
+//     randomCategory["easy"] = [];
+//     randomCategory["medium"] = [];
+//     randomCategory["hard"] = [];
+
+//     round1Questions[selectedCategory].forEach(question => {
+//         if (question.difficulty === 'easy') {
+//             randomCategory["easy"].push(question);
+//         } else if (question.difficulty === 'medium') {
+//             randomCategory["medium"].push(question);
+//         } else {
+//             randomCategory["hard"].push(question);
+//         }
+//     });
+
+//     newColumn = [selectedCategory, []];
+
+//     for (let i = 0; i < 4; i++) { // easy for 0, 1 & 2 for medium, 3 & 4 for hard
+//         if (i === 0) { //easy question
+//             let randIndex = Math.floor(Math.random() * randomCategory["easy"].length);
+//             let randQuestion = randomCategory["easy"][randIndex];
+//             newColumn[1].push(randQuestion);
+//         } else if (i === 1 || i === 2) {
+//             let randIndex = Math.floor(Math.random() * randomCategory["medium"].length);
+//             let randQuestion = randomCategory["medium"][randIndex];
+//             newColumn[1].push(randQuestion);
+//             randomCategory["medium"].splice(randIndex, 1); // mutates array and no longer contains that question
+//         } else if (i === 3 || i === 4) {
+//             let randIndex = Math.floor(Math.random() * randomCategory["hard"].length);
+//             let randQuestion = randomCategory["hard"][randIndex];
+//             newColumn[1].push(randQuestion);
+//             randomCategory["hard"].splice(randIndex, 1); // mutates array and no longer contains that question
+//         }
+//     }
+    
+//     return newColumn;  // array [ "String of category", [ Array of pojo questions ] ]
+// }
+
+// const replaceColumn = () => {
+
+// }
 
 // for loop to gather questions for each column array
 // below was code that assumes that we were returning an array for each column of the category, going 
