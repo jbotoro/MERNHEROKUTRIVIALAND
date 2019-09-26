@@ -9,7 +9,7 @@ class RoundOne extends React.Component {
     }
     
     componentDidMount() {
-        console.log(this.props)
+        //console.log(this.props)
         // this.props.getQestions();
         
     }
@@ -24,7 +24,7 @@ class RoundOne extends React.Component {
         let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
 
         
-        console.log("category: "+categoryName)
+        //console.log("category: "+categoryName)
         return(
             <div>
                 <div>
