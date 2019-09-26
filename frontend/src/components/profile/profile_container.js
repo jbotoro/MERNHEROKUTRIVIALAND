@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchUserData: "currently not fully setup"//id => dispatch(fetchUserData(id))
+    fetchUserData: ()=> console.log("currently not fully setup")//id => dispatch(fetchUserData(id))
   };
 };
 
