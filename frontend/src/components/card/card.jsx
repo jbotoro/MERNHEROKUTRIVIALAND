@@ -6,11 +6,19 @@ class Card extends React.Component {
         super(props);
         this.state = {
             timesAllowed: 0,
+            flipped: false,
         }
     }
     
     componentDidMount() {
-        //console.log(this.props)
+        console.log(this.props)
+    }
+
+    flipCard(){
+        console.log("in flip function")
+        this.setState({
+            flipped:!this.state.flipped
+        })
     }
    
     
@@ -20,36 +28,39 @@ class Card extends React.Component {
         let question = this.props.question;
         let answers = this.props.question.incorrectAnswers;
 
-        let answerDisplay = this.props.question.questionType === "boolean"?
-        (<div className="card-question">
-            <h1>{question.question}</h1>
-            <ul>
-                <li><p>True</p></li>
-                <li><p>False</p></li>
-            </ul>  
-        </div>
-        )
-        :
-        (<div className="card-question">
-            <h1>{question.question}</h1>
-            <p>1982</p>
-            <p>1986</p>
-            <p>1981</p>
-            <p>1985</p>
-        </div>
+        //answers.push()
+
+        let flippedToggle = this.state.flipped === true? "card is-flipped":"card";
+
+        let questionAnswerDisplay = this.props.question.questionType === "boolean"?
+            (<div className="card-question">
+                <h1>{question.question}</h1>
+                <ul>
+                    <li><p>True</p></li>
+                    <li><p>False</p></li>
+                </ul>  
+            </div>
+            )
+            :
+            (<div className="card-question">
+                <h1>{question.question}</h1>
+                <ul>
+                    {answers}
+                </ul>
+            </div>
         )
 
         let display = (
-                <div className="maincontainer">
+                <div className="scene" onClick={()=>this.flipCard()}>
 
-                    <div className="thecard">
+                    <div className={flippedToggle}>
 
-                        <div className="thefront">
+                        <div className="card-face card-face-front ">
                             <h1>{value}</h1>
                         </div>
 
-                        <div className="theback">
-                            {answerDisplay}
+                        <div className="card-face card-face-back">
+                            {questionAnswerDisplay}
                         </div>
 
                     </div>
