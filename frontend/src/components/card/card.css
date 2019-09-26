@@ -1,39 +1,48 @@
 /* THE MAINCONTAINER HOLDS EVERYTHING */
+
+.category-container{
+  /* height: 10%; */
+  /* width: 15%; */
+  background-color: pink;
+}
+
+
 .maincontainer{
     /* position: absolute; */
-    width: 50px;
-    height: 64px;
+    /* width: 50px; */
+    /* height: 64px; */
     background: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
   
   }
   
   /* THE CARD HOLDS THE FRONT AND BACK FACES */
   .thecard{
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* position: relative; */
+    /* top: 0; */
+    /* left: 0; */
+    /* width: 100%; */
+    /* height: 100%; */
     border-radius: 10px;
     transform-style: preserve-3d;
-    transition: all 0.8s ease;
+    transition: all 0.5s ease;
   }
   
   /* THE PSUEDO CLASS CONTROLS THE FLIP ON MOUSEOVER AND MOUSEOUT */
-  .thecard:hover{
-    transform: rotateY(180deg) scaleX(2) scaleY(2);
+  .thecard:active{
+    transform: rotateY(180deg) scaleX(5) scaleY(5);
   }
   
   /* THE FRONT FACE OF THE CARD, WHICH SHOWS BY DEFAULT */
    .thefront{
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    /* width: 100%; */
+    /* height: 100%; */
+    z-index: -1;
     border-radius: 10px;
     backface-visibility: hidden;
     overflow: hidden;
@@ -43,11 +52,12 @@
   
   /* THE BACK FACE OF THE CARD, WHICH SHOWS ON MOUSEOVER */
   .theback{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    /* position: absolute; */
+    /* top: 50%;
+    right: 50%; */
+    /* width: 100%;
+    height: 100%; */
+    z-index: 2;
     border-radius: 10px;
     backface-visibility: hidden;
     overflow: hidden;
@@ -61,7 +71,7 @@
   /*This block (starts here) is merely styling for the flip card, and is NOT an essential part of the flip code */
   .thefront h1{
     font-family: 'zilla slab', sans-serif;
-    padding: 30px;
+    /* padding: 5px; */
     font-weight: bold;
     font-size: 14px;
     text-align: center;
@@ -69,19 +79,28 @@
 
   .theback h1{
     font-family: 'zilla slab', sans-serif;
-    padding: 30px;
+    /* padding: 5px; */
     font-weight: bold;
-    font-size: 14px;
+    font-size: 1px;
     text-align: center;
   }
   
-  .thefront p, .theback p{
+  .thefront p{
     font-family: 'zilla slab', sans-serif;
-    padding: 30px;
+    /* padding: 30px; */
     font-weight: normal;
-    font-size: 12px;
+    font-size: 15px;
     text-align: center;
   }
+
+  .theback p{
+    font-family: 'zilla slab', sans-serif;
+    /* padding: 2px; */
+    font-weight: normal;
+    font-size: 2px;
+    text-align: center;
+  }
+
 
 
 
@@ -92,6 +111,15 @@
     align-items: center;
 
   }
+
+  .category-ul{
+    list-style-type: none;
+  }
+
+  .board-cell-li{
+    height:15%;
+    width:25%;
+}
 
 
 

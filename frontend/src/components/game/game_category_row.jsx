@@ -1,5 +1,6 @@
 import React from 'react';
 import './game.css'
+import '../card/card.css'
 import CardContainer from '../card/card_container';
 
 class GameCategoryRow extends React.Component {
@@ -20,15 +21,15 @@ class GameCategoryRow extends React.Component {
 
         let display = this.props.questions.map(question => {
         value += 100;
-        return <li><CardContainer value={value} question={question}/></li>
+        return <li className="board-cell-li"><CardContainer value={value} question={question}/></li>
         });
 
         let categoryName = this.props.questions[0].category;
-        display.unshift(<li><div>{categoryName}</div></li>)
+        display.unshift(<li className="board-cell-li"><div className="category-container">{categoryName}</div></li>)
         return(
             <div>
 
-                <ul>
+                <ul className="category-ul">
                     {display}  
                 </ul>
                 

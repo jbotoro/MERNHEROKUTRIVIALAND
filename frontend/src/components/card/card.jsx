@@ -40,7 +40,6 @@ class Card extends React.Component {
         )
 
         let display = (
-              <div>
                 <div className="maincontainer">
 
                     <div className="thecard">
@@ -50,14 +49,12 @@ class Card extends React.Component {
                         </div>
 
                         <div className="theback">
-                            
+                            {answerDisplay}
                         </div>
 
                     </div>
                 
                 </div>
-
-            </div>
             )
 
         return(
