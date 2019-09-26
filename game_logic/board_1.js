@@ -20,17 +20,17 @@ const generateRound1Board = (round1Questions) => {
 
         columns[category] = {};
 
-        columns.category["easy"] = [];
-        columns.category["medium"] = [];
-        columns.category["hard"] = [];
+        columns[category]["easy"] = [];
+        columns[category]["medium"] = [];
+        columns[category]["hard"] = [];
 
         round1Questions[category].forEach(question => {
-            if (question.difficulty === 'easy') {
-                columns.category["easy"].push(question);
-            } else if (question.difficulty === 'medium') {
-                columns.category["medium"].push(question);
+            if (question['difficulty'] === 'easy') {
+                columns[category]["easy"].push(question);
+            } else if (question['difficulty'] === 'medium') {
+                columns[category]["medium"].push(question);
             } else {
-                columns.category["hard"].push(question);
+                columns[category]["hard"].push(question);
             }
         });
 
