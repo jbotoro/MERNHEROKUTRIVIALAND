@@ -13,14 +13,14 @@ class Game extends React.Component {
     
     componentDidMount() {
         console.log(this.props)
-        // this.props.getQestions();
+        this.props.fetchRnd1Questions();
         
 
     }
    
     
     render() {
-
+        console.log(this.props.questions);
         let questions = {
             Entertainment_Film:[
                 {
@@ -84,7 +84,7 @@ class Game extends React.Component {
         }
 
 
-        console.log(this.questions)
+        //console.log(this.questions)
         let display;
         if (this.state.round === 1){
             display = (<RoundOne questions={questions}/>);
