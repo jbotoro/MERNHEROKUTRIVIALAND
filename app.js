@@ -16,12 +16,13 @@ mongoose
 app.use(passport.initialize());
 require('./config/passport')(passport);
 
-// require("./models/User")
 const users = require("./routes/api/users");
 const gameStats = require("./routes/api/gameStats");
+const questions = require("./routes/api/questions");
 
 app.use("/api/users", users);
 app.use("/api/gameStats", gameStats);
+app.use("/api/questions", questions);
 
 const port = process.env.port || 5000;
 
