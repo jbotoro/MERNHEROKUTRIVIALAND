@@ -20,17 +20,18 @@ const generateRound1Board = (round1Questions) => {
 
         columns[category] = {};
 
-        columns.category["easy"] = [];
-        columns.category["medium"] = [];
-        columns.category["hard"] = [];
-
+        columns[category]["easy"] = [];
+        columns[category]["medium"] = [];
+        columns[category]["hard"] = [];
+        
         round1Questions[category].forEach(question => {
-            if (question.difficulty === 'easy') {
-                columns.category["easy"].push(question);
-            } else if (question.difficulty === 'medium') {
-                columns.category["medium"].push(question);
+            // debugger
+            if (question['difficulty'] === 'easy') {
+                columns[category]["easy"].push(question);
+            } else if (question['difficulty'] === 'medium') {
+                columns[category]["medium"].push(question);
             } else {
-                columns.category["hard"].push(question);
+                columns[category]["hard"].push(question);
             }
         });
 
@@ -43,7 +44,7 @@ const generateRound1Board = (round1Questions) => {
 
     Object.keys(columns).forEach(category => {
         currentBoard[category] = [];
-        for (let i = 0; i < 4; i++) { // easy for 0, 1 & 2 for medium, 3 & 4 for hard
+        for (let i = 0; i < 5; i++) { // easy for 0, 1 & 2 for medium, 3 & 4 for hard
             if (i === 0) { //easy question
                 let randIndex = Math.floor(Math.random() * columns[category]["easy"].length);
                 let randQuestion = columns[category]["easy"][randIndex];
@@ -63,7 +64,7 @@ const generateRound1Board = (round1Questions) => {
     }
     );
 
-    return currentBoard;
+    return [currentBoard, 'round 1'];
 }
 
 export default generateRound1Board;
