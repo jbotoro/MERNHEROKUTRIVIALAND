@@ -8,6 +8,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            round:1,
             currentUser: {
                 id: this.props.currentUser.id,
                 username: this.props.currentUser.username,
@@ -23,13 +24,18 @@ class Game extends React.Component {
     componentDidMount() {
         //console.log(this.props)
         this.props.fetchAllQuestions();
-        this.props.fetchUsersInGame();
+        // this.props.fetchUsersInGame();
     }
    
     updateScore(points){
-        this.state.currentUser.currentScore += points;
+        this.setState({
+            currentUser:{currentScore: this.state.currentUser.currentScore+=points}
+        });
+
         if (this.state.currentUser.currentScore < 0){
-            this.state.currentUser.currentScore = 0;
+            this.setState({
+                currentUser: { currentScore: 0 }
+            });
         }
     }
     
@@ -304,34 +310,4 @@ export default Game;
             ],
             
         }
-<<<<<<< HEAD
-
-        //console.log(this.questions)
-        let display;
-        if (this.state.round === 1){
-            display = (<RoundOne questions={questions} 
-                currentUser={this.state.currentUser} 
-                users={this.props.users}
-                />);
-        }else if (this.state.round === 2){
-
-        }else if (this.state.round === 3){
-
-        }
-        
-
-        
-        return(
-            <div>
-                <ScoreBoardContainer />
-                {display}
-                
-            </div>
-        )
-    }
-}
-
-export default Game;
-=======
 */
->>>>>>> d7e1fdeb73d8448bc12ee72aba6d4aaf509526ec

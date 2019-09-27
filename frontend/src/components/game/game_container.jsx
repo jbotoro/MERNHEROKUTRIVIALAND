@@ -10,12 +10,8 @@ const mapStateToProps = (state) => {
   return {
     currentUser: state.session.user,
     questions,
-<<<<<<< HEAD
-    // users: state.entities.users
-=======
     rnd1Qs,
     // users: state.
->>>>>>> d7e1fdeb73d8448bc12ee72aba6d4aaf509526ec
   };
 };
 
@@ -23,7 +19,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUserData: "currently not fully setup",//id => dispatch(fetchUserData(id))
     fetchAllQuestions: ()=>dispatch(fetchAllQuestions()),
-    fetchUsersInGame: () => dispatch(fetchUsersInGame())
+    //fetchUsersInGame: () => dispatch(fetchUsersInGame())
   };
 };
 

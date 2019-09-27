@@ -12,7 +12,7 @@ export const receiveCurrentUser = currentUser => ({
     currentUser
 });
 
-export const 
+// export const 
 
 export const receiveUsersInGame = (users) => ({
     type: RECEIVE_USERS_IN_GAME,
@@ -59,5 +59,5 @@ export const logout = () => dispatch => {
     dispatch(logoutUser())
 };
 
-export const fetchUsersInGame = () => dispatch => APIUtil.fetchUsersInGame()
-    .then(usersResponse => dispatch(receiveUsersInGame(usersResponse)));
+// export const fetchUsersInGame = () => dispatch => APIUtil.fetchUsersInGame()
+//     .then(usersResponse => dispatch(receiveUsersInGame(usersResponse)));
