@@ -12,7 +12,7 @@ class GameCategoryRow extends React.Component {
     }
     
     componentDidMount() {
-        console.log(this.props)
+        //console.log(this.props)
     }
    
     
@@ -21,16 +21,16 @@ class GameCategoryRow extends React.Component {
 
         let display = this.props.questions.map(question => {
         value += 100;
-        return <li className="board-cell-li"><CardContainer value={value} question={question}/></li>
+        return <CardContainer value={value} question={question}/>
         });
 
         let categoryName = this.props.questions[0].category;
-        display.unshift(<li className="board-cell-li"><div className="category-container">{categoryName}</div></li>)
+        display.unshift(<div className="category-container">{categoryName}</div>)
         return(
             <div>
 
                 <ul className="category-ul">
-                    {display}  
+                    {display}
                 </ul>
                 
             </div>
