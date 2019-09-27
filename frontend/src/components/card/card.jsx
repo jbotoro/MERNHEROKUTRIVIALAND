@@ -26,7 +26,7 @@ class Card extends React.Component {
         let value = this.props.value;
 
         let question = this.props.question;
-        let answers = this.props.question.incorrectAnswers;
+        let answers = this.props.question.incorrect_answers;
 
         //answers.push()
 
@@ -59,7 +59,7 @@ class Card extends React.Component {
                             <h1>{value}</h1>
                         </div>
 
-                        <div className="card-face card-face-back">
+                        <div className="card-face new_card-face-back">
                             {questionAnswerDisplay}
                         </div>
 
