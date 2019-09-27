@@ -84,7 +84,7 @@ const generateGameBoards = (questions) => {  // questions input is entire pojo o
     round2Questions[round2QuestionsCategory]["hard"] = [];
     
     questions[round2QuestionsCategory].forEach(question => {
-        // debugger
+        debugger
         if (question['difficulty'] === 'easy') {
             round2Questions[round2QuestionsCategory]["easy"].push(question);
         } else if (question['difficulty'] === 'medium') {

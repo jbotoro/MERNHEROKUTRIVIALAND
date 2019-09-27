@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
     let questions = state.entities.questions;
   return {
     currentUser: state.session.user,
-    questions
+    questions,
+    // users: state.
   };
 };
 
