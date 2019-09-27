@@ -1,4 +1,4 @@
-import generateRound1Board from './board_1';
+import generateRound1Board from './boards';
 
 class Game {
     constructor(user, multiplayer = false, numberPlayers, questions) {
