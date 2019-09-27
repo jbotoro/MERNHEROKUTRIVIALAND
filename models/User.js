@@ -29,6 +29,14 @@ const UserSchema = new Schema({
   joined: {
     type: Date,
     default: Date.now
+  },
+  averageRoundOne: {
+    type: Number,
+    default: 0
+  },
+  averageRoundTwo: {
+    type: Number,
+    default: 0
   }
 })
 

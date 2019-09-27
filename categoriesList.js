@@ -46,7 +46,7 @@ module.exports = {
     routeGETName: "/routes/api/questions/videogames"
   },
 
-  "Board_Games": {
+  "Board_Games": {            // Added 50 seeds
     openTdbId: 16,
     categoryName: "Board_Games",
     routeGETName: "/routes/api/questions/boardgames"
@@ -70,7 +70,7 @@ module.exports = {
     routeGETName: "/routes/api/questions/math"
   },
 
-  "Mythology": {
+  "Mythology": {                /// Added 40 questions
     openTdbId: 20,
     categoryName: "Mythology",
     routeGETName: "/routes/api/questions/mythology"
@@ -100,7 +100,7 @@ module.exports = {
     routeGETName: "/routes/api/questions/politics"
   },
 
-  "Art": {
+  "Art": {                        // Maxed out at 24 questions
     openTdbId: 25,
     categoryName: "Art",
     routeGETName: "/routes/api/questions/art"
@@ -112,25 +112,25 @@ module.exports = {
     routeGETName: "/routes/api/questions/celebrities"
   },
 
-  "Animals": {
+  "Animals": {      /// Added 50 questions
     openTdbId: 27,
     categoryName: "Animals",
     routeGETName: "/routes/api/questions/animals"
   },
 
-  "Vehicles": {
+  "Vehicles": {     /// Added 50 questions
     openTdbId: 28,
     categoryName: "Vehicles",
     routeGETName: "/routes/api/questions/vehicles"
   },
 
-  "Comics": {     /// This category also only has like 2-3 questions right now
+  "Comics": {     /// Maxxed out at 45 questions
     openTdbId: 29,
     categoryName: "Comics", 
     routeGETName: "/routes/api/questions/comics"
   },
 
-  "Gadgets": {      /// This category only has 2 questions in our database right now
+  "Gadgets": {      /// Maxxed out at 21 questions
     openTdbId: 30,
     categoryName: "Gadgets",
     routeGETName: "/routes/api/questions/gadgets"
@@ -142,11 +142,11 @@ module.exports = {
     routeGETName: "/routes/api/questions/anime"
   },
 
-  "Cartoons": {
+  "Cartoons": {             // added 50 questions
     openTdbId: 32,
     categoryName: "Cartoons",
     routeGETName: "/routes/api/questions/cartoons"
   }
 }
 
-////  [16, 17, 19, 20]
+////  [17, 19, 20, 24]

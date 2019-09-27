@@ -126,8 +126,26 @@ router.get('/anime', (req, res) => {
 })
 
 router.get('/cartoons', (req, res) => {
-  Question.find({ category: "Entertainment: Cartoon & Animations" })
+  Question.find({ category: "Cartoons" })
     .then(questions => res.json(questions))
+})
+
+// Route for retrieving all questions
+
+router.get('/getQuestions', (req, res) => {
+
+  Question.find()
+    .then(questions => {
+      let organized = {};
+
+      questions.forEach(question => {
+        let cat = question["category"];
+        if (!organized[cat]) organized[cat] = [];
+        organized[cat].push(question);
+      })
+
+      return res.json(organized);
+    })
 })
 
 // Route for Round One questions
@@ -166,34 +184,56 @@ router.get('/roundOne', (req, res) => {
       })
 })
 
+router.get('/decode', (req, res) => {
+
+  function decodeHTMLEntities(text) {
+    var entities = [
+      ['amp', '&'],
+      ['apos', '\''],
+      ['#x27', '\''],
+      ['#x2F', '/'],
+      ['#039', '\''],
+      ['#47', '/'],
+      ['lt', '<'],
+      ['gt', '>'],
+      ['nbsp', ' '],
+      ['quot', '"']
+    ];
+
+    for (var i = 0, max = entities.length; i < max; ++i)
+      text = text.replace(new RegExp('&' + entities[i][0] + ';', 'g'), entities[i][1]);
+
+    return text;
+  }
+
+  Question.find()
+    .then(questions => {
+      questions.forEach(question => {
+        let id = question["_id"];
+        let newQuestion = {};
+        let newValue = decodeHTMLEntities(question["question"]);
+        newQuestion["question"] = newValue;
+        Question.updateOne({ _id: id }, newQuestion, (err, success) => {
+          console.log(success);
+          console.log(err);
+        })
+      })
+  })
+  
+
+})
+
 
 router.get('/seed', (req, res) => {
-
-  Question.findOne({_id: "5d8aabccfce6f0476718f6dc"})
-    .then(question => {
-      console.log(JSON.parse(question));
-      res.json(question);
-    })
-
-  /*
-  Question.update({ category: "Entertainment: Cartoon & Animations" }, { $set: { category: "Cartoons" } }, { multi: true }, function (err, result) {
-    console.log(result);
-    console.log(err);
-  });
-  */
-
   /*  
-  const objectsToSeed = [];
-
-  // const qsWithIds = {
- 
-  // const objectsToSeed = Object.values(qsWithIds);
+  const objectsToSeed = [
+    
+    ]
 
   let questionsAdded = [];
 
   objectsToSeed.forEach(object => {
-   
-    Question.findOne({ question: object.question })
+    Question.findOne({ question: object["question"] })
       .then(question => {
         if (question) {
           return;
