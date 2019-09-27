@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Scoreboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Scoreboardgt);
