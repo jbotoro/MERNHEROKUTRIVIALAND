@@ -40,9 +40,9 @@ class Card extends React.Component {
         let value = this.props.value;
 
         let question = this.props.question;
-        let correctAnswer = this.props.question.correct_answer
+        let correctAnswer = this.props.question.correctAnswer;
         //let answers = this.props.question.incorrect_answers;
-        let answers = [...this.props.question.incorrect_answers]
+        let answers = [...this.props.question.incorrectAnswers]
         let randomIndex = Math.floor(Math.random() * (answers.length+1))
         answers.splice((randomIndex), 0, correctAnswer);
 

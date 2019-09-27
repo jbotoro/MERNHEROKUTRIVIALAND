@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Scoreboard from './scoreboard';
 
 const mapStateToProps = (state) => {
-
+  //let currentScore = state.users
   return {
     currentUser: state.session.user,
   };

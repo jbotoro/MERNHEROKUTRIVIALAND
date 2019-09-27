@@ -24,7 +24,7 @@ class GameCategoryRow extends React.Component {
         return <CardContainer value={value} question={question}/>
         });
 
-        let categoryName = this.props.questions[0].category;
+        let categoryName = this.props.category;
         display.unshift(<div className="category-container">{categoryName}</div>)
         return(
             <div>

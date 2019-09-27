@@ -34,8 +34,41 @@ class Game extends React.Component {
     }
     
     render() {
-        //console.log(this.props.questions);
+        if (!this.props.rnd1Qs){
+            return null
+        }
 
+
+        console.log(this.props.questions.round1Questions);
+
+
+        let questions;
+        console.log(this.new_questions)
+        let display;
+        if (this.state.round === 1){
+            questions = this.props.rnd1Qs;
+            display = (<RoundOne questions={questions}/>);
+        }else if (this.state.round === 2){
+
+        }else if (this.state.round === 3){
+
+        }
+        
+
+        
+        return(
+            <div>
+                <ScoreBoardContainer />
+                {display}
+                
+            </div>
+        )
+    }
+}
+
+export default Game;
+
+/*
         let questions = {
             Film:[
                 {
@@ -271,6 +304,7 @@ class Game extends React.Component {
             ],
             
         }
+<<<<<<< HEAD
 
         //console.log(this.questions)
         let display;
@@ -298,3 +332,6 @@ class Game extends React.Component {
 }
 
 export default Game;
+=======
+*/
+>>>>>>> d7e1fdeb73d8448bc12ee72aba6d4aaf509526ec
