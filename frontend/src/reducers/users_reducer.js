@@ -11,6 +11,7 @@ export default (state = {}, action) => {
                 user['round1Score'] = 0;
                 user['round2Score'] = 0;
                 user['round3Score'] = 0;
+                user['currentRound'] = 1;
                 user['inGame'] = true;
                 users[user.id] = user;
             });

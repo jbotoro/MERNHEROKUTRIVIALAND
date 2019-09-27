@@ -8,16 +8,15 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            round: 1
-            // currentUser: {
-            //     id: this.props.currentUser.id,
-            //     username: this.props.currentUser.username,
-            //     round1Score: 0,
-            //     round2Score: 0, 
-            //     round3Score: 0,
-            //     curerntScore: 0,
-            //     inGame: true
-            // }
+            currentUser: {
+                id: this.props.currentUser.id,
+                username: this.props.currentUser.username,
+                round1Score: 0,
+                round2Score: 0, 
+                round3Score: 0,
+                currentScore: 0,
+                inGame: true
+            }
         }
     }
     
@@ -27,6 +26,12 @@ class Game extends React.Component {
         this.props.fetchUsersInGame();
     }
    
+    updateScore(points){
+        this.state.currentUser.currentScore += points;
+        if (this.state.currentUser.currentScore < 0){
+            this.state.currentUser.currentScore = 0;
+        }
+    }
     
     render() {
         //console.log(this.props.questions);

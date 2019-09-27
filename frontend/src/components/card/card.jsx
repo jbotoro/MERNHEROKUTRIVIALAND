@@ -23,16 +23,18 @@ class Card extends React.Component {
             flipped:!this.state.flipped
         })
     }
-<<<<<<< HEAD
-=======
 
     answerQuestion(points, answer, correctAnswer){
         console.log(points);
         console.log(answer);
         console.log(correctAnswer);
+        if (answer === correctAnswer) {
+            this.props.updateScore(points);
+        } else {
+            this.props.updateScore(-points);
+        }
     }
    
->>>>>>> b66528c8803ee78fda92c7b01aeff6f558f40fed
     
     render() {
         let value = this.props.value;
