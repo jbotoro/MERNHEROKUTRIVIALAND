@@ -1,6 +1,7 @@
 import React from 'react';
 import './game.css'
 import RoundOne from './rounds/round_one';
+import ScoreBoardContainer from './scoreboard/scoreboard_container'
 //import ScoreBoard from '.scoreboard.js'
 
 class Game extends React.Component {
@@ -283,7 +284,7 @@ class Game extends React.Component {
         
         return(
             <div>
-
+                <ScoreBoardContainer />
                 {display}
                 
             </div>

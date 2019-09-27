@@ -23,33 +23,55 @@ class Card extends React.Component {
             flipped:!this.state.flipped
         })
     }
+<<<<<<< HEAD
+=======
+
+    answerQuestion(points, answer, correctAnswer){
+        console.log(points);
+        console.log(answer);
+        console.log(correctAnswer);
+    }
+   
+>>>>>>> b66528c8803ee78fda92c7b01aeff6f558f40fed
     
     render() {
         let value = this.props.value;
 
         let question = this.props.question;
-        let answers = this.props.question.incorrect_answers;
+        let correctAnswer = this.props.question.correct_answer
+        //let answers = this.props.question.incorrect_answers;
+        let answers = [...this.props.question.incorrect_answers]
+        let randomIndex = Math.floor(Math.random() * (answers.length+1))
+        answers.splice((randomIndex), 0, correctAnswer);
 
-        //answers.push()
+        let flippedToggle;
+        let flippedToggle2;
+        if (this.state.flipped){
+            flippedToggle = "card is-flipped";
+            flippedToggle2 = "card-top-container more-flip"
+        }else{
+            flippedToggle = "card"
+            flippedToggle2 = "card-top-container"
+        }
 
-        let flippedToggle = this.state.flipped === true? "card is-flipped":"card";
+        let answersArray = answers.map(answer=>(<div onClick={()=>this.answerQuestion(value, answer, correctAnswer)} className="answer-container">{answer}</div>))
 
         let questionAnswerDisplay = this.props.question.questionType === "boolean"?
             (<div className="card-question">
                 <h1>{question.question}</h1>
-                <ul>
-                    <li><p>True</p></li>
-                    <li><p>False</p></li>
+                <ul className="answers-list">
+                {answersArray}
                 </ul>  
             </div>
             )
             :
             (<div className="card-question">
                 <h1>{question.question}</h1>
-                <ul>
-                    {answers}
+                <ul className="answers-list">
+                    {answersArray}
                 </ul>
             </div>
+            
         )
 
         let display = (
@@ -71,7 +93,7 @@ class Card extends React.Component {
             )
 
         return(
-            <div>
+            <div className={flippedToggle2}>
                 {display}
             </div>
         )

@@ -1,12 +1,8 @@
 
 
-.category-ul{
-    display: flex;
-    flex-direction: column;
-}
+
 
 .game-board-rnd1{
     display: flex;
-    z-index: 0;
 }
 

@@ -130,8 +130,13 @@ const generateGameBoards = (questions) => {  // questions input is entire pojo o
 
 export default generateGameBoards;
 
+<<<<<<< HEAD:frontend/src/game_logic/board_1.js
+/**/
+// const replacementCategory = (round1Questions, categoriesUsed) => {
+=======
 
 // const replacementCategory = (questions, categoriesUsed) => {
+>>>>>>> ec758d84eca0f41045ecc5fe5d76645709891656:frontend/src/game_logic/boards.js
     
 //     let round1QuestionsCategories = Object.keys(round1Questions);
 
