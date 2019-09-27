@@ -10,13 +10,21 @@
 // Global pojo queried here
 // below represents entire pojo that houses all categories with each categories values are a set of 
 // dificulties with 
-const generateRound1Board = (round1Questions) => {
+const generateGameBoards = (questions) => {  // questions input is entire pojo of 
 
-    // let round1Questions = ; // axios call, essentially ajax call, should be in dispatch to props
-    let round1QuestionsCategories = Object.keys(round1Questions);
+    function shuffle(array) {           // shuffling algorithm
+        return array.sort(() => Math.random() - 0.5);
+    }
+    debugger
+    let categories = shuffle(Object.keys(questions));
+    let round1QuestionsKeys = categories.splice(0, 7);  // splicing categories mutates array
+    let round2QuestionsCategory = categories.shift();
+    let round3QuestionsKeys = categories; // remainder of keys for round 3
+    // format round 2 and round 3 questions the same, category as key with value being another pojo
+    // that contain 
 
     let columns = {};
-    round1QuestionsCategories.forEach(category => {
+    round1QuestionsKeys.forEach(category => {
 
         columns[category] = {};
 
@@ -24,7 +32,7 @@ const generateRound1Board = (round1Questions) => {
         columns[category]["medium"] = [];
         columns[category]["hard"] = [];
         
-        round1Questions[category].forEach(question => {
+        questions[category].forEach(question => {
             // debugger
             if (question['difficulty'] === 'easy') {
                 columns[category]["easy"].push(question);
@@ -40,37 +48,90 @@ const generateRound1Board = (round1Questions) => {
     }
     )
 
-    let currentBoard = {};
+    let round1Questions = {};
+    let gameQuestions = {};
 
     Object.keys(columns).forEach(category => {
-        currentBoard[category] = [];
+        round1Questions[category] = [];
         for (let i = 0; i < 5; i++) { // easy for 0, 1 & 2 for medium, 3 & 4 for hard
             if (i === 0) { //easy question
                 let randIndex = Math.floor(Math.random() * columns[category]["easy"].length);
                 let randQuestion = columns[category]["easy"][randIndex];
-                currentBoard[category].push(randQuestion);
+                round1Questions[category].push(randQuestion);
             } else if (i === 1 || i === 2) {
                 let randIndex = Math.floor(Math.random() * columns[category]["medium"].length);
                 let randQuestion = columns[category]["medium"][randIndex];
-                currentBoard[category].push(randQuestion);
+                round1Questions[category].push(randQuestion);
                 columns[category]["medium"].splice(randIndex, 1); // mutates array and no longer contains that question
             } else if (i === 3 || i === 4) {
                 let randIndex = Math.floor(Math.random() * columns[category]["hard"].length);
                 let randQuestion = columns[category]["hard"][randIndex];
-                currentBoard[category].push(randQuestion);
+                round1Questions[category].push(randQuestion);
                 columns[category]["hard"].splice(randIndex, 1); // mutates array and no longer contains that question
             }
         }
     }
     );
 
-    return [currentBoard, 'round 1'];
+    gameQuestions['round1Questions'] = round1Questions; // round 1 questions now in pojo
+
+    let round2Questions = {};
+
+    round2Questions[round2QuestionsCategory] = {};
+    
+    round2Questions[round2QuestionsCategory]["easy"] = [];
+    round2Questions[round2QuestionsCategory]["medium"] = [];
+    round2Questions[round2QuestionsCategory]["hard"] = [];
+    
+    questions[round2QuestionsCategory].forEach(question => {
+        // debugger
+        if (question['difficulty'] === 'easy') {
+            round2Questions[round2QuestionsCategory]["easy"].push(question);
+        } else if (question['difficulty'] === 'medium') {
+            round2Questions[round2QuestionsCategory]["medium"].push(question);
+        } else {
+            round2Questions[round2QuestionsCategory]["hard"].push(question);
+        }
+    });
+
+    gameQuestions['round2Questions'] = round2Questions; // round 2 questions now in pojo
+
+
+    let round3Questions = {};
+    round3QuestionsKeys.forEach(category => {
+
+        round3Questions[category] = {};
+
+        round3Questions[category]["easy"] = [];
+        round3Questions[category]["medium"] = [];
+        round3Questions[category]["hard"] = [];
+
+        questions[category].forEach(question => {
+
+            if (question['difficulty'] === 'easy') {
+                round3Questions[category]["easy"].push(question);
+            } else if (question['difficulty'] === 'medium') {
+                round3Questions[category]["medium"].push(question);
+            } else {
+                round3Questions[category]["hard"].push(question);
+            }
+        });
+
+    }
+    )
+
+    gameQuestions['round3Questions'] = round3Questions;
+
+    return gameQuestions;
+
+
+    // return [currentBoard, 'round 1'];
 }
 
-export default generateRound1Board;
+export default generateGameBoards;
 
 
-// const replacementCategory = (round1Questions, categoriesUsed) => {
+// const replacementCategory = (questions, categoriesUsed) => {
     
 //     let round1QuestionsCategories = Object.keys(round1Questions);
 
