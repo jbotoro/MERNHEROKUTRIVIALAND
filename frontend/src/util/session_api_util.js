@@ -16,3 +16,6 @@ export const login = (userData) => {
   return axios.post('/api/users/login', userData);
 };
 
+export const fetchUsersInGame = () => {
+  return axios.get()// some logic that would fetch users currently in the session )
+}

@@ -4,7 +4,8 @@ import Card from './card';
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.session.user
+    currentUser: state.session.user,
+    // users: state.entities.users
   };
 };
 

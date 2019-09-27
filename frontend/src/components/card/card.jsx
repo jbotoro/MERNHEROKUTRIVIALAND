@@ -5,8 +5,11 @@ class Card extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timesAllowed: 0,
+            // users: Object.values(this.props.allUsers),
+                              // if users.length >= 4, implement algorithm below
+            timesAllowed: 1,  // n = Math.floor( users.length * 0.5), 
             flipped: false,
+
         }
     }
     
@@ -20,7 +23,6 @@ class Card extends React.Component {
             flipped:!this.state.flipped
         })
     }
-   
     
     render() {
         let value = this.props.value;

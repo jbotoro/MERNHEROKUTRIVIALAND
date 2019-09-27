@@ -15,7 +15,7 @@ const generateGameBoards = (questions) => {  // questions input is entire pojo o
     function shuffle(array) {           // shuffling algorithm
         return array.sort(() => Math.random() - 0.5);
     }
-    debugger
+
     let categories = shuffle(Object.keys(questions));
     let round1QuestionsKeys = categories.splice(0, 7);  // splicing categories mutates array
     let round2QuestionsCategory = categories.shift();
@@ -84,7 +84,7 @@ const generateGameBoards = (questions) => {  // questions input is entire pojo o
     round2Questions[round2QuestionsCategory]["hard"] = [];
     
     questions[round2QuestionsCategory].forEach(question => {
-        debugger
+    
         if (question['difficulty'] === 'easy') {
             round2Questions[round2QuestionsCategory]["easy"].push(question);
         } else if (question['difficulty'] === 'medium') {

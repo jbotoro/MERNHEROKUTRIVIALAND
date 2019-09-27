@@ -7,15 +7,23 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            round: 1,
+            round: 1
+            // currentUser: {
+            //     id: this.props.currentUser.id,
+            //     username: this.props.currentUser.username,
+            //     round1Score: 0,
+            //     round2Score: 0, 
+            //     round3Score: 0,
+            //     curerntScore: 0,
+            //     inGame: true
+            // }
         }
     }
     
     componentDidMount() {
         //console.log(this.props)
-        this.props.fetchRnd1Questions();
-        
-
+        this.props.fetchAllQuestions();
+        this.props.fetchUsersInGame();
     }
    
     
@@ -261,7 +269,10 @@ class Game extends React.Component {
         //console.log(this.questions)
         let display;
         if (this.state.round === 1){
-            display = (<RoundOne questions={questions}/>);
+            display = (<RoundOne questions={questions} 
+                currentUser={this.state.currentUser} 
+                users={this.props.users}
+                />);
         }else if (this.state.round === 2){
 
         }else if (this.state.round === 3){

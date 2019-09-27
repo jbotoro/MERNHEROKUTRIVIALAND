@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export const round1Questions = () => {
+export const fetchAllQuestions = () => {
     return axios.get('/api/questions/getQuestions');
 }

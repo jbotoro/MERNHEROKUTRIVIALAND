@@ -1,13 +1,13 @@
 import * as questionUtil from '../util/questions_util';
-export const RECEIVE_ROUND_1_QUESTIONS = "RECEIVE_ROUND_1_QUESTIONS";
+export const RECEIVE_ALL_QUESTIONS = "RECEIVE_ALL_QUESTIONS";
 
 // debugger
-const receiveRound1Questions = (questions) => ({
-    type: RECEIVE_ROUND_1_QUESTIONS,
+const receiveAllQuestions = (questions) => ({
+    type: RECEIVE_ALL_QUESTIONS,
     questions: questions.data,
     body: ""
     
 })
 
-export const round1Questions = () => dispatch => questionUtil.round1Questions()
-    .then( questions => dispatch(receiveRound1Questions(questions)));
+export const fetchAllQuestions = () => dispatch => questionUtil.fetchAllQuestions()
+    .then( questions => dispatch(receiveAllQuestions(questions)));

@@ -5,7 +5,9 @@ import GameCategoryRow from '../game_category_row'
 class RoundOne extends React.Component {
     constructor(props) {
         super(props);
-        
+        this.state = {
+            currentUser: this.props.currentUser,
+        }
     }
     
     componentDidMount() {
@@ -15,6 +17,10 @@ class RoundOne extends React.Component {
     }
    
 //{{Donuts:["Jelly","Boston Creme","Glazed","Chocolate","Peanut Butter"]}
+
+    updateScore() {
+        
+    }
     
     
 
