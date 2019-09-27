@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/reset.css';
 import './game.css'
 import RoundOne from './rounds/round_one';
 //import ScoreBoard from '.scoreboard.js'
@@ -12,7 +13,7 @@ class Game extends React.Component {
     }
     
     componentDidMount() {
-        console.log(this.props)
+        //console.log(this.props)
         this.props.fetchRnd1Questions();
         
 
@@ -20,7 +21,7 @@ class Game extends React.Component {
    
     
     render() {
-        console.log(this.props.questions);
+        //console.log(this.props.questions);
         let questions = {
             Entertainment_Film:[
                 {
