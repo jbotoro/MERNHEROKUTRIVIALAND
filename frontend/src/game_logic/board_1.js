@@ -69,7 +69,7 @@ const generateRound1Board = (round1Questions) => {
 
 export default generateRound1Board;
 
-
+/**/
 // const replacementCategory = (round1Questions, categoriesUsed) => {
     
 //     let round1QuestionsCategories = Object.keys(round1Questions);
