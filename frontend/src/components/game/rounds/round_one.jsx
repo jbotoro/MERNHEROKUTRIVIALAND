@@ -20,10 +20,10 @@ class RoundOne extends React.Component {
 
     render() {
         let questionsObject = this.props.questions;
-        let categoryName = Object.keys(questionsObject)
+        //let categoryName = Object.keys(questionsObject)
         //let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
 
-        let display = Object.keys(questionsObject).map(catName => (<GameCategoryRow key={catName} round={1} questions={questionsObject[catName]}/>))
+        let display = Object.keys(questionsObject).map(catName => (<GameCategoryRow category={catName} key={catName} round={1} questions={questionsObject[catName]}/>))
 
         
         //console.log("category: "+categoryName)

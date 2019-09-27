@@ -15,7 +15,6 @@ const generateGameBoards = (questions) => {  // questions input is entire pojo o
     function shuffle(array) {           // shuffling algorithm
         return array.sort(() => Math.random() - 0.5);
     }
-    debugger
     let categories = shuffle(Object.keys(questions));
     let round1QuestionsKeys = categories.splice(0, 7);  // splicing categories mutates array
     let round2QuestionsCategory = categories.shift();
@@ -84,7 +83,6 @@ const generateGameBoards = (questions) => {  // questions input is entire pojo o
     round2Questions[round2QuestionsCategory]["hard"] = [];
     
     questions[round2QuestionsCategory].forEach(question => {
-        debugger
         if (question['difficulty'] === 'easy') {
             round2Questions[round2QuestionsCategory]["easy"].push(question);
         } else if (question['difficulty'] === 'medium') {
@@ -130,18 +128,8 @@ const generateGameBoards = (questions) => {  // questions input is entire pojo o
 
 export default generateGameBoards;
 
-<<<<<<< HEAD:frontend/src/game_logic/board_1.js
-/**/
-// const replacementCategory = (round1Questions, categoriesUsed) => {
-=======
-
-// const replacementCategory = (questions, categoriesUsed) => {
->>>>>>> ec758d84eca0f41045ecc5fe5d76645709891656:frontend/src/game_logic/boards.js
-    
-//     let round1QuestionsCategories = Object.keys(round1Questions);
 
 //     let randomCategoryIndex = Math.floor(Math.random() * round1QuestionsCategories.length);
-//     let selectedCategory = round1QuestionsCategories[randomCategoryIndex];
 
 //     while (categoriesUsed.includes(randomCategory)) {
 //         randomCategoryIndex = Math.floor(Math.random() * round1QuestionsCategories.length);

@@ -5,9 +5,11 @@ import {round1Questions} from '../../actions/questions_actions'
 
 const mapStateToProps = (state) => {
     let questions = state.entities.questions;
+    let rnd1Qs = state.entities.questions.round1Questions;
   return {
     currentUser: state.session.user,
     questions,
+    rnd1Qs,
     // users: state.
   };
 };
