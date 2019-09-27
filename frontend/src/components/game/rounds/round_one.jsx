@@ -21,7 +21,9 @@ class RoundOne extends React.Component {
     render() {
         let questionsObject = this.props.questions;
         let categoryName = Object.keys(questionsObject)
-        let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
+        //let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
+
+        let display = Object.keys(questionsObject).map(catName => (<GameCategoryRow key={catName} round={1} questions={questionsObject[catName]}/>))
 
         
         //console.log("category: "+categoryName)
@@ -30,7 +32,9 @@ class RoundOne extends React.Component {
                 <div>
                     <h1>Round One</h1>
                 </div>
-                {display}
+                <div className="game-board-rnd1">
+                    {display}
+                </div>
                 
             </div>
         )
