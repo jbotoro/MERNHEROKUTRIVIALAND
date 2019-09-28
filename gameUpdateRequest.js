@@ -35,7 +35,7 @@
 //          //   {Integer} just stands for pure integer, not an Object
 
 /*
-              GET, "api/users/:username/update, 
+              PATCH, "api/users/:username/update", 
                       {
                         "pointsInGame": { Integer },
                         "questionsAnswered": { Integer },
@@ -48,20 +48,22 @@
 // To update game stats, at end of game sent a PATCH request to 
 //     "/api/gameStats/update" with the following object as body/data:
 //          //   {Integer} just stands for pure integer, not an Object
-
-const gameUpdateObject = {
-  "numberQuestionsAsked": {Integer},
-  "numberQuestionsCorrect": {Integer},
-  "roundOnePassingPoints": {Integer},
-  "roundTwoPassingPoints": {Integer},
-  "winningPoints": {Integer},
-  "playersAndScores": [
-    [ "Player1username", {IntegerScore} ],
-    [ "Player2username", {IntegerScore} ],
-    [ "Player3username", {IntegerScore} ]
-  ]
-};
-
+/*
+              PATCH, "api/gameStats/update", 
+                      {
+                        "numberQuestionsAsked": {Integer},
+                        "numberQuestionsCorrect": {Integer},
+                        "roundOnePassingPoints": {Integer},
+                        "roundTwoPassingPoints": {Integer},
+                        "winningPoints": {Integer},
+                        "playersAndScores": [
+                          [ "Player1username", {IntegerScore} ],
+                          [ "Player2username", {IntegerScore} ],
+                          [ "Player3username", {IntegerScore} ],
+                          etc. ... 
+                        ]
+                      };
+*/
 
 // I am still working on the functionality of the /players route to get all the
 //      info for all the players in a game.

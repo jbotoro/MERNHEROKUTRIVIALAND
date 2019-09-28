@@ -208,7 +208,8 @@ router.get('/decode', (req, res) => {
       ['prime', '\''],
       ['Prime', '"'],
       ['iacute', 'i'],
-      ['aacute', 'a']
+      ['aacute', 'a'],
+      ['Eacute', 'E']
     ];
 
     for (var i = 0, max = entities.length; i < max; ++i)
@@ -217,7 +218,7 @@ router.get('/decode', (req, res) => {
     return text;
   }
 
-  Question.find()
+  Question.find({category: "Mathematics"})
     .then(questions => {
       questions.forEach(question => {
         let id = question["_id"];
