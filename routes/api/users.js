@@ -12,14 +12,7 @@ const validateSignupInput = require('../../validation/signup');
 const validateLoginInput = require('../../validation/login');
 
 
-/*
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-  res.json({
-    id: req.user.id,
-    username: req.user.username
-  });
-})
-*/
+// User signup route
 
 router.post("/signup", (req, res) => {
 
@@ -63,6 +56,9 @@ router.post("/signup", (req, res) => {
     })
 })
 
+
+// User login route
+
 router.post('/login', (req, res) => {
   
   const { errors, isValid } = validateLoginInput(req.body);
@@ -100,22 +96,17 @@ router.post('/login', (req, res) => {
     })
 })
 
+
+// Route to retrieve an individual user's previous game stats
+
 router.get('/:username', (req, res) => {
   username = req.params.username;
   User.findOne({ username: username})
     .then(user => res.json(user));
 });
 
-/*
-router.get('/players', (req, res) => {
-  players = req.body;
-  console.log(players);
-  User.find({ username: { $in: players }})
-  // OR:  User.find({ _id: { $in: players }})
-    
-    .then(players => res.json(players));
-})
-*/
+
+//  Route to update a user's game stats at the end of their game
 
 router.patch('/:username/update', (req, res) => {
   const username = req.params.username;
@@ -124,10 +115,9 @@ router.patch('/:username/update', (req, res) => {
   User.findOne({ username: username })
     .then(user => {
 
-      console.log(user)
-
       user["gamesPlayed"] += 1;
-      user["pointsPerGame"] = user["pointsPerGame"] + userUpdate["pointsInGame"];
+      user["pointsPerGame"] = Math.floor((user["pointsPerGame"] + 
+        userUpdate["pointsInGame"]) / user["gamesPlayed"]);
       user["questionsAnswered"] = user["questionsAnswered"] +
         userUpdate["questionsAnswered"];
       user["questionsCorrect"] = user["questionsCorrect"] + 
@@ -137,14 +127,32 @@ router.patch('/:username/update', (req, res) => {
       user["averageRoundTwo"] = Math.floor((userUpdate["roundTwoScore"] +
         user["averageRoundTwo"]) / user["gamesPlayed"]);
 
-      User.update({ username: username }, {
+      User.updateOne({ username: username }, {
         $set: user
       }, function (err, result) {
-        console.log(err);
-        console.log(result);
+        if (err) console.log(err);
         res.json(result);
       })
-    })
   })
+})
+
+
+// Route to retrieve all players stats in a game -- NOT WORKING
+
+router.get('/players', (req, res) => {
+
+  /*
+  players = req.params.query;
+  console.log(players);
+  res.json(players);
+
+  /*
+  User.find({ username: { $in: players }})
+  // OR:  User.find({ _id: { $in: players }})
+    
+    .then(players => res.json(players));
+  */
+})
+
 
 module.exports = router;

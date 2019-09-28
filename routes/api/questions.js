@@ -1,17 +1,68 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 
-const db = require('../../config/keys').mongoURI;
-// const Question = mongoose.model('questions', QuestionSchema);
 const Question = require("../../models/Question");
 const CATEGORIES = require("../../categoriesList");
+
+
+// Route for retrieving all questions
+
+router.get('/getQuestions', (req, res) => {
+
+  Question.find()
+    .then(questions => {
+      let organized = {};
+
+      questions.forEach(question => {
+        let cat = question["category"];
+        if (!organized[cat]) organized[cat] = [];
+        organized[cat].push(question);
+      })
+
+      return res.json(organized);
+    })
+})
+
+
+// Route to retrieve questions from :num number of random categories only
+
+router.get('/categories/:num', (req, res) => {
+
+  let allQuestionsCategories = Object.keys(CATEGORIES);
+    let num = req.params.num;
+    let cats = [];
+
+    for (let i = 0; i < num; i++) {
+      let randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
+      let randomCategory = allQuestionsCategories[randomCategoryIndex];
+
+      while (cats.includes(randomCategory)) {
+        randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
+        randomCategory = allQuestionsCategories[randomCategoryIndex];
+      }
+      
+      cats.push(randomCategory);
+    }
+
+    Question.find({ category: { $in: cats}})
+      .then(questions => {
+        let organized = {};
+
+        questions.forEach(question => {
+          let cat = question["category"];
+          if (!organized[cat]) organized[cat] = [];
+          organized[cat].push(question);
+        })
+
+        return res.json(organized);
+      })
+})
 
 
 // Routes for individual categories
 
 router.get('/general', (req, res) => {
-  Question.find({category: "General"})
+  Question.find({ category: "General" })
     .then(questions => res.json(questions))
 })
 
@@ -50,7 +101,7 @@ router.get('/boardgames', (req, res) => {
     .then(questions => res.json(questions))
 })
 
-router.get('/naturalscience', (req, res) => {
+router.get('/science', (req, res) => {
   Question.find({ category: "Science" })
     .then(questions => res.json(questions))
 })
@@ -130,62 +181,12 @@ router.get('/cartoons', (req, res) => {
     .then(questions => res.json(questions))
 })
 
-// Route for retrieving all questions
 
-router.get('/getQuestions', (req, res) => {
-
-  Question.find()
-    .then(questions => {
-      let organized = {};
-
-      questions.forEach(question => {
-        let cat = question["category"];
-        if (!organized[cat]) organized[cat] = [];
-        organized[cat].push(question);
-      })
-
-      return res.json(organized);
-    })
-})
-
-// Route for Round One questions
-
-router.get('/roundOne', (req, res) => {
-
-  let allQuestionsCategories = Object.keys(CATEGORIES);
-
-    let columns = {};
-
-    for (let i = 0; i < 7; i++) {
-      let randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
-      let randomCategory = allQuestionsCategories[randomCategoryIndex];
-
-      while (columns.hasOwnProperty(randomCategory)) {
-        randomCategoryIndex = Math.floor(Math.random() * allQuestionsCategories.length);
-        randomCategory = allQuestionsCategories[randomCategoryIndex];
-      }
-      
-      columns[randomCategory] = {};
-    }
-    
-    let cats = Object.keys(columns);
-
-    Question.find({ category: { $in: cats}})
-      .then(questions => {
-        let organized = {};
-
-        questions.forEach(question => {
-          let cat = question["category"];
-          if (!organized[cat]) organized[cat] = [];
-          organized[cat].push(question);
-        })
-
-        return res.json(organized);
-      })
-})
+// Route for removing HTML characters
 
 router.get('/decode', (req, res) => {
-
+  
+  /*
   function decodeHTMLEntities(text) {
     var entities = [
       ['amp', '&'],
@@ -197,7 +198,18 @@ router.get('/decode', (req, res) => {
       ['lt', '<'],
       ['gt', '>'],
       ['nbsp', ' '],
-      ['quot', '"']
+      ['quot', '"'],
+      ['ldquo', '"'],
+      ['rdquo', '"'],
+      ['lsquo', '\''],
+      ['rsquo', '\''],
+      ['eacute', 'e'],
+      ['uuml', 'ü'],
+      ['prime', '\''],
+      ['Prime', '"'],
+      ['iacute', 'i'],
+      ['aacute', 'a'],
+      ['Eacute', 'E']
     ];
 
     for (var i = 0, max = entities.length; i < max; ++i)
@@ -206,13 +218,15 @@ router.get('/decode', (req, res) => {
     return text;
   }
 
-  Question.find()
+  Question.find({category: "Mathematics"})
     .then(questions => {
       questions.forEach(question => {
         let id = question["_id"];
         let newQuestion = {};
         let newValue = decodeHTMLEntities(question["question"]);
+        let newAnswer = decodeHTMLEntities(question["correctAnswer"]);
         newQuestion["question"] = newValue;
+        newQuestion["correctAnswer"] = newAnswer;
         Question.updateOne({ _id: id }, newQuestion, (err, success) => {
           console.log(success);
           console.log(err);
@@ -220,17 +234,16 @@ router.get('/decode', (req, res) => {
       })
   })
   
-
+  */
 })
 
 
-router.get('/seed', (req, res) => {
-  /*  
-  const objectsToSeed = [
-    
-    ]
+// Seeding route
 
-  let questionsAdded = [];
+router.get('/seed', (req, res) => {
+
+  /*
+  const objectsToSeed = [];
 
   objectsToSeed.forEach(object => {
     Question.findOne({ question: object["question"] })
@@ -239,19 +252,14 @@ router.get('/seed', (req, res) => {
           return;
         } else {
           let toInsert = new Question(object);
-
-          toInsert.save()
-            .then(question => questionsAdded.push(question));
+          toInsert.save();
         }
       });
   })
 
-  res.json({msg: questionsAdded}); 
-  */
-})
+  res.json({msg: "Complete"});
 
-router.get('/notseed', (req, res) => {
-  res.json({ msg: "This is not the seed route"})
+  */
 })
 
 module.exports = router;
