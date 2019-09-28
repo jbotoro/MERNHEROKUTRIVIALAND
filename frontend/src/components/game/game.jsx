@@ -1,5 +1,5 @@
 import React from 'react';
-import './game.css'
+import './game.css';
 import RoundOne from './rounds/round_one';
 import RoundTwo from './rounds/round_two';
 import ScoreBoardContainer from './scoreboard/scoreboard_container'
