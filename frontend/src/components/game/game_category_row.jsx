@@ -7,13 +7,15 @@ class GameCategoryRow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allAnswered: false
+            allAnswered: false,
+            currentRound: 3
         }
     }
     
     componentDidMount() {
         //console.log(this.props)
     }
+    
    
     
     render() {

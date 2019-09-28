@@ -10,7 +10,7 @@ class RoundOne extends React.Component {
 
             currentUser: this.props.currentUser,
         }
-        setTimeout(this.props.changeRounds, 10000);
+        setTimeout(this.props.changeRounds, 5000);
         
     }
     
