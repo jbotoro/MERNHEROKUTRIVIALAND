@@ -73,7 +73,8 @@ class Game extends React.Component {
             display = (<RoundOne updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds}/>);
         } else if (this.state.round === 2){
             display = (<HighScores changeRounds={this.changeRounds}/>);
-        } else if (this.state.round === 3){
+        } else if (this.state.round === 3){//Real Round TWO
+            questions = this.props.rnd2Qs;
             display = (<RoundTwo updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
         } else if (this.state.round === 10) {
         }
