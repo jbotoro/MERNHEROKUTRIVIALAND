@@ -28,12 +28,17 @@ class Card extends React.Component {
         console.log(points);
         console.log(answer);
         console.log(correctAnswer);
+        this.setState({
+            timesAllowed: this.state.times - 1,
+        })
         if (answer === correctAnswer) {
             this.props.updateScore(points);
         } else {
             this.props.updateScore(-points);
         }
     }
+
+
    
     
     render() {
@@ -76,8 +81,9 @@ class Card extends React.Component {
             
         )
 
-        let display = (
-                <div className="scene" onClick={()=>this.flipCard()}>
+        let display = this.state.timesAllowed?
+            (
+                <div className="scene" onClick={() => this.flipCard()}>
 
                     <div className={flippedToggle}>
 
@@ -90,7 +96,25 @@ class Card extends React.Component {
                         </div>
 
                     </div>
-                
+
+                </div>
+            )
+        :
+            (
+                <div className="scene">
+
+                    <div>
+
+                        <div className="card-face card-face-front ">
+                            <h1>{value}</h1>
+                        </div>
+
+                        <div className="card-face new_card-face-back">
+                            {questionAnswerDisplay}
+                        </div>
+
+                    </div>
+
                 </div>
             )
 

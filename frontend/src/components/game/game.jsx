@@ -1,8 +1,10 @@
 import React from 'react';
 import './game.css'
 import RoundOne from './rounds/round_one';
+import RoundTwo from './rounds/round_two';
 import ScoreBoardContainer from './scoreboard/scoreboard_container'
-//import ScoreBoard from '.scoreboard.js'
+import HighScores from './high_scores';
+import Clock from './clock';
 
 class Game extends React.Component {
     constructor(props) {
@@ -19,6 +21,9 @@ class Game extends React.Component {
                 inGame: true
             }
         }
+
+        this.updateScore = this.updateScore.bind(this);
+        this.changeRounds = this.changeRounds.bind(this);
     }
     
     componentDidMount() {
@@ -28,15 +33,25 @@ class Game extends React.Component {
     }
    
     updateScore(points){
-        this.setState({
-            currentUser:{currentScore: this.state.currentUser.currentScore+=points}
-        });
-
-        if (this.state.currentUser.currentScore < 0){
+        
+        if (this.state.currentUser.currentScore + points < 0) {
             this.setState({
                 currentUser: { currentScore: 0 }
             });
+        } else {
+            this.setState({
+                currentUser: { currentScore: (this.state.currentUser.currentScore + points) }
+            });
         }
+
+    }
+
+    changeRounds() {
+        console.log('changing rounds')
+        this.setState({
+            round: (this.state.round + 1)
+        })
+        console.log(this.state.round)
     }
     
     render() {
@@ -45,7 +60,9 @@ class Game extends React.Component {
         }
 
 
-        console.log(this.props.questions.round1Questions);
+
+
+        console.log(this.state.currentUser.currentScore);
 
 
         let questions;
@@ -53,18 +70,19 @@ class Game extends React.Component {
         let display;
         if (this.state.round === 1){
             questions = this.props.rnd1Qs;
-            display = (<RoundOne questions={questions}/>);
-        }else if (this.state.round === 2){
-
-        }else if (this.state.round === 3){
-
+            display = (<RoundOne updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds}/>);
+        } else if (this.state.round === 2){
+            display = (<HighScores changeRounds={this.changeRounds}/>);
+        } else if (this.state.round === 3){
+            display = (<RoundTwo updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
+        } else if (this.state.round === 10) {
         }
         
 
         
         return(
             <div>
-                <ScoreBoardContainer />
+                <ScoreBoardContainer currentScore={this.state.currentUser.currentScore}/>
                 {display}
                 
             </div>
@@ -74,240 +92,4 @@ class Game extends React.Component {
 
 export default Game;
 
-/*
-        let questions = {
-            Film:[
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                      "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                    "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                }
-            ],
-            New_Film:[
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                      "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                    "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                }
-            ],
-            Film3:[
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                      "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                    "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                }
-            ],
-            New_Film4:[
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                      "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "boolean",
-                    difficulty: "easy",
-                    question: "Han Solo&#039;s co-pilot and best friend, &quot;Chewbacca&quot;, is an Ewok.",
-                    correct_answer: "False",
-                    incorrect_answers: [
-                    "True"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                },
-                {
-                    category: "Entertainment: Film",
-                    type: "multiple",
-                    difficulty: "medium",
-                    question: "In the 1984 movie &quot;The Terminator&quot;, what model number is the Terminator portrayed by Arnold Schwarzenegger?",
-                    correct_answer: "T-800",
-                    incorrect_answers: [
-                    "I-950",
-                    "T-888",
-                    "T-1000"
-                    ]
-                }
-            ],
-            
-        }
-*/
+

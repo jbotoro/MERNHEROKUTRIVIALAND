@@ -21,7 +21,7 @@ class GameCategoryRow extends React.Component {
 
         let display = this.props.questions.map(question => {
         value += 100;
-        return <CardContainer value={value} question={question}/>
+        return <CardContainer updateScore={this.props.updateScore} value={value} question={question}/>
         });
 
         let categoryName = this.props.category;

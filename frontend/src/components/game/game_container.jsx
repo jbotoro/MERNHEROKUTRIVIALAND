@@ -7,10 +7,14 @@ import { fetchUsersInGame } from '../../actions/session_actions';
 const mapStateToProps = (state) => {
     let questions = state.entities.questions;
     let rnd1Qs = state.entities.questions.round1Questions;
+    let rnd2Qs = state.entities.questions.round2Questions;
+    let rnd3Qs = state.entities.questions.round3Questions;
   return {
     currentUser: state.session.user,
     questions,
     rnd1Qs,
+    rnd2Qs,
+    rnd3Qs,
     // users: state.
   };
 };
