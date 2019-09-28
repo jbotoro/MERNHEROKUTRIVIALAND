@@ -48,9 +48,30 @@ class Game extends React.Component {
 
     changeRounds() {
         console.log('changing rounds')
-        this.setState({
-            round: (this.state.round + 1)
-        })
+        if (this.state.round === 1) {
+            this.setState({
+                currentUser: {round1Score: this.state.currentUser.currentScore},
+                round: (this.state.round + 1)
+            })
+        } else if (this.state.round === 2) {
+            this.setState({
+                round: (this.state.round + 1)
+            })
+        } else if (this.state.round === 3) {
+            this.setState({
+                currentUser: {round2Score: (this.state.currentUser.currentScore - this.state.currentUser.round1Score)},
+                round: (this.state.round + 1)
+            })
+        } else if (this.state.round === 4) {
+            this.setState({
+                round: (this.state.round + 1)
+            })
+        } else if (this.state.round === 5) {
+            this.setState({
+                currentUser: {round3Score: (this.state.currentUser.currentScore - this.state.currentUser.round1Score - this.state.currentUser.round2Score) },
+                round: (this.state.round + 1)
+            })
+        } 
         console.log(this.state.round)
     }
     
@@ -58,8 +79,6 @@ class Game extends React.Component {
         if (!this.props.rnd1Qs){
             return null
         }
-
-
 
 
         console.log(this.state.currentUser.currentScore);
