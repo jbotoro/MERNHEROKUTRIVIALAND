@@ -10,13 +10,13 @@ module.exports = {
     routeGETName: "/routes/api/questions/general"
   },
 
-  "Books": {
+  "Books": {              ///  Added 50 questions
     openTdbId: 10,
     categoryName: "Books",
     routeGETName: "/routes/api/questions/books"
   },
 
-  "Film": {
+  "Film": {               ///  Added 50 questions
     openTdbId: 11,
     categoryName: "Film",
     routeGETName: "/routes/api/questions/film"
@@ -52,19 +52,19 @@ module.exports = {
     routeGETName: "/routes/api/questions/boardgames"
   },
 
-  "Science": {
+  "Science": {                /// Added 50 questions
     openTdbId: 17,
     categoryName: "Science",
-    routeGETName: "/routes/api/questions/naturalscience"
+    routeGETName: "/routes/api/questions/science"
   },
 
-  "Computers": {
+  "Computers": {              ///  Added 50 questions
     openTdbId: 18,
     categoryName: "Computers",
     routeGETName: "/routes/api/questions/computers"
   },
 
-  "Mathematics": {
+  "Mathematics": {              /// Maxxed out at 45 questions
     openTdbId: 19,
     categoryName: "Mathematics",
     routeGETName: "/routes/api/questions/math"
@@ -76,13 +76,13 @@ module.exports = {
     routeGETName: "/routes/api/questions/mythology"
   },
 
-  "Sports": {
+  "Sports": {                   /// Added 50 questions
     openTdbId: 21,
     categoryName: "Sports",
     routeGETName: "/routes/api/questions/sports"
   },
 
-  "Geography": {
+  "Geography": {                /// Added 50 questions
     openTdbId: 22,
     categoryName: "Geography",
     routeGETName: "/routes/api/questions/geography"
@@ -94,7 +94,7 @@ module.exports = {
     routeGETName: "/routes/api/questions/history"
   },
 
-  "Politics": {
+  "Politics": {                   // Added 50 questions
     openTdbId: 24,
     categoryName: "Politics",
     routeGETName: "/routes/api/questions/politics"
@@ -106,7 +106,7 @@ module.exports = {
     routeGETName: "/routes/api/questions/art"
   },
 
-  "Celebrities": {
+  "Celebrities": {    ///  Maxxed out at 45 questions
     openTdbId: 26,
     categoryName: "Celebrities",
     routeGETName: "/routes/api/questions/celebrities"
@@ -148,5 +148,3 @@ module.exports = {
     routeGETName: "/routes/api/questions/cartoons"
   }
 }
-
-////  [17, 19, 20, 24]

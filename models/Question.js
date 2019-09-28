@@ -5,7 +5,7 @@ const QuestionSchema = new Schema({
   category: {
     type: String,
     required: true,
-    default: "General Knowledge"
+    default: "General"
   },
 
   questionType: {

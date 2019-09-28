@@ -35,6 +35,7 @@ const GameStatSchema = new Schema({
 
   // Store as an Array of length 10 where each element is an array of the form
   //    [ {username}, {topScore} ]
+
   topTenScores: {
     type: Array,
     items: {
@@ -54,7 +55,8 @@ const GameStatSchema = new Schema({
 
   // Store as an Array of length 10 where each element is an array of the form
   //    [ {username}, {winningScore} ]
-  topTenWinningScore: {
+
+  topTenWinningScores: {
     type: Array,
     items: {
       type: Array,
@@ -73,6 +75,7 @@ const GameStatSchema = new Schema({
 
   // Store as an Array of length 10 where each element is an array of the form
   //    [ {username}, {gamesPlayed} ]
+  
   tenMostPlayedPlayers: {
     type: Array,
     items: {
