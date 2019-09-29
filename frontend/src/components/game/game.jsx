@@ -105,7 +105,7 @@ class Game extends React.Component {
             display = (<RoundThree updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
         } else if (this.state.round === 6) {
             display = (<HighScores changeRounds={this.changeRounds}/>);
-            // should be a game over board
+            // should be a game over board with high score(s)
         } else if (this.state.round === 7) {
             // display = (<HighScores changeRounds={this.changeRounds}/>);
             // should be a game over board

@@ -4,6 +4,15 @@ const passport = require('passport');
 const app = express();
 const db = require('./config/keys').mongoURI;
 
+//sockets
+const path = require('path');
+const socketIO = require('socket.io');
+const http = require('http');
+
+const server = http.createServer(app)
+
+//end of socket variables
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -27,19 +36,3 @@ app.use("/api/questions", questions);
 const port = process.env.port || 5000;
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
-
-
-
-// const serv = require('http').Server(app);
-// let io = require('sockets.io')(serv,{});
-
-// io.sockets.on('connection',function(socket){
-//   console.log('socket connection');
-
-//   socket.on('message',function(data){
-//     console.log('the message: '+data.mess)
-//   })
-
-//   socket.emit('serverMsg',{msg:'hello'});
-
-// });
