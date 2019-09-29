@@ -2,6 +2,7 @@ import React from 'react';
 import './game.css';
 import RoundOne from './rounds/round_one';
 import RoundTwo from './rounds/round_two';
+import RoundThree from './rounds/round_three';
 import ScoreBoardContainer from './scoreboard/scoreboard_container'
 import HighScores from './high_scores';
 import Clock from './clock';
@@ -10,7 +11,11 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+<<<<<<< HEAD
             round:3,
+=======
+            round:5,
+>>>>>>> 001f8964bde2c62226cd44ef10d5c0cbfa42222c
             currentUser: {
                 id: this.props.currentUser.id,
                 username: this.props.currentUser.username,
@@ -98,7 +103,8 @@ class Game extends React.Component {
         } else if (this.state.round === 4) {
             // high score board for proceed
         } else if (this.state.round === 5) {
-            // round 3
+            questions = this.props.rnd3Qs;
+            display = (<RoundThree updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
         } else if (this.state.round === 10) {
             // should be a game over board
         } 
