@@ -11,3 +11,29 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
+
+.game-board-rnd3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100vh;
+
+}
+
+.game-board-rnd3-main-user{
+    background-color: blueviolet;
+}
+
+.game-board-rnd3-choose-category-display{
+    background-color: peachpuff;
+}
+
+.game-board-rnd3-other-players-display{
+    background-color: greenyellow;
+}
+
+
+
+
+.rnd3-main-user-container{
+    background-color:pink;
+}

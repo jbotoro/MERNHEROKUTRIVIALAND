@@ -2,6 +2,7 @@ import React from 'react';
 import './game.css';
 import RoundOne from './rounds/round_one';
 import RoundTwo from './rounds/round_two';
+import RoundThree from './rounds/round_three';
 import ScoreBoardContainer from './scoreboard/scoreboard_container'
 import HighScores from './high_scores';
 import Clock from './clock';
@@ -10,7 +11,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            round:1,
+            round:5,
             currentUser: {
                 id: this.props.currentUser.id,
                 username: this.props.currentUser.username,
@@ -95,7 +96,11 @@ class Game extends React.Component {
         } else if (this.state.round === 3){//Real Round TWO
             questions = this.props.rnd2Qs;
             // display = (<RoundTwo updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
-        } else if (this.state.round === 10) {
+        } else if (this.state.round === 4) {
+        } else if (this.state.round === 5) {
+            questions = this.props.rnd3Qs;
+            display = (<RoundThree updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
+        } else if (this.state.round === 6) {
         }
         
 
