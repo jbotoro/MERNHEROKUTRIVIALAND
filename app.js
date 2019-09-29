@@ -26,10 +26,12 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 const users = require("./routes/api/users");
+const games = require("./routes/api/games");
 const gameStats = require("./routes/api/gameStats");
 const questions = require("./routes/api/questions");
 
 app.use("/api/users", users);
+app.use("/api/games", games);
 app.use("/api/gameStats", gameStats);
 app.use("/api/questions", questions);
 
