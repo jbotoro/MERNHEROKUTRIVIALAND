@@ -18,6 +18,14 @@ span, article, footer, time, small {
   background: transparent;
 }
 
+body{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 ul {
   list-style: none;
 }

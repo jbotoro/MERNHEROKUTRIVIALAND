@@ -11,11 +11,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-<<<<<<< HEAD
-            round:3,
-=======
-            round:5,
->>>>>>> 001f8964bde2c62226cd44ef10d5c0cbfa42222c
+            round:1,
             currentUser: {
                 id: this.props.currentUser.id,
                 username: this.props.currentUser.username,
@@ -23,7 +19,8 @@ class Game extends React.Component {
                 round2Score: 0, 
                 round3Score: 0,
                 currentScore: 0,
-                inGame: true
+                inGame: true,
+                clock: 0
             }
         }
 
@@ -101,11 +98,16 @@ class Game extends React.Component {
             questions = this.props.rnd2Qs;
             display = (<RoundTwo updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
         } else if (this.state.round === 4) {
+            display = (<HighScores changeRounds={this.changeRounds}/>);
             // high score board for proceed
         } else if (this.state.round === 5) {
             questions = this.props.rnd3Qs;
             display = (<RoundThree updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
-        } else if (this.state.round === 10) {
+        } else if (this.state.round === 6) {
+            display = (<HighScores changeRounds={this.changeRounds}/>);
+            // should be a game over board
+        } else if (this.state.round === 7) {
+            // display = (<HighScores changeRounds={this.changeRounds}/>);
             // should be a game over board
         } 
         

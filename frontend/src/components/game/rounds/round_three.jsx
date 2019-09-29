@@ -16,7 +16,7 @@ class RoundOne extends React.Component {
             allCategoriesNamesArr: [],
             showingCategoriesArr: []
         }
-        //setTimeout(this.props.changeRounds, 60000);
+        // setTimeout(this.props.changeRounds, 6000);
         
 
         this.getAllCategories = this.getAllCategories.bind(this);
@@ -89,7 +89,8 @@ class RoundOne extends React.Component {
         let currentCategories = "";
         let playersTurnDisplay = this.state.currentUserTurn? 
         (<div>
-            <h1>Please choose a category for your final question</h1>
+            <h1>Choose Your Final Category</h1>
+            <h1>All Questions Are Hard</h1>
             {this.state.showingCategoriesArr.map(category=>(<div onClick={()=>this.chooseCategory(category)}>{category}</div>))}
         </div>)
         :

@@ -10,7 +10,9 @@ class RoundOne extends React.Component {
 
             currentUser: this.props.currentUser,
         }
-        setTimeout(this.props.changeRounds, 60000);
+        
+        
+        setTimeout(this.props.changeRounds, 5000);
         
     }
     
@@ -20,9 +22,6 @@ class RoundOne extends React.Component {
         
     }
 
-
-   
-//{{Donuts:["Jelly","Boston Creme","Glazed","Chocolate","Peanut Butter"]}
     
     
 
@@ -32,7 +31,7 @@ class RoundOne extends React.Component {
         //let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
 
         let display = Object.keys(questionsObject).map(catName => (<GameCategoryRow updateScore={this.props.updateScore} category={catName} key={catName} round={1} questions={questionsObject[catName]}/>))
-
+        console.log(display)
         
         //console.log("category: "+categoryName)
         return(
