@@ -65,6 +65,7 @@
   transform-style: preserve-3d;
   cursor: pointer;
   position: relative;
+  height: 12vh;
 }
 
 .card.is-flipped {
@@ -83,7 +84,7 @@
 .card-face-front {
   background: red;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 10vh;
 }
 
 .card-face-back {
@@ -111,6 +112,9 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 14vw;
+  padding: 0px 9% 0px 2%;
+  margin: 0px 2% 0px 2%;
 }
 
 .more-flip{

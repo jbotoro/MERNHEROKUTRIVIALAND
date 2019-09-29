@@ -1,10 +1,37 @@
 
+.game-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
+.score-board-container{
+    display: flex;
+    font-size: 7vh;
+    color: black;
+}
+
+.score{
+    color:green;
+}
 
 
 .game-board-rnd1{
     display: flex;
 }
+
+.round-1-title-clock{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-clock{
+    
+}
+
 
 .game-board-rnd2{
     display: grid;

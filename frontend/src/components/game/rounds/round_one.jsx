@@ -12,7 +12,7 @@ class RoundOne extends React.Component {
         }
         
         
-        setTimeout(this.props.changeRounds, 5000);
+        // setTimeout(this.props.changeRounds, 5000);
         
     }
     
@@ -36,7 +36,7 @@ class RoundOne extends React.Component {
         //console.log("category: "+categoryName)
         return(
             <div>
-                <div>
+                <div className="round-1-title-clock">
                     <h1>Round One</h1>
                     <Clock seconds={120}/>
                 </div>

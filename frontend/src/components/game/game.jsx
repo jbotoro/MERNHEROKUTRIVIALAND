@@ -114,7 +114,7 @@ class Game extends React.Component {
 
         
         return(
-            <div>
+            <div className="game-container">
                 <ScoreBoardContainer currentScore={this.state.currentUser.currentScore}/>
                 {display}
                 
