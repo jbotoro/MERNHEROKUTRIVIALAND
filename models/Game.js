@@ -23,15 +23,18 @@ const GameSchema = new Schema({
 
   roomId: {
     type: Number,
+    minimum: 1000,
     maximum: 9999
   },
 
   isOnePlayerGame: {
-    type: Boolean
+    type: Boolean,
+    default: true
   },
 
   hasStarted: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
 
   createdAt: {
@@ -40,9 +43,10 @@ const GameSchema = new Schema({
   },
 
   startedAt: {
-    type: Date
+    type: Date,
+    default: null
   }
-  
+
 })
 
 
