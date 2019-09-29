@@ -8,8 +8,10 @@ class RoundOne extends React.Component {
         super(props);
         this.state = {
             currentUser: this.props.currentUser,
+            strikes: 0  // if number becomes three, 
         }
-        // setTimeout(this.props.changeRounds, 5000);
+        // setTimeout(this.props.changeRounds, 60000); // shouldn't have 
+        
     }
 
     componentDidMount() {
@@ -18,7 +20,20 @@ class RoundOne extends React.Component {
 
     }
 
+    wrongChoice() {
+        this.setState({
+            strikes: (this.state.strikes + 1)
+        })
+
+        if (this.state.strikes === 3) {
+            // logic to use this.changeRounds(3)
+            // which that logic will stop the game for the user
+            // back in game
+        }
+    }
+
     render() {
+
         let questionsObject = this.props.questions;
         //let categoryName = Object.keys(questionsObject)
         //let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
@@ -32,8 +47,10 @@ class RoundOne extends React.Component {
 
 
         let questions = this.props.questions;
+
         let catName = Object.keys(this.props.questions)[0];
-        //console.log("category: "+categoryName)
+        // console.log(questions)
+        // console.log('ALL QUESTIONS')
         return (
             <div className="game-board-rnd2">
                 <div>
@@ -44,7 +61,7 @@ class RoundOne extends React.Component {
                     category={catName}
                     key={catName}
                     round={3} 
-                        questions={questions[catName]} />
+                    questions={questions[catName]} />
                 </div>
                 <div>
                     <h1>XXX</h1>
