@@ -11,11 +11,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-<<<<<<< HEAD
             round:3,
-=======
-            round:5,
->>>>>>> 001f8964bde2c62226cd44ef10d5c0cbfa42222c
             currentUser: {
                 id: this.props.currentUser.id,
                 username: this.props.currentUser.username,
@@ -23,12 +19,14 @@ class Game extends React.Component {
                 round2Score: 0, 
                 round3Score: 0,
                 currentScore: 0,
-                inGame: true
+                inGame: true,
+                round2Strikes: 0
             }
         }
 
         this.updateScore = this.updateScore.bind(this);
         this.changeRounds = this.changeRounds.bind(this);
+        this.fetchCurrentRnd2Score = this.fetchCurrentRnd2Score.bind(this);
     }
     
     componentDidMount() {
@@ -79,6 +77,13 @@ class Game extends React.Component {
         } 
         console.log(this.state.round)
     }
+
+    fetchCurrentRnd2Score() {
+        let score = (this.state.currentUser.currentScore - this.state.currentUser.round1Score);
+        return score;
+    }
+
+    
     
     render() {
         if (!this.props.rnd1Qs){
@@ -99,7 +104,11 @@ class Game extends React.Component {
             display = (<HighScores changeRounds={this.changeRounds}/>);
         } else if (this.state.round === 3){//Real Round TWO
             questions = this.props.rnd2Qs;
-            display = (<RoundTwo updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
+            display = (<RoundTwo updateScore={this.updateScore} 
+                questions={questions} changeRounds={this.changeRounds} 
+                currentUser={this.state.currentUser}
+                fetchCurrentRnd2Score={this.fetchCurrentRnd2Score}
+                />);
         } else if (this.state.round === 4) {
             // high score board for proceed
         } else if (this.state.round === 5) {

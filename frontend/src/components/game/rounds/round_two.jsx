@@ -8,7 +8,7 @@ class RoundOne extends React.Component {
         super(props);
         this.state = {
             currentUser: this.props.currentUser,
-            strikes: 0  // if number becomes three, 
+            strikes: 0  // if number becomes three,
         }
         // setTimeout(this.props.changeRounds, 60000); // shouldn't have 
         
@@ -17,19 +17,6 @@ class RoundOne extends React.Component {
     componentDidMount() {
         //console.log(this.props)
         // this.props.getQestions();
-
-    }
-
-    wrongChoice() {
-        this.setState({
-            strikes: (this.state.strikes + 1)
-        })
-
-        if (this.state.strikes === 3) {
-            // logic to use this.changeRounds(3)
-            // which that logic will stop the game for the user
-            // back in game
-        }
     }
 
     render() {
@@ -49,25 +36,38 @@ class RoundOne extends React.Component {
         let questions = this.props.questions;
 
         let catName = Object.keys(this.props.questions)[0];
+        let username = this.props.currentUser.username;
+        let displayScore = this.props.fetchCurrentRnd2Score().toString();
         // console.log(questions)
         // console.log('ALL QUESTIONS')
         return (
-            <div className="game-board-rnd2">
-                <div>
-                    <h1>Round Two</h1>
+            <div className="game-board-rnd2 game-board-rnd2-new">
+                
+                <div className="game-board-rnd2-left">
+                    <div>
+                        <h1>Round Two</h1>
+                        <h2>{catName}</h2>
+                    </div>
+                    <div>
+                        <GameCategoryRow updateScore={this.props.updateScore} 
+                        category={catName}
+                        key={catName}
+                        round={3} 
+                        questions={questions[catName]} />
+                    </div>
+                    <div>
+                        <h1>XXX</h1>
+                    </div>
                 </div>
-                <div>
-                    <GameCategoryRow updateScore={this.props.updateScore} 
-                    category={catName}
-                    key={catName}
-                    round={3} 
-                    questions={questions[catName]} />
-                </div>
-                <div>
-                    <h1>XXX</h1>
-                </div>
-                <div>
-                    <h1>Player Scores</h1>
+
+                <div className="game-board-rnd2-right">
+                    <div>
+                        <h1>Player Scores</h1>
+                        {/* <div className="game-board-rnd2-scores"> */}
+                            <h1>{username}</h1>
+                            <p>{displayScore}</p>
+                        {/* </div> */}
+                    </div>
                 </div>
 
             </div>
