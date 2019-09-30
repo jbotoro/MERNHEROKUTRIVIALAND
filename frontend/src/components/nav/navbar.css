@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     animation: color-change 6s ease-in-out infinite;
+    color: white;
 }
 
 .navbar-links{
@@ -26,17 +27,21 @@ img{
 
 
 @keyframes color-change {
-    0% {
+    25% {
         background-color: #D65DB1;
+        color: pink;
     }
     50% {
         background-color: #FF9671;
+        color: black;
         }
     90% {
         background-color: #F9F871;
+        color: #FF9671;
     }
     100%{
         background-color: pink;
+        color: #D65DB1;
     }
 }
 

@@ -80,10 +80,56 @@
 }
 
 .wager-input:hover{
+    background-color: purple;
 }
 
 
 
 .rnd3-main-user-container{
     background-color:pink;
+}
+
+.high-scores-title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.high-scores-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 36vw;
+
+}
+
+.the-avg-score{
+
+}
+
+.high-score-names{
+    color:#D65DB1;
+    font-size: 6vh;
+}
+.high-score-scores{
+    color:white;
+    font-size: 6vh;
+}
+
+.next-round-button-container{
+    display:flex;
+    justify-content: center;
+}
+.next-round-clock-container{
+    display:flex;
+    justify-content: center;
+}
+
+.next-round-button{
+    margin: 0px 15px 0px 0px;
+    background-color: white;
+    padding: 3px;
+    border-radius: 7px;
 }

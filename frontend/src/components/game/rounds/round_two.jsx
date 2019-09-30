@@ -10,7 +10,7 @@ class RoundOne extends React.Component {
             currentUser: this.props.currentUser,
             strikes: 0  // if number becomes three, 
         }
-        setTimeout(this.props.changeRounds, 6000); // shouldn't have 
+        // setTimeout(this.props.changeRounds, 6000); // shouldn't have 
         
     }
 

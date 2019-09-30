@@ -12,7 +12,7 @@ class RoundOne extends React.Component {
         }
         
         
-        // setTimeout(this.props.changeRounds, 5000);
+        setTimeout(this.props.changeRounds, 15000);
         
     }
     
@@ -31,7 +31,7 @@ class RoundOne extends React.Component {
         //let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
 
         let display = Object.keys(questionsObject).map(catName => (<GameCategoryRow updateScore={this.props.updateScore} category={catName} key={catName} round={1} questions={questionsObject[catName]}/>))
-        console.log(display)
+        // console.log(display)
         
         //console.log("category: "+categoryName)
         return(
@@ -46,6 +46,10 @@ class RoundOne extends React.Component {
                 
             </div>
         )
+    }
+
+    componentWillUnmount(){
+        this.props.updateScore(0);
     }
 }
 

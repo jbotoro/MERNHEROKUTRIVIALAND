@@ -15,20 +15,20 @@ class Card extends React.Component {
     }
     
     componentDidMount() {
-        console.log(this.props)
+        //console.log(this.props)
     }
 
     flipCard(){
-        console.log("in flip function")
+        //console.log("in flip function")
         this.setState({
             flipped:!this.state.flipped
         })
     }
 
     answerQuestion(points, answer, correctAnswer){
-        console.log(points);
-        console.log(answer);
-        console.log(correctAnswer);
+        // console.log(points);
+        // console.log(answer);
+        // console.log(correctAnswer);
         this.setState({
             timesAllowed: this.state.times - 1,
         })
