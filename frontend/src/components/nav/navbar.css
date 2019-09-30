@@ -1,4 +1,44 @@
 
-.navy{
-    background-color: bisque;
+.navvy{
+    background-color: pink;;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: color-change 6s ease-in-out infinite;
 }
+
+.navbar-links{
+    display: flex;
+
+}
+
+.link-button{
+    margin: 0px 15px 0px 0px;
+    background-color: white;
+    padding: 3px;
+    border-radius: 7px;
+}
+
+img{
+    width:19%;
+}
+
+
+
+@keyframes color-change {
+    0% {
+        background-color: #D65DB1;
+    }
+    50% {
+        background-color: #FF9671;
+        }
+    90% {
+        background-color: #F9F871;
+    }
+    100%{
+        background-color: pink;
+    }
+}
+
+
+/* //colors #845EC2, #D65DB1, #FF6F91, #FF9671, #FFC75F, #F9F871] */

@@ -1,12 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import './navbar.css'
+import logo from '../../assets/trivialand_logo.png';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);
+  }
+
+  componentDidMount(){
+
   }
 
   logoutUser(e) {
@@ -17,16 +22,16 @@ class NavBar extends React.Component {
   getLinks() {
       if (this.props.loggedIn) {
         return (
-            <div>
-                <Link to={'/profile'}>Profile</Link>
-                <button onClick={this.logoutUser}>Logout</button>
+            <div className="navbar-links-container">
+                <Link className="link-button" to={'/profile'}>Profile</Link>
+                <button className="link-button" onClick={this.logoutUser}>Logout</button>
             </div>
         );
       } else {
         return (
-            <div>
-                <Link to={'/signup'}>Signup</Link>
-                <Link to={'/login'}>Login</Link>
+            <div className="navbar-links-container">
+                <Link className="link-button" to={'/signup'}>Signup</Link>
+                <Link className="link-button" to={'/login'}>Login</Link>
             </div>
         );
       }
@@ -34,8 +39,8 @@ class NavBar extends React.Component {
 
   render() {
       return (
-        <div className="navy">
-            <h1>Trivialand</h1>
+        <div className="navvy">
+            <img src={logo} alt="Logo"/>
             { this.getLinks() }
         </div>
       );

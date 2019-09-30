@@ -13,12 +13,13 @@
 }
 
 .score{
-    color:green;
+    color:yellow;
 }
 
 
 .game-board-rnd1{
     display: flex;
+    margin-right: 1vw;
 }
 
 .round-1-title-clock{

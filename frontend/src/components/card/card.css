@@ -1,10 +1,15 @@
+/* //colors #845EC2, #D65DB1, #FF6F91, #FF9671, #FFC75F, #F9F871] */
+
 /* THE MAINCONTAINER HOLDS EVERYTHING */
 
 .category-container{
   /* height: 10%; */
   /* width: 15%; */
-  background-color: pink;
+  background-color: #F9F871;
   position: relative;
+  display: flex;
+  justify-content: center;
+  border: 2px solid #845EC2;
 }
 
 
@@ -57,6 +62,13 @@
   perspective: 1000px;
 }
 
+.scene-flipped{
+  position: fixed;
+  top: 23vh;
+  left: 65vw;
+  border: 0px solid #CCC;
+}
+
 .card {
   /* display: flex; */
   /* width: 80px;
@@ -69,7 +81,7 @@
 }
 
 .card.is-flipped {
-  transform: rotateY(180deg) scale(3,3);
+  transform: rotateY(180deg) scale(4.5,4);
 }
 
 .card-face {
@@ -82,9 +94,10 @@
 }
 
 .card-face-front {
-  background: red;
+  background:  #845EC2;
   font-weight: bold;
   font-size: 10vh;
+  border-radius: 2px;
 }
 
 .card-face-back {
@@ -98,10 +111,13 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  background: blue;
+  background: #5E60C2;
   font-weight: bold;
   font-size: 5px;
   transform: rotateY(180deg);
+  display: inline-table;
+  box-shadow: 2px 2px 1px whitesmoke;
+  border-radius: 2px;
 }
 
 .card-level{
@@ -138,13 +154,22 @@ section {
   transform: translate(-50%, -50%) }
 
   .answer-container{
-
+    border: .5px solid #CCC;
+    margin-bottom:1px;
+    padding: 1px;
   }
   .answer-container:hover{
     background-color: black;
   }
 
 
+  .already-answered-wrong{
+    background-color: red;
+  }
+
+  .already-answered-right{
+    background-color: #5DD682;
+  }
 
 /*
 
