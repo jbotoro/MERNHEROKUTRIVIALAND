@@ -3,7 +3,7 @@ import React from 'react';
 import GameCategoryRow from '../game_category_row';
 import '../../css/game.css';
 
-class RoundOne extends React.Component {
+class RoundTwo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -44,9 +44,7 @@ class RoundOne extends React.Component {
                 rightAnswers:this.state.rightAnswers+1
             })
         }else{
-            if (this.state.rightAnswers === 2){
-                this.props.changeRounds("gameover");
-            }
+            
             this.setState({
                 strikes:this.state.strikes+1
             })
@@ -145,7 +143,7 @@ class RoundOne extends React.Component {
     }
 }
 
-export default RoundOne;
+export default RoundTwo;
 
 
 /*

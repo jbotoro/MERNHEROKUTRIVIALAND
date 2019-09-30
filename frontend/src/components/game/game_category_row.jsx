@@ -41,7 +41,7 @@ class GameCategoryRow extends React.Component {
         let medium = this.props.questions["medium"];
         this.shuffle(medium);
         let mediumQuestion = medium.pop();
-        
+
         let hard = this.props.questions["hard"];
         this.shuffle(hard);
         let hardQuestion = hard.pop();
@@ -51,7 +51,7 @@ class GameCategoryRow extends React.Component {
         // console.log('easy Questions')
         // console.log(medium);
         // console.log(hard);
-        
+
         this.setState({
             round2Questions: {
                 easyQuestion: easyQuestion,
@@ -78,7 +78,7 @@ class GameCategoryRow extends React.Component {
     }
 
     updateRound2Question(diff) {
-        
+
         if (diff === "easy") {
             let easyArr = this.state.round2Questions.easyQuestions;
             let newEasyQuestion = easyArr.pop();
@@ -87,7 +87,7 @@ class GameCategoryRow extends React.Component {
                 easyQuestions: easyArr
             })
             return newEasyQuestion;
-        }  else if (diff === "medium") {
+        } else if (diff === "medium") {
             let mediumArr = this.state.round2Questions.mediumQuestions;
             let newMediumQuestion = mediumArr.pop();
             this.setState({
@@ -95,7 +95,7 @@ class GameCategoryRow extends React.Component {
                 mediumQuestions: mediumArr
             })
             return newMediumQuestion;
-        }  else if (diff === "hard") {
+        } else if (diff === "hard") {
             let hardArr = this.state.round2Questions.hardQuestions;
             let newHardQuestion = hardArr.pop();
             this.setState({
@@ -104,7 +104,7 @@ class GameCategoryRow extends React.Component {
             })
             return newHardQuestion;
         }
-        
+
     }
 
 
@@ -155,7 +155,6 @@ class GameCategoryRow extends React.Component {
         return (
             <div>
                 
-            
                 <div className="category-ul">
                     {display}
                 </div>

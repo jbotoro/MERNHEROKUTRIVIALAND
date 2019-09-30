@@ -25,12 +25,14 @@ class Game extends React.Component {
                 round3Score: 0,
                 currentScore: 0,
                 inGame: true,
+                round2Strikes: 0,
                 clock: 0
             }
         }
 
         this.updateScore = this.updateScore.bind(this);
         this.changeRounds = this.changeRounds.bind(this);
+        this.fetchCurrentRnd2Score = this.fetchCurrentRnd2Score.bind(this);
     }
     
     componentDidMount() {
@@ -87,6 +89,13 @@ class Game extends React.Component {
         } 
         console.log(this.state.round)
     }
+
+    fetchCurrentRnd2Score() {
+        let score = (this.state.currentUser.currentScore - this.state.currentUser.round1Score);
+        return score;
+    }
+
+    
     
     render() {
         if (!this.props.rnd1Qs){

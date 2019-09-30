@@ -132,6 +132,12 @@
   margin: 0px 2% 0px 2%;
 }
 
+.difficulty-ul {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
 .more-flip{
   z-index: 1;
 }
