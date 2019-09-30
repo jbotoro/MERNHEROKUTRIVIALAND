@@ -36,13 +36,6 @@ const games = require("./routes/api/games");
 const gameStats = require("./routes/api/gameStats");
 const questions = require("./routes/api/questions");
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('frontend/build'));
-  app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  })
-}
-
 app.use("/api/users", users);
 app.use("/api/games", games);
 app.use("/api/gameStats", gameStats);
@@ -51,6 +44,13 @@ app.use("/api/questions", questions);
 const port = process.env.port || 5000;
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('frontend/build'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  })
+}
 
 //Wesocket Details Below
 const io = socketIO(server);
