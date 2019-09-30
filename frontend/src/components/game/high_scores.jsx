@@ -11,7 +11,7 @@ class HighScore extends React.Component {
         this.state = {
             
         }
-        //setTimeout(this.props.changeRounds, 15000);
+        setTimeout(this.props.changeRounds, 14900);
     }
 
     componentDidMount() {

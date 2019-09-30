@@ -33,11 +33,9 @@ class Card2 extends React.Component {
         console.log(answer);
         console.log(correctAnswer);
         let newQuestion = this.props.updateRound2Question(difficulty);
-        this.setState({
-            timesAllowed: this.state.times - 1,
-        })
         if (answer === correctAnswer) {
             this.props.updateScore(points);
+            this.props.rightAnswer(true);
             // let newQuestion = this.state.questions.pop();
             this.setState({
                 timesAllowed: 1,
@@ -48,6 +46,8 @@ class Card2 extends React.Component {
             // console.log(this.state.questions)
         } else {
             this.props.updateScore(-points);
+            this.props.rightAnswer(false);
+
             // let newQuestion = this.state.questions.pop();
             this.setState({
                 timesAllowed: 1,
@@ -71,12 +71,15 @@ class Card2 extends React.Component {
 
         let flippedToggle;
         let flippedToggle2;
-        if (this.state.flipped) {
+        let sceneToggle;
+        if (this.state.flipped){
             flippedToggle = "card is-flipped";
             flippedToggle2 = "card-top-container more-flip"
-        } else {
+            sceneToggle = "scene scene-flipped";
+        }else{
             flippedToggle = "card"
             flippedToggle2 = "card-top-container"
+            sceneToggle = "scene ";
         }
 
         let answersArray = answers.map(answer => (<div onClick={() => this.answerQuestion(value, answer, correctAnswer, difficulty)} className="answer-container">{answer}</div>))
@@ -101,7 +104,7 @@ class Card2 extends React.Component {
 
         let display = this.state.timesAllowed ?
             (
-                <div className="scene" onClick={() => this.flipCard()}>
+                <div className={sceneToggle} onClick={() => this.flipCard()}>
 
                     <div className={flippedToggle}>
 

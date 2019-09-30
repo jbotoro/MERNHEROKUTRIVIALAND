@@ -112,9 +112,20 @@ class GameCategoryRow extends React.Component {
         //debugger
         console.log(this.state.round2Questions);
         let display = 
-            [<Card2Container question={this.state.round2Questions.easyQuestion} value={200} updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question}/>,
-            <Card2Container question={this.state.round2Questions.mediumQuestion} value={500} updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question}/>,
-            <Card2Container question={this.state.round2Questions.hardQuestion} value={1000} updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question}/>];
+            [<div className="round-2-card">
+                <Card2Container question={this.state.round2Questions.easyQuestion} value={200} rightAnswer={this.props.rightAnswer}  updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question}/>
+                    
+            </div>,
+            <div className="round-2-card">
+                <Card2Container question={this.state.round2Questions.mediumQuestion} value={500} rightAnswer={this.props.rightAnswer}  updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question}/>
+                    
+            </div>,
+            <div className="round-2-card">
+                <Card2Container question={this.state.round2Questions.hardQuestion} value={1000} rightAnswer={this.props.rightAnswer} updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question}/>
+                    
+            </div>];
+            
+            
         return display;
     }
 
@@ -143,7 +154,8 @@ class GameCategoryRow extends React.Component {
         // console.log(display)
         return (
             <div>
-
+                
+            
                 <div className="category-ul">
                     {display}
                 </div>

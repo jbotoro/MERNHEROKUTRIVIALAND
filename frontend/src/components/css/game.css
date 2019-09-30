@@ -37,13 +37,81 @@
 .game-board-rnd2{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    position: relative;
+    top:0;
+    left:0;
+    right:fixed;
 }
 
-.game-board-rnd2-new{
-    display: flex;
-    
+.game-board-rnd2-left{
+    /* background-color: #D65DB1; */
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
 }
+
+.round-two-rules{
+
+}
+
+.cat-questions-container{
+
+}
+
+.game-board-rnd2-right{
+    /* background-color: purple; */
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.rnd2-username{
+    color: white;
+    font-size: 9vh;
+    padding-bottom: 2vh;
+    text-decoration: underline;
+}
+
+.wrong-answers{
+    display: flex;
+    padding-right: 8px;
+}
+.wrong-answer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 10vh;
+    width: 10vh;
+    color: red;
+    margin: 2px 3px 2px 3px;
+    font-size: 11vh;
+}
+.right-answers{
+    display: flex;
+    justify-content: flex-end;
+}
+.right-answer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 10vh;
+    width: 10vh;
+    color: green;
+    margin: 2px 3px 2px 3px;
+    font-size: 11vh;
+}
+
+
+
+
+
 .game-board-rnd3{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -132,4 +200,9 @@
     background-color: white;
     padding: 3px;
     border-radius: 7px;
+}
+
+.round-2-card{
+    width: 43vw;
+    height: 15vh;
 }

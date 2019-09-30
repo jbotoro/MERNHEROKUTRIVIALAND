@@ -1,9 +1,10 @@
 import React from 'react';
 import './game.css';
 import RoundOne from './rounds/round_one';
-import RoundTwo from './rounds/round_two';
+import RoundTwoContainer from './rounds/round_two_container';
 import RoundThree from './rounds/round_three';
 import ScoreBoardContainer from './scoreboard/scoreboard_container'
+import GameOver from './game_over';
 import HighScores from './high_scores';
 import Clock from './clock';
 
@@ -11,7 +12,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            round:3,
+            round:1,
             currentScore: 0,
             round1Score: 0,
             round2Score: 0, 
@@ -57,7 +58,11 @@ class Game extends React.Component {
 
     changeRounds(round = null) {
         console.log('changing rounds')
-        if (this.state.round === 1) {
+        if (round === 'gameover'){
+            this.setState({
+                round: 10,
+            })
+        }else if (this.state.round === 1) {
             this.setState({
                 round: (this.state.round + 1)
             })
@@ -102,7 +107,7 @@ class Game extends React.Component {
             display = (<HighScores round={2} changeRounds={this.changeRounds}/>);
         } else if (this.state.round === 3){//Real Round TWO
             questions = this.props.rnd2Qs;
-            display = (<RoundTwo updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
+            display = (<RoundTwoContainer updateScore={this.updateScore} questions={questions} changeRounds={this.changeRounds} />);
         } else if (this.state.round === 4) {
             display = (<HighScores round={4} changeRounds={this.changeRounds}/>);
             // high score board for proceed
@@ -114,6 +119,9 @@ class Game extends React.Component {
             // should be a game over board with high score(s)
         } else if (this.state.round === 7) {
             display = (<HighScores changeRounds={this.changeRounds}/>);
+            // should be a game over board
+        } else if (this.state.round === 7) {
+            display = (<GameOver/>);
             // should be a game over board
         } 
         
