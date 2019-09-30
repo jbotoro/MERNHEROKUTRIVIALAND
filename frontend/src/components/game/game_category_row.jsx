@@ -28,7 +28,6 @@ class GameCategoryRow extends React.Component {
 
     componentDidMount() {
         if (this.props.round === 3) {
-            console.log("Mounting")
             this.round2StateSetup();
         }
     }
@@ -63,7 +62,7 @@ class GameCategoryRow extends React.Component {
                 hardQuestions: hard,
             }
         })
-        debugger
+        //debugger
     }
     round1Display() {
         var value = 0;
@@ -110,7 +109,7 @@ class GameCategoryRow extends React.Component {
 
 
     round2Display() {
-        debugger
+        //debugger
         console.log(this.state.round2Questions);
         let display =
             [<Card2Container question={this.state.round2Questions.easyQuestion} value={200} updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question} />,
@@ -121,22 +120,15 @@ class GameCategoryRow extends React.Component {
 
     render() {
 
-        if (!this.state.round2Questions.easyQuestions) {
+        if (!this.state.round2Questions.easyQuestions && this.props.round!=1) {
             return null
         }
-        // var value = 0;
 
-        // let display = this.props.questions.map(question => {
-        // value += 100;
-        // return <CardContainer updateScore={this.props.updateScore} value={value} question={question}/>
-        // });
-
-        // let categoryName = this.props.category;
-        // display.unshift(<div className="category-container">{categoryName}</div>)
         let display;
-        console.log(this.props)
+        //console.log(this.props)
         switch (this.props.round) {
             case 1:
+                //console.log("in it")
                 display = this.round1Display();
                 break;
             case 3:
@@ -153,8 +145,11 @@ class GameCategoryRow extends React.Component {
             <div>
 
                 {/* <ul className="category-ul"> */}
-                {display}
+                {/* {display} */}
                 {/* </ul> */}
+                <div className="category-ul">
+                    {display}
+                </div>
 
             </div>
         )

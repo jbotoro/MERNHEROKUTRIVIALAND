@@ -20,9 +20,6 @@ class RoundOne extends React.Component {
         
     }
 
-
-   
-//{{Donuts:["Jelly","Boston Creme","Glazed","Chocolate","Peanut Butter"]}
     
     
 
@@ -32,12 +29,12 @@ class RoundOne extends React.Component {
         //let display = <GameCategoryRow round={1} questions={questionsObject[categoryName]}/>
 
         let display = Object.keys(questionsObject).map(catName => (<GameCategoryRow updateScore={this.props.updateScore} category={catName} key={catName} round={1} questions={questionsObject[catName]}/>))
-
+        // console.log(display)
         
         //console.log("category: "+categoryName)
         return(
             <div>
-                <div>
+                <div className="round-1-title-clock">
                     <h1>Round One</h1>
                     <Clock seconds={120}/>
                 </div>
@@ -47,6 +44,10 @@ class RoundOne extends React.Component {
                 
             </div>
         )
+    }
+
+    componentWillUnmount(){
+        this.props.updateScore(0);
     }
 }
 

@@ -12,11 +12,18 @@ class HighScore extends React.Component {
             wagerAmount: 0,
         }
         setTimeout(this.props.changeRounds, 10000);
+        this.handleSliderChange = this.handleSliderChange.bind(this);
     }
 
     componentDidMount() {
         
     }
+
+    handleSliderChange(field) {
+        return e => this.setState({
+          [field]: e.currentTarget.value
+        });
+      }
 
     render() {
         if (0) {
@@ -51,7 +58,9 @@ class HighScore extends React.Component {
                 </div>
 
                 <div>
-                    bet
+                    <p>How Much Do You Wager:</p>
+                    <input onChange={this.handleSliderChange("wagerAmount")} className="wager-input" type="range" min="1" max="100" value={this.state.wagerAmount}/>
+                    <h1>{this.state.wagerAmounts}</h1>
                 </div>
 
                 <div>

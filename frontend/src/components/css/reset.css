@@ -16,6 +16,16 @@ span, article, footer, time, small {
   vertical-align: inherit;
   box-sizing: inherit;
   background: transparent;
+  font-family: 'Dosis', sans-serif;
+}
+
+body{
+  background-color: #9CC25E;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 ul {

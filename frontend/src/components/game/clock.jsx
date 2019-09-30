@@ -5,8 +5,8 @@ class Clock extends React.Component {
         super(props);
         this.state = {
             time: this.props.seconds,
-            mins: 2,
-            secs: 0,
+            mins: 9,
+            secs: 59,
             currentUser: this.props.currentUser
         }
         this.clock = setInterval( this.tick.bind(this), 1000);

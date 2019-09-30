@@ -9,32 +9,41 @@ class Card extends React.Component {
                               // if users.length >= 4, implement algorithm below
             timesAllowed: 1,  // n = Math.floor( users.length * 0.5), 
             flipped: false,
+            answeredCorrectly: false,
 
         }
     }
     
     componentDidMount() {
-        console.log(this.props)
+        //console.log(this.props)
     }
 
     flipCard(){
-        console.log("in flip function")
+        //console.log("in flip function")
         this.setState({
             flipped:!this.state.flipped
         })
     }
 
     answerQuestion(points, answer, correctAnswer){
-        console.log(points);
-        console.log(answer);
-        console.log(correctAnswer);
+        // console.log(points);
+        // console.log(answer);
+        // console.log(correctAnswer);
         this.setState({
             timesAllowed: this.state.times - 1,
         })
         if (answer === correctAnswer) {
             this.props.updateScore(points);
+            this.setState({
+                timesAllowed: this.state.times - 1,
+                answeredCorrectly: true
+            })
         } else {
             this.props.updateScore(-points);
+            this.setState({
+                timesAllowed: this.state.times - 1,
+                answeredCorrectly: false
+            })
         }
     }
 
@@ -53,12 +62,15 @@ class Card extends React.Component {
 
         let flippedToggle;
         let flippedToggle2;
+        let sceneToggle;
         if (this.state.flipped){
             flippedToggle = "card is-flipped";
             flippedToggle2 = "card-top-container more-flip"
+            sceneToggle = "scene scene-flipped";
         }else{
             flippedToggle = "card"
             flippedToggle2 = "card-top-container"
+            sceneToggle = "scene ";
         }
 
         let answersArray = answers.map(answer=>(<div onClick={()=>this.answerQuestion(value, answer, correctAnswer)} className="answer-container">{answer}</div>))
@@ -83,7 +95,7 @@ class Card extends React.Component {
 
         let display = this.state.timesAllowed?
             (
-                <div className="scene" onClick={() => this.flipCard()}>
+                <div className={sceneToggle} onClick={() => this.flipCard()}>
 
                     <div className={flippedToggle}>
 
@@ -100,12 +112,12 @@ class Card extends React.Component {
                 </div>
             )
         :
-            (
+            (//allready answere questions
                 <div className="scene">
 
                     <div>
 
-                        <div className="card-face card-face-front ">
+                        <div className={this.state.answeredCorrectly?"card-face card-face-front already-answered-right":"card-face card-face-front already-answered-wrong"}>
                             <h1>{value}</h1>
                         </div>
 
