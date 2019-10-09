@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import GameStatsDisplayContainer from '../game/stats/game_stats_display_container'
+
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -46,27 +48,27 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <br/>
-              <input type="text"
-                value={this.state.username}
-                onChange={this.update('username')}
-                placeholder="Username"
-              />
-            <br/>
-              <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                placeholder="Password"
-              />
-            <br/>
-            <input type="submit" value="Submit" />
+      <div className="session-page-content">
+        <div className="session-form-container">
+          <form className="session-form" onSubmit={this.handleSubmit}>
+            <input type="text"
+              value={this.state.username}
+              onChange={this.update('username')}
+              placeholder="Username"
+            />
+            <input type="password"
+              value={this.state.password}
+              onChange={this.update('password')}
+              placeholder="Password"
+            />
+            <input className="submit-link-button" type="submit" value="Submit" />
             {this.renderErrors()}
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+        <div className="high-scores-container">
+          <GameStatsDisplayContainer/>
+        </div>
+      </div >
     );
   }
 }

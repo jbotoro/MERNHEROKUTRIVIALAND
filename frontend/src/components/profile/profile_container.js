@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
+
 import Profile from './profile';
+import { fetchCurrentUserData } from '../../actions/users_actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,6 +11,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    fetchCurrentUserData: username => dispatch(fetchCurrentUserData(username)),
     fetchUserData: ()=> console.log("currently not fully setup")//id => dispatch(fetchUserData(id))
   };
 };
