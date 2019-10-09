@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import FinalScoreDisplay from './finalScoreDisplay';
+import GameStatsDisplay from './game_stats_display';
 
 const mapStateToProps = state => {
 
@@ -16,4 +16,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FinalScoreDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(GameStatsDisplay);
