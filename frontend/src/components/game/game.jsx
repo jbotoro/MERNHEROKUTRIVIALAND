@@ -12,7 +12,7 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            round:1,
+            round:3,
             currentScore: 0,
             round1Score: 0,
             round2Score: 0, 

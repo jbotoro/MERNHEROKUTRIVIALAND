@@ -143,7 +143,7 @@ class RoundTwo extends React.Component {
     }
 }
 
-export default RoundTwo;
+export default RoundTwo ;
 
 
 /*
