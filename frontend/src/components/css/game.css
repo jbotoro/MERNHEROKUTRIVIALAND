@@ -50,7 +50,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    width: 100%;
+    width: 47vw;
 }
 
 .round-two-rules{
@@ -128,11 +128,40 @@
 }
 
 .game-board-rnd3-choose-category-display{
-    background-color: peachpuff;
+    background-color: clear;
+}
+
+.rnd-3-cat-selector{
+
+    background-color: #845EC2;
+    margin: 5vh 0vh 0vh 0vh;
+    font-size: 5vh;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    color: white;
+    width: 90%;
 }
 
 .game-board-rnd3-other-players-display{
     background-color: greenyellow;
+}
+
+.rnd-3-cat-title{
+    font-size: 3vh;
+    margin-bottom: 1vh;
+    color: white;
+}
+
+.rnd-3-cat-instructs{
+    font-size: 2.5vh;
+    margin-bottom: 2px;
+}
+
+.instructs-bold{
+    background: yellow;
+    width:100%;
 }
 
 .wager-input{
@@ -151,7 +180,11 @@
     background-color: purple;
 }
 
-
+.rnd-3-category-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .rnd3-main-user-container{
     background-color:pink;

@@ -10,9 +10,12 @@ class HighScore extends React.Component {
         super(props);
         this.state = {
             wagerAmount: 0,
+            wagerPercentage: 0,
+            miniRound: 0,
         }
         setTimeout(this.props.changeRounds, 10000);
         this.handleSliderChange = this.handleSliderChange.bind(this);
+        this.clock = React.createRef();
     }
 
     componentDidMount() {
@@ -20,15 +23,21 @@ class HighScore extends React.Component {
     }
 
     handleSliderChange(field) {
+        //console.log(this.props.currentScore)
         return e => this.setState({
-          [field]: e.currentTarget.value
+            wagerPercentage: e.currentTarget.value,
+            [field]: Math.floor((e.currentTarget.value/100 * this.props.currentScore)),
         });
+
+        
       }
 
     render() {
         if (0) {
             return null
         }
+
+        //console.log(this.state.wagerPercentage);
 
         let display = (<h1>User stuff goes here</h1>)
         let question = this.props.question;
@@ -41,11 +50,11 @@ class HighScore extends React.Component {
         return (
             <div className="rnd3-main-user-container">
                 <div>
-                    <Clock seconds={90}/>
+                    <Clock seconds={10} ref={this.clock}/>
                 </div>
 
                 <div>
-                    <h1>Username</h1>
+                    <h1>Username: {this.cu}</h1>
                 </div>
 
                 <div>
@@ -59,7 +68,7 @@ class HighScore extends React.Component {
 
                 <div>
                     <p>How Much Do You Wager:</p>
-                    <input onChange={this.handleSliderChange("wagerAmount")} className="wager-input" type="range" min="1" max="100" value={this.state.wagerAmount}/>
+                    <input onChange={this.handleSliderChange("wagerAmount")} className="wager-input" type="range" value={this.state.wagerPercentage}/>
                     <h1>{this.state.wagerAmounts}</h1>
                 </div>
 
