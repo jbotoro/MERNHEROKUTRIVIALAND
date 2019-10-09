@@ -2,7 +2,7 @@
 
 _A multi-player online trivia game._
 
-[Live Site]
+[Checkoff Live](https://github.com/RawBData "Checkoff")
 ***
 ## Background and Overview
 ***
