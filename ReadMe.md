@@ -2,7 +2,7 @@
 
 _A multi-player online trivia game._
 
-[Checkoff Live](https://github.com/RawBData "Checkoff")
+[TraviaLand Live](https://trivialand-app.herokuapp.com/ "Checkoff")
 ***
 ## Background and Overview
 ***
