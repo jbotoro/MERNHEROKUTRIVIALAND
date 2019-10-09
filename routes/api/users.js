@@ -102,7 +102,19 @@ router.post('/login', (req, res) => {
 router.get('/:username', (req, res) => {
   username = req.params.username;
   User.findOne({ username: username})
-    .then(user => res.json(user));
+    .then(user => {
+      let response = {
+        _id: user._id,
+        username: user.username,
+        gamesPlayed: user.gamesPlayed,
+        pointsPerGame: user.pointsPerGame,
+        questionsAnswered: user.questionsAnswered,
+        questionsCorrect: user.questionsCorrect,
+        averageRoundOne: user.averageRoundOne,
+        averageRoundTwo: user.averageRoundTwo
+      }
+      res.json(response);
+    })
 });
 
 

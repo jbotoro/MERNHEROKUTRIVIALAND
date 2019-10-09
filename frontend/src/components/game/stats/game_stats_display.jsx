@@ -1,6 +1,6 @@
 import React from 'react';
 
-class FinalScoreDisplay extends React.Component {
+class GameStatsDisplay extends React.Component {
   constructor(props) {
     super(props);
 
@@ -9,10 +9,10 @@ class FinalScoreDisplay extends React.Component {
   render() {
     return (
       <div>
-
+        High Scores
       </div>
     )
   }
 }
 
-export default FinalScoreDisplay;
+export default GameStatsDisplay;

@@ -81,6 +81,7 @@ class RoundThree extends React.Component {
             currentUserTurn: true,
             currentUsersCategory: category,
         })
+        
     }
 
     changeMiniRound(nextRound){
@@ -96,7 +97,7 @@ class RoundThree extends React.Component {
                 break;
             case 2:
                 if(!this.state.currentUsersCategory) this.chooseCategory(this.state.showingCategoriesArr[0]);
-                this.miniRoundTimer = setTimeout(this.changeMiniRound,10000)
+                this.miniRoundTimer = setTimeout(this.changeMiniRound,15000)
                 break;
                     
             default:
