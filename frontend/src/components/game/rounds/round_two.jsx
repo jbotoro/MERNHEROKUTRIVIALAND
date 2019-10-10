@@ -1,7 +1,8 @@
-import React from 'react';
-// import '../game.css'
-import GameCategoryRow from '../game_category_row';
 import '../../css/game.css';
+// import '../game.css'
+import React, {forwardRef, useRef, useImperativeHandle} from 'react';
+import GameCategoryRow from '../game_category_row';
+import Clock from '../clock';
 
 class RoundTwo extends React.Component {
     constructor(props) {
@@ -10,16 +11,26 @@ class RoundTwo extends React.Component {
             currentUser: this.props.currentUser,
             strikes: 0,  // if number becomes three, 
             rightAnswers: 0,
+            timerSeconds: 15
         }
+        //React hook for Clock
+        this.clock = React.createRef();
+
         // setTimeout(this.props.changeRounds, 6000); // shouldn't have 
         this.wrongAnswersDisplay = this.wrongAnswersDisplay.bind(this);
         this.rightAnswer = this.rightAnswer.bind(this);
+        this.numWrongRightCheck = this.numWrongRightCheck.bind(this);
+        this.setTimer = this.setTimer.bind(this);
     }
 
     componentDidMount() {
         //console.log(this.props)
         // this.props.getQestions();
 
+    }
+
+    componentWillUnmount(){
+        clearTimeout(this.questionTimer);
     }
 
     wrongChoice() {
@@ -38,6 +49,12 @@ class RoundTwo extends React.Component {
     }
 
     rightAnswer(answer){
+        //calling clock child component reset clock function to display new countdown
+        this.clock.current.resetClock();
+        clearTimeout(this.questionTimer);
+        this.setState({
+            timerSeconds:15
+        })
         if (answer){
             
             this.setState({
@@ -48,6 +65,15 @@ class RoundTwo extends React.Component {
             this.setState({
                 strikes:this.state.strikes+1
             })
+        }
+    }
+
+    numWrongRightCheck(){
+        if (this.state.strikes === 3){
+            setTimeout(()=>{this.props.changeRounds("gameover")}, 1200);
+
+        }else if(this.state.rightAnswers === 3){
+            setTimeout(this.props.changeRounds, 1200);
         }
     }
 
@@ -79,8 +105,17 @@ class RoundTwo extends React.Component {
         return dispArr;
     }
 
+    setTimer(){
+        if(this.state.strikes < 3 && this.state.rightAnswers < 3){
+            this.questionTimer = setTimeout(this.rightAnswer, 15000);  
+        }
+    }
+
     render() {
-        console.log(this.state.strikes);
+        //EveryTime we re-render we want to check if we got three strikes or 3 rights and change roungs if necessary
+        this.numWrongRightCheck();
+        this.setTimer();
+        // console.log(this.state.strikes);
 
         let questionsObject = this.props.questions;
         //let categoryName = Object.keys(questionsObject)
@@ -122,6 +157,9 @@ class RoundTwo extends React.Component {
                 </div>
 
                 <div className="game-board-rnd2-right">
+                    <div>
+                        <Clock seconds={15} ref={this.clock}/>
+                    </div>
                     <div className="rnd2-username">
                         <h1>{this.state.currentUser.username}</h1>
                     </div>
@@ -143,7 +181,7 @@ class RoundTwo extends React.Component {
     }
 }
 
-export default RoundTwo;
+export default RoundTwo ;
 
 
 /*

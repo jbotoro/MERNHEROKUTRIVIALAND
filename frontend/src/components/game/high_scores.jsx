@@ -11,11 +11,15 @@ class HighScore extends React.Component {
         this.state = {
             
         }
-        setTimeout(this.props.changeRounds, 14900);
+        this.hsTimer = setTimeout(this.props.changeRounds, 14900);
     }
 
     componentDidMount() {
         
+    }
+
+    componentWillUnmount(){
+        clearTimeout(this.hsTimer);
     }
 
     render() {
@@ -52,7 +56,12 @@ class HighScore extends React.Component {
                 </div>
 
                 <div className="next-round-button-container">
-                    <button onClick={()=>this.props.changeRounds()} className="next-round-button">Click to Start Next Round</button>
+                    <button 
+                        onClick={()=>{
+                            this.props.changeRounds();
+                            }} 
+                        className="next-round-button">Click to Start Next Round
+                    </button>
                 </div>
                 <div className="next-round-clock-container">
                     <Clock seconds={15}/>

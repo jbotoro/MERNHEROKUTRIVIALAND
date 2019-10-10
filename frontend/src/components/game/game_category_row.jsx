@@ -110,7 +110,7 @@ class GameCategoryRow extends React.Component {
 
     round2Display() {
         //debugger
-        console.log(this.state.round2Questions);
+        // console.log(this.state.round2Questions);
         let display = 
             [<div className="round-2-card">
                 <Card2Container question={this.state.round2Questions.easyQuestion} value={200} rightAnswer={this.props.rightAnswer}  updateScore={this.props.updateScore} updateRound2Question={this.updateRound2Question}/>

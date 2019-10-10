@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import GameStatsDisplay from '../game/stats/game_stats_display';
+
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,10 @@ class SignupForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearedErrors = false;
   }
+
+  // componentDidMount() {
+  //   this.props.fetchGameStats();
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.signedIn === true) {
@@ -51,28 +57,29 @@ class SignupForm extends React.Component {
   }
 
   render() {
-    return (
-      <div className="login-form-container">
-        <form onSubmit={this.handleSubmit}>
-          <div className="login-form">
-            
-            <br/>
-              <input type="text"
-                value={this.state.username}
-                onChange={this.update('username')}
-                placeholder="username"
-              />
-              <input type="password"
-                value={this.state.password}
-                onChange={this.update('password')}
-                placeholder="Password"
-              />
-            <br/>
+    // let stats = this.props.gameStats;
 
-            <input type="submit" value="Submit" />
+    return (
+      <div className="session-page-content">
+        <div className="session-form-container">
+          <form className="session-form" onSubmit={this.handleSubmit}>
+            <input type="text"
+              value={this.state.username}
+              onChange={this.update('username')}
+              placeholder="Username"
+            />
+            <input type="password"
+              value={this.state.password}
+              onChange={this.update('password')}
+              placeholder="Password"
+            />
+            <input className="submit-link-button" type="submit" value="Submit" />
             {this.renderErrors()}
-          </div>
-        </form>
+          </form>
+        </div>
+        <div className="high-scores-container">
+          <GameStatsDisplay />
+        </div>
       </div>
     );
   }

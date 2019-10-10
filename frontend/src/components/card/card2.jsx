@@ -22,16 +22,16 @@ class Card2 extends React.Component {
 
 
     flipCard() {
-        console.log("in flip function")
+        // console.log("in flip function")
         this.setState({
             flipped: !this.state.flipped
         })
     }
 
     answerQuestion(points, answer, correctAnswer, difficulty) {
-        console.log(points);
-        console.log(answer);
-        console.log(correctAnswer);
+        // console.log(points);
+        // console.log(answer);
+        // console.log(correctAnswer);
         let newQuestion = this.props.updateRound2Question(difficulty);
         if (answer === correctAnswer) {
             this.props.updateScore(points);

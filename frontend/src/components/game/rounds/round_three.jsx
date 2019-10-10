@@ -4,34 +4,44 @@ import GameCategoryRow from '../game_category_row';
 import Clock from '../clock';
 import UserDisplay  from './user_display/user_display';
 
-class RoundOne extends React.Component {
+class RoundThree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            miniRound: 0,
+            highlightRoundInstructions: "",
+            regularRoundInstructions: "",
             currentUser: this.props.currentUser,
             currentUserTurn: true,
             currentUsersCategory: "",
             currentUsersWager: 0,
             allCategoriesNamesArr: [],
-            showingCategoriesArr: []
+            showingCategoriesArr: [],
+            questionAnswered: false
         }
         // setTimeout(this.props.changeRounds, 6000);
         
 
         this.getAllCategories = this.getAllCategories.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
+        this.changeMiniRound = this.changeMiniRound.bind(this);
+        this.updateWager = this.updateWager.bind(this);
+        this.endRound = this.endRound.bind(this);
+        this.updateScore = this.updateScore.bind(this);
 
+        //React Hooks
+        this.userDisplay = React.createRef();
     }
     
     componentDidMount() {
         //console.log(this.props)
         // this.props.getQestions();
-        this.getAllCategories()  
+        this.getAllCategories();
+        this.changeMiniRound();  
     }
 
     removeCategory = cat => {
-        console.log(this.state.allCategoriesNamesArr.length)
+        //console.log(this.state.allCategoriesNamesArr.length)
         if (this.state.allCategoriesNamesArr.length<1){
             this.getAllCategories();
         }else{
@@ -48,6 +58,25 @@ class RoundOne extends React.Component {
         }
 
     };
+
+
+    updateWager(amount){
+        // console.log()
+        this.setState({
+            currentUsersWager: amount,
+        })
+    }
+
+    updateScore(amount){
+        this.props.updateScore(amount);
+        this.setState({
+            questionAnswered:true
+        })
+    }
+
+    ranOutOfTimeUpdateScore(){
+        this.props.updateScore(-this.currentUsersWager);
+    }
     
     getAllCategories(){
         let allCategories = Object.keys(this.props.questions);
@@ -57,25 +86,70 @@ class RoundOne extends React.Component {
             allCategoriesNamesArr: leftOver,
             showingCategoriesArr: display5Categories
         })
-        console.log(display5Categories)
-        console.log(this.state);
+        //console.log(display5Categories)
+        //console.log(this.state);
 
     }
 
 
     chooseCategory(category){
-        console.log(category)
+        // console.log(category)
         this.removeCategory(category)
         this.setState({
             currentUserTurn: true,
             currentUsersCategory: category,
         })
+        
+        //this.changeMiniRound();
+    }
+
+    endRound(){
+        if(this.state.questionAnswered){
+            this.props.changeRounds();
+        }else{
+            this.updateScore(-1*this.state.currentUsersWager);
+            this.props.changeRounds();
+        }
+    }
+
+    changeMiniRound(nextRound){
+        if(this.miniRoundTimer) clearTimeout(this.miniRoundTimer)
+
+        // console.log(this.state.miniRound);
+
+        switch (this.state.miniRound) {
+            case 0:
+                this.miniRoundTimer = setTimeout(this.changeMiniRound,10000)
+                break;
+            case 1:
+                if(!this.state.currentUsersCategory) this.chooseCategory(this.state.showingCategoriesArr[0]);
+                this.userDisplay.current.toggleSlider();
+                this.miniRoundTimer = setTimeout(this.changeMiniRound,10000)
+                break;
+            case 2:
+                // console.log(this.state.currentUsersWager)
+                this.userDisplay.current.toggleSlider();
+                this.userDisplay.current.changeMiniRound(3)
+                this.miniRoundTimer = setTimeout(this.changeMiniRound,15000)
+                break;
+
+            case 3:         
+                setTimeout(this.endRound(),1200);
+                break;
+                    
+            default:
+                break;
+        }
+
+        this.setState({
+            miniRound: this.state.miniRound + 1,
+        });
     }
 
     render() {
         let questionsObject = this.props.questions;
         let allCategories = Object.keys(questionsObject);
-        console.log(allCategories)
+        //console.log(allCategories)
         let questions = questionsObject[this.state.currentUsersCategory]
         let question;
         if (questions){
@@ -88,10 +162,17 @@ class RoundOne extends React.Component {
         let display = "This will hold all other players of shrink to nothing";
         let currentCategories = "";
         let playersTurnDisplay = this.state.currentUserTurn? 
-        (<div>
-            <h1>Choose Your Final Category</h1>
-            <h1>All Questions Are Hard</h1>
-            {this.state.showingCategoriesArr.map(category=>(<div onClick={()=>this.chooseCategory(category)}>{category}</div>))}
+        (<div className="rnd-3-category-container">
+            <h1 className="rnd-3-cat-title">Choose Your Final Category</h1>
+            <h1 className="rnd-3-cat-instructs">All Questions Are Hard</h1>
+            <h1 className={this.state.miniRound === 1? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>1- You have 10 Seconds to choose your category</h1>
+            <h1 className={this.state.miniRound === 2? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>2 -You have 10 Seconds to choose your wager</h1>
+            <h1 className={this.state.miniRound === 3? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>3 -You have 15 Seconds to Answer</h1>
+            {(this.state.currentUsersCategory)?
+                (<div className="rnd-3-cat-selector">{this.state.currentUsersCategory}</div>)
+                :
+                this.state.showingCategoriesArr.map(category=>(<div className="rnd-3-cat-selector" onClick={()=>this.chooseCategory(category)}>{category}</div>))
+            }
         </div>)
         :
         (<div>
@@ -110,13 +191,12 @@ class RoundOne extends React.Component {
                     {playersTurnDisplay}
                 </div>
 
-                <div className="game-board-rnd3-other-players-display">
-                    <h1>Round three</h1>
-                    {display}
+                <div className="game-board-rnd3-title">
+                    <h1 className="rnd_3_title">Round three</h1>
                 </div>
 
                 <div className="game-board-rnd3-main-user">
-                    <UserDisplay updateScore={this.props.updateScore} question={question} chosenCategory={this.state.currentUsersCategory}/>
+                    <UserDisplay currentUser={this.props.currentUser} updateWager={this.updateWager} ref={this.userDisplay} currentScore={this.props.currentScore} updateScore={this.updateScore} question={question} chosenCategory={this.state.currentUsersCategory}/>
                 </div>
                 
             </div>
@@ -124,4 +204,4 @@ class RoundOne extends React.Component {
     }
 }
 
-export default RoundOne;
+export default RoundThree;

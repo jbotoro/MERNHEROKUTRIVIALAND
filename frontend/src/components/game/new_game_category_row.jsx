@@ -27,10 +27,8 @@ class GameCategoryRow extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.round === 3) {
-            console.log("Mounting")
-            this.round2StateSetup();
-        }
+        // console.log(this.props)
+        this.round2StateSetup();
     }
 
     round2StateSetup() {
@@ -140,6 +138,8 @@ class GameCategoryRow extends React.Component {
                 display = this.round1Display();
                 break;
             case 3:
+                // console.log("in roiund to switch")
+
                 display = this.round2Display();
                 // console.log(this.state.round2Questions)
                 // console.log('In Switch Statement')
@@ -149,7 +149,7 @@ class GameCategoryRow extends React.Component {
                 break;
         }
         // console.log(display)
-        return (
+        return(
             <div>
 
                 {/* <ul className="category-ul"> */}

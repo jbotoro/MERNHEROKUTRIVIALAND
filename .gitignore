@@ -1,5 +1,7 @@
 /node_modules
-/config/keys.js
+/config/keys_dev.js
 
 seeding.js
 gameUpdateRequest.js
+gameStuff.txt
+categoriesList.js 
