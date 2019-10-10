@@ -10,5 +10,5 @@ export const receiveCurrentUserData = user => ({
 export const fetchCurrentUserData = username => dispatch => (
   UserUtil.fetchCurrentUserData(username).then(user => (
     dispatch(receiveCurrentUserData(user))
-  ))
+  ), err => console.log(err))
 );

@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* testing */
-  // window.dispatch = store.dispatch;
-  // window.getState = store.getState;
-  // window.fetchCurrentUserData = fetchCurrentUserData;
+  window.dispatch = store.dispatch;
+  window.getState = store.getState;
+  window.fetchCurrentUserData = fetchCurrentUserData;
   /* end testing */
 
   const root = document.getElementById('root');
