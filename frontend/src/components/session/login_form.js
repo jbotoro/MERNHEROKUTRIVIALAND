@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-import GameStatsDisplayContainer from '../game/stats/game_stats_display_container'
+import GameStatsDisplay from '../game/stats/game_stats_display';
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -16,6 +16,10 @@ class LoginForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
   }
+
+  // componentDidMount() {
+  //   this.props.fetchGameStats();
+  // }
 
   update(field) {
     return e => this.setState({
@@ -47,6 +51,8 @@ class LoginForm extends React.Component {
   }
 
   render() {
+    // let stats = this.props.gameStats;
+
     return (
       <div className="session-page-content">
         <div className="session-form-container">
@@ -66,7 +72,7 @@ class LoginForm extends React.Component {
           </form>
         </div>
         <div className="high-scores-container">
-          <GameStatsDisplayContainer/>
+          <GameStatsDisplay />
         </div>
       </div >
     );

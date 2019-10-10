@@ -149,6 +149,7 @@
   background-color: rgb(168, 201, 116);
   box-sizing: border-box;
   padding: 20px;
+  margin-right: 50px;
 }
 
 .profile-stats > h2 {

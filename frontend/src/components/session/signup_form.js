@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import GameStatsDisplay from '../game/stats/game_stats_display';
+
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +15,10 @@ class SignupForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearedErrors = false;
   }
+
+  // componentDidMount() {
+  //   this.props.fetchGameStats();
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.signedIn === true) {
@@ -51,6 +57,8 @@ class SignupForm extends React.Component {
   }
 
   render() {
+    // let stats = this.props.gameStats;
+
     return (
       <div className="session-page-content">
         <div className="session-form-container">
@@ -70,7 +78,7 @@ class SignupForm extends React.Component {
           </form>
         </div>
         <div className="high-scores-container">
-          High Scores
+          <GameStatsDisplay />
         </div>
       </div>
     );
