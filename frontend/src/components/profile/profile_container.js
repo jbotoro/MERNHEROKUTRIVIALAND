@@ -4,8 +4,11 @@ import Profile from './profile';
 import { fetchCurrentUserData } from '../../actions/users_actions';
 
 const mapStateToProps = (state) => {
+  const users = state.entities.users;
+  console.log(users);
   return {
-    currentUser: state.session.user
+    currentUser: state.session.user,
+    users
   };
 };
 

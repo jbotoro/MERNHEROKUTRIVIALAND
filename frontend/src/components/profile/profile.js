@@ -28,34 +28,41 @@ class Profile extends React.Component {
     }
     
     render() {  
-      
-        if (this.state.userData === {}) {
+      let currentUser = this.props.currentUser;
+      let id = currentUser.id;
+      let user = this.props.users[id];
+
+      if (!user) {
+        return null;
+      }
+
+      let hasStats = !!user["gamesPlayed"];
+
+        if (!hasStats) {
           return (
           <div className="profile-content">
             <div className="profile-stats">
-              <h2>Player Stats</h2>
+              <h2>Stats for {currentUser.username}</h2>
               <p>This user has no data</p>
             </div>
             <div>
               <button className="play-button"
                 onClick={() => this.playGame("one")}>Play 1 Player Game</button>
-              {/* <button>Start New MultiPlayer Game</button> */}
+              <button className="play-button">Start MultiPlayer Game</button>
             </div>
           </div>
          )  
-        } else {
-          let id = this.props.currentUser._id
-          let user = this.state.userData[id];
+        } else {          
           return (
             <div className="profile-content">
               <div className="profile-stats">
-                <h2>Player Stats</h2>
+                <h2>Stats for {currentUser.username}</h2>
                 <UserStatsDisplay user={user} />
               </div>
-              <div>
+              <div className="play-buttons">
                 <button className="play-button" 
                   onClick={() => this.playGame("one")}>Play 1 Player Game</button>
-                {/* <button>Start New MultiPlayer Game</button> */}
+                <button className="play-button">Start MultiPlayer Game</button>
               </div>
             </div>
           );
