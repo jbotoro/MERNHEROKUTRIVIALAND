@@ -16,15 +16,21 @@ class RoundThree extends React.Component {
             currentUsersCategory: "",
             currentUsersWager: 0,
             allCategoriesNamesArr: [],
-            showingCategoriesArr: []
+            showingCategoriesArr: [],
+            questionAnswered: false
         }
         // setTimeout(this.props.changeRounds, 6000);
         
 
         this.getAllCategories = this.getAllCategories.bind(this);
         this.removeCategory = this.removeCategory.bind(this);
-        this.clock = React.createRef();
         this.changeMiniRound = this.changeMiniRound.bind(this);
+        this.updateWager = this.updateWager.bind(this);
+        this.endRound = this.endRound.bind(this);
+        this.updateScore = this.updateScore.bind(this);
+
+        //React Hooks
+        this.userDisplay = React.createRef();
     }
     
     componentDidMount() {
@@ -55,9 +61,21 @@ class RoundThree extends React.Component {
 
 
     updateWager(amount){
+        console.log()
         this.setState({
             currentUsersWager: amount,
         })
+    }
+
+    updateScore(amount){
+        this.props.updateScore(amount);
+        this.setState({
+            questionAnswered:true
+        })
+    }
+
+    ranOutOfTimeUpdateScore(){
+        this.props.updateScore(-this.currentUsersWager);
     }
     
     getAllCategories(){
@@ -82,22 +100,41 @@ class RoundThree extends React.Component {
             currentUsersCategory: category,
         })
         
+        //this.changeMiniRound();
+    }
+
+    endRound(){
+        if(this.state.questionAnswered){
+            this.props.changeRounds();
+        }else{
+            this.updateScore(-1*this.state.currentUsersWager);
+            this.props.changeRounds();
+        }
     }
 
     changeMiniRound(nextRound){
         if(this.miniRoundTimer) clearTimeout(this.miniRoundTimer)
+
         console.log(this.state.miniRound);
+
         switch (this.state.miniRound) {
             case 0:
                 this.miniRoundTimer = setTimeout(this.changeMiniRound,10000)
                 break;
             case 1:
                 if(!this.state.currentUsersCategory) this.chooseCategory(this.state.showingCategoriesArr[0]);
+                this.userDisplay.current.toggleSlider();
                 this.miniRoundTimer = setTimeout(this.changeMiniRound,10000)
                 break;
             case 2:
-                if(!this.state.currentUsersCategory) this.chooseCategory(this.state.showingCategoriesArr[0]);
+                console.log(this.state.currentUsersWager)
+                this.userDisplay.current.toggleSlider();
+                this.userDisplay.current.changeMiniRound(3)
                 this.miniRoundTimer = setTimeout(this.changeMiniRound,15000)
+                break;
+
+            case 3:         
+                setTimeout(this.endRound(),1200);
                 break;
                     
             default:
@@ -154,13 +191,12 @@ class RoundThree extends React.Component {
                     {playersTurnDisplay}
                 </div>
 
-                <div className="game-board-rnd3-other-players-display">
-                    <h1>Round three</h1>
-                    {display}
+                <div className="game-board-rnd3-title">
+                    <h1 className="rnd_3_title">Round three</h1>
                 </div>
 
                 <div className="game-board-rnd3-main-user">
-                    <UserDisplay upDateWager={this.upDateWager} currentScore={this.props.currentScore} updateScore={this.props.updateScore} question={question} chosenCategory={this.state.currentUsersCategory}/>
+                    <UserDisplay currentUser={this.props.currentUser} updateWager={this.updateWager} ref={this.userDisplay} currentScore={this.props.currentScore} updateScore={this.updateScore} question={question} chosenCategory={this.state.currentUsersCategory}/>
                 </div>
                 
             </div>

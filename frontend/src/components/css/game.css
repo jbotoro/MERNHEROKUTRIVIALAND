@@ -124,7 +124,7 @@
 }
 
 .game-board-rnd3-main-user{
-    background-color: blueviolet;
+    background-color: clear;
 }
 
 .game-board-rnd3-choose-category-display{
@@ -144,8 +144,19 @@
     width: 90%;
 }
 
-.game-board-rnd3-other-players-display{
-    background-color: greenyellow;
+.game-board-rnd3-title{
+    background-color: clear;
+    font-size: 4vw;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin: 3vh;
+}
+
+
+.rnd_3_title{
+    display: flex;
 }
 
 .rnd-3-cat-title{
@@ -187,8 +198,55 @@
 }
 
 .rnd3-main-user-container{
-    background-color:pink;
+    background-color: clear;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
 }
+
+.rnd3-unflipped-card{
+    background:  #845EC2;
+    font-size: 10vh;
+    border-radius: 2px;
+    color: white;
+    text-align: center;
+}
+
+.rnd_3_user_display_clock{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.clock{
+    color: white;
+    font-size: 3vh;
+}
+
+
+.user_display_category_title{
+    margin: 0vh;
+    font-size: 9vh;
+    color: white;
+}
+
+.slider_container{
+    width: 100%
+}
+
+.wager_card{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+
+
+
+
+
 
 .high-scores-title-container{
     display: flex;
