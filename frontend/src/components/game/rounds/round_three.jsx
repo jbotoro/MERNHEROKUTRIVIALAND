@@ -61,7 +61,7 @@ class RoundThree extends React.Component {
 
 
     updateWager(amount){
-        console.log()
+        // console.log()
         this.setState({
             currentUsersWager: amount,
         })
@@ -93,7 +93,7 @@ class RoundThree extends React.Component {
 
 
     chooseCategory(category){
-        console.log(category)
+        // console.log(category)
         this.removeCategory(category)
         this.setState({
             currentUserTurn: true,
@@ -115,7 +115,7 @@ class RoundThree extends React.Component {
     changeMiniRound(nextRound){
         if(this.miniRoundTimer) clearTimeout(this.miniRoundTimer)
 
-        console.log(this.state.miniRound);
+        // console.log(this.state.miniRound);
 
         switch (this.state.miniRound) {
             case 0:
@@ -127,7 +127,7 @@ class RoundThree extends React.Component {
                 this.miniRoundTimer = setTimeout(this.changeMiniRound,10000)
                 break;
             case 2:
-                console.log(this.state.currentUsersWager)
+                // console.log(this.state.currentUsersWager)
                 this.userDisplay.current.toggleSlider();
                 this.userDisplay.current.changeMiniRound(3)
                 this.miniRoundTimer = setTimeout(this.changeMiniRound,15000)

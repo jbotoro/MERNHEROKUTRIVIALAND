@@ -13,14 +13,14 @@ class Scoreboard extends React.Component {
     }
     
     componentDidMount() {
-        console.log(this.props)
+        // console.log(this.props)
         
 
     }
    
     
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         let display=<div className="score-board-container"><h1>Score: </h1><p className="score"> {this.props.currentScore}</p></div>
     
 

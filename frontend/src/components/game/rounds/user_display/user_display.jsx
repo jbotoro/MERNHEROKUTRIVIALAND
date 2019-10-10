@@ -49,7 +49,7 @@ class HighScore extends React.Component {
     }
 
     changeMiniRound(roundNum){
-        console.log("userdisplay-changeminirouind")
+        // console.log("userdisplay-changeminirouind")
         this.setState({
             miniRound: roundNum
         })
@@ -59,7 +59,7 @@ class HighScore extends React.Component {
         if (0) {
             return null
         }
-        console.log(this.state);
+        // console.log(this.state);
         //this.props.updateWager(this.state.wagerAmount);
         //console.log(this.state.wagerPercentage);
 

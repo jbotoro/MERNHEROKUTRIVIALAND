@@ -23,7 +23,7 @@ class GameCategoryRow extends React.Component {
     }
     
     componentDidMount() {
-        console.log(this.props)
+        // console.log(this.props)
         this.round2StateSetup();
     }
     
@@ -82,7 +82,7 @@ class GameCategoryRow extends React.Component {
                 display = this.round1Display();
                 break;
             case 3:
-                console.log("in roiund to switch")
+                // console.log("in roiund to switch")
 
                 display = this.round2Display();
                 break;
@@ -90,7 +90,7 @@ class GameCategoryRow extends React.Component {
             default:
                 break;
         }
-        console.log(display)
+        // console.log(display)
         return(
             <div>
 

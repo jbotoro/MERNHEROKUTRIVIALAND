@@ -5,7 +5,7 @@ import { fetchCurrentUserData } from '../../actions/users_actions';
 
 const mapStateToProps = (state) => {
   const users = state.entities.users;
-  console.log(users);
+  // console.log(users);
   return {
     currentUser: state.session.user,
     users

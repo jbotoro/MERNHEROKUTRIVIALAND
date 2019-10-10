@@ -20,7 +20,7 @@ class GameStatsDisplay extends React.Component {
     return (
       <div>
         <ul className="game-stats-list">
-          <li>Game Stats</li>
+          {/* <li>Game Stats</li> */}
           {/*
           <li>
             <span>Total Games Played:</span>

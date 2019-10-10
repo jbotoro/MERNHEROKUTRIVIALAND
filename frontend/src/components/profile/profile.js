@@ -23,7 +23,7 @@ class Profile extends React.Component {
       if (player === "one"){
         this.props.history.push('/game');
       } else { 
-        console.log("Not There Yet");
+        // console.log("Not There Yet");
       }
     }
     

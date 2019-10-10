@@ -60,7 +60,7 @@ class Game extends React.Component {
     }
 
     changeRounds(round = null) {
-        console.log('changing rounds')
+        // console.log('changing rounds')
         if (round === 'gameover'){
             this.setState({
                 round: 10,
@@ -92,7 +92,7 @@ class Game extends React.Component {
                 round: (this.state.round + 1)
             })
         }
-        console.log(this.state.round)
+        // console.log(this.state.round)
     }
 
     fetchCurrentRnd2Score() {

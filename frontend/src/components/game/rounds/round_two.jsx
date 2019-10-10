@@ -115,7 +115,7 @@ class RoundTwo extends React.Component {
         //EveryTime we re-render we want to check if we got three strikes or 3 rights and change roungs if necessary
         this.numWrongRightCheck();
         this.setTimer();
-        console.log(this.state.strikes);
+        // console.log(this.state.strikes);
 
         let questionsObject = this.props.questions;
         //let categoryName = Object.keys(questionsObject)
