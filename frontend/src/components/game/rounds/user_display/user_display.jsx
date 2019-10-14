@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../../css/game.css'
 import Clock from '../../clock';
-import CardContainer from '../../../card/card_container';
+import CardContainer3 from '../../../card/card3_container';
 
 //import ScoreBoard from '.scoreboard.js'
 
@@ -67,9 +67,9 @@ class HighScore extends React.Component {
         let question = this.props.question;
         let questionPlaceHolder = {} 
         let cardDisplay = question && this.state.miniRound === 3?
-        (<CardContainer updateScore={this.props.updateScore} value={this.state.wagerAmount} question={question}/>)
+        (<CardContainer3 updateScore={this.props.updateScore} value={this.state.wagerAmount} question={question}/>)
         :(<div className="rnd3-unflipped-card">{this.state.wagerAmount}</div>)
-        //:(<CardContainer updateScore={this.props.updateScore} value={this.state.wagerAmount} question={questionPlaceHolder}/>)
+        //:(<CardContainer3 updateScore={this.props.updateScore} value={this.state.wagerAmount} question={questionPlaceHolder}/>)
 
         return (
             <div className="rnd3-main-user-container">
