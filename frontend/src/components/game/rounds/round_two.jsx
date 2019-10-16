@@ -50,7 +50,9 @@ class RoundTwo extends React.Component {
 
     rightAnswer(answer){
         //calling clock child component reset clock function to display new countdown
-        this.clock.current.resetClock();
+        if (this.state.rightAnswers < 3) {
+            this.clock.current.resetClock();
+        } 
         clearTimeout(this.questionTimer);
         this.setState({
             timerSeconds:15
@@ -70,9 +72,11 @@ class RoundTwo extends React.Component {
 
     numWrongRightCheck(){
         if (this.state.strikes === 3){
+            clearTimeout(this.questionTimer);
             setTimeout(()=>{this.props.changeRounds("gameover")}, 1200);
 
         }else if(this.state.rightAnswers === 3){
+            clearTimeout(this.questionTimer);
             setTimeout(this.props.changeRounds, 1200);
         }
     }

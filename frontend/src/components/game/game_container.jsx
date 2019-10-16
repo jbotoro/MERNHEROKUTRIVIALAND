@@ -4,7 +4,7 @@ import Game from './game';
 import {fetchAllQuestions} from '../../actions/questions_actions';
 import { fetchUsersInGame } from '../../actions/session_actions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     let questions = state.entities.questions;
     let rnd1Qs = state.entities.questions.round1Questions;
     let rnd2Qs = state.entities.questions.round2Questions;

@@ -9,11 +9,17 @@ class GameOver extends React.Component {
             
         }
         this.startNewGame = this.startNewGame.bind(this);
+        this.finalEnd = this.finalEnd.bind(this);
         // setTimeout( startNewGame(), 5000);
     }
 
+    finalEnd () {
+        this.props.history.push("/profile");
+    }
+
     startNewGame() {
-        setTimeout(this.props.history.push(`/profile`), 5000);
+        
+        setTimeout(this.finalEnd, 5000);
     }
 
     render() {
@@ -34,9 +40,9 @@ class GameOver extends React.Component {
             <div>
                 {display}
                 <div className="next-round-clock-container">
-                    {this.startNewGame()}
                     <h2>Starting new Game in: </h2>
                     <Clock seconds={5} />
+                    {this.startNewGame()}
                 </div>
             </div>
         )
