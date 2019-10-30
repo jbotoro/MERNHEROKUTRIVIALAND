@@ -13,7 +13,7 @@ require('./config/passport')(passport);
 //sockets
 const path = require('path');
 const socketIO = require('socket.io');
-const http = require('http');
+const http = requirez('http');
 
 const server = http.createServer(app);
 
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+// app.listen(port, () => console.log(`Server is running on port ${port}`));
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -50,9 +50,39 @@ app.use("/api/games", games);
 app.use("/api/gameStats", gameStats);
 app.use("/api/questions", questions);
 
+//Wesocket Details Below
+
+
+gameState = function(currentUSer){
+  return {userID:currentUSer.id, currentScore:0, stillPlaying:true, round:1}
+}
+
+
+ currentUsers = [];
+ const http = require('http').Server(app);
+ const io = require('socket.io')(http);
+ io.on('connection', function (socket) {
+  console.log('a user connected');
+  // console.log(socket);
+  socket.on('disconnect', function () {
+    console.log('User Disconnected');
+  });
+  socket.on('testing', function (msg) {
+    console.log('message: ' + JSON.stringify(msg));
+    socket.emit("echo",msg);
+  });
+  socket.join("my_room");
+  io.to("my_room").emit("echo","mfing");
+  socket.on('join_a_room', function (msg) {
+    // socket.emit("echo", msg);
+    socket.join(msg.roomID);
+    currentUsers.push(gameState(msg.userInfo))
+  });
+ });
+ http.listen(port);
+
 
 /*
-//Wesocket Details Below
 const io = socketIO(server);
 
 io.on('connection', socket => {

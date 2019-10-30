@@ -9,7 +9,22 @@ import { logout } from './actions/session_actions';
 
 import { fetchGameStats } from './actions/game_stats_actions';
 
+import socketIOClient  from 'socket.io-client';
+
+
 document.addEventListener('DOMContentLoaded', () => {
+  
+   let client = socketIOClient("http://localhost:5000");
+   client.on("connect", () => {
+     console.log("working");
+     client.emit("testing",{testing:true})
+   })
+   client.on("echo",(msg)=>{
+     console.log(msg);
+   })
+
+
+
   let store;
 
   if (localStorage.jwtToken) {
