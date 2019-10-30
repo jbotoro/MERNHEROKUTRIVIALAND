@@ -8,7 +8,7 @@ import GameOver from "./game_over";
 import HighScores from "./high_scores";
 import Clock from "./clock";
 
-class Game extends React.Component {
+class MultiplayerGame extends React.Component {
   constructor(props) {
     super(props);
     //Need to add current user in State
@@ -38,7 +38,7 @@ class Game extends React.Component {
 
   componentDidMount() {
     //console.log(this.props)
-    this.props.fetchAllQuestions();
+    // this.props.fetchAllQuestions();
     // this.props.fetchUsersInGame();
     this.setState({
       currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
@@ -194,4 +194,4 @@ class Game extends React.Component {
   }
 }
 
-export default Game;
+export default MultiplayerGame;

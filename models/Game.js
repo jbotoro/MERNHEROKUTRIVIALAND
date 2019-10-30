@@ -1,24 +1,32 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
-
   creator: {
     type: Schema.Types.ObjectId,
-    ref: 'users'
+    ref: "users"
   },
 
   players: {
     type: Array,
     items: {
       type: Schema.Types.ObjectId,
-      ref: 'users'
+      ref: "users"
     },
     uniqueItems: true
   },
 
-  numberPlayers: {
+  // questions: {
+  //   type: Object
+  // },
+
+  round: {
     type: Number,
+    default: 1
+  },
+
+  numberPlayers: {
+    type: Number
   },
 
   roomId: {
@@ -46,8 +54,6 @@ const GameSchema = new Schema({
     type: Date,
     default: null
   }
+});
 
-})
-
-
-module.exports = Game = mongoose.model('games', GameSchema);
+module.exports = Game = mongoose.model("games", GameSchema);

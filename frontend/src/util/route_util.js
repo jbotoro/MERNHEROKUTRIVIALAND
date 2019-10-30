@@ -7,7 +7,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
     !loggedIn ? (
       <Component {...props} />
     ) : (
-      <Redirect to="/profile" />
+      <Redirect to="/profile" /> // may need modification for create game session instead
     )
   )} />
 );
