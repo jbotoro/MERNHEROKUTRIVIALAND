@@ -15,7 +15,6 @@ import GameLobbyContainer from "./game/game_lobby_container";
 import { persistStore } from "redux-persist";
 import GameMultiplayerContainer from "./game/multiplayer_game_container";
 
-import socketIOClient from "socket.io-client";
 // import { emitSetup, onSetup } from '../util/sockets_util';
 
 class App extends React.Component {
