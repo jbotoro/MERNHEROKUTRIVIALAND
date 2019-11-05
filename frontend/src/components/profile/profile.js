@@ -1,6 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+// ideally, figure out a way to prop thread from app component with the routes
+// import { socket } from "../../index";
 
 import UserStatsDisplay from "../game/stats/user_stats_display";
 
@@ -16,6 +18,11 @@ class Profile extends React.Component {
     this.multiplayerGame = this.multiplayerGame.bind(this);
     this.fetchAllGames = this.fetchAllGames.bind(this);
     this.deleteAllGames = this.deleteAllGames.bind(this);
+
+    this.props.socket.emit("profile page join", "hello world");
+    this.props.socket.on("profile page join", data => {
+      console.log(data);
+    });
   }
 
   componentDidMount() {
@@ -51,6 +58,8 @@ class Profile extends React.Component {
   // delete all games only for ben and aaron
 
   render() {
+    // console.log("APP PROPS", this.props);
+
     let currentUser = this.props.currentUser;
     let id = currentUser.id;
     let user = this.props.users[id];

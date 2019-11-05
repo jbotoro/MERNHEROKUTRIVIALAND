@@ -6,6 +6,8 @@ import socketIOClient from "socket.io-client";
 import generateGameBoards from "../../game_logic/boards";
 import { fetchAllQuestions } from "../../util/questions_util";
 
+// import { socket } from "../../index";
+
 class MultiplayerOptions extends React.Component {
   constructor(props) {
     super(props);
@@ -32,27 +34,8 @@ class MultiplayerOptions extends React.Component {
   }
 
   joinSocket(room) {
-    // this.room;
-
-    let socket;
-    // if (process.env.NODE_ENV === "development") {
-    socket = socketIOClient("localhost:5000");
-    // } else {
-    //   socket = socketIOClient(window.location);
-    // }
     let currentUser = this.props.currentUser;
-    // socket.room = room;
-    // create action that stores current socket in state and
-    // invoke here
-
-    socket.on("connect", () => {
-      console.log("working");
-      socket.emit("testing", { testing: true });
-    });
-
-    // this.props.receiveSocket(socket);
-    // let currentGameState = this.props.currentGame;
-    // socket.emit("join room", { room, currentGameState });
+    const socket = this.props.socket;
   }
 
   handleJoinInput(e) {
@@ -80,11 +63,11 @@ class MultiplayerOptions extends React.Component {
     // };
 
     fetchAllQuestions().then(questions => {
-      newGameInput["creator"] = this.props.state.session.user.id;
+      newGameInput["creator"] = this.props.currentUser.id;
       newGameInput["isOnePlayerGame"] = true;
-      //   let parsedQuestions = generateGameBoards(questions.data);
-      //   newGameInput["questions"] = parsedQuestions;
-      //   console.log("Parsed Qs", parsedQuestions);
+      let parsedQuestions = generateGameBoards(questions.data);
+      newGameInput["questions"] = parsedQuestions;
+      console.log("Parsed Qs", parsedQuestions);
 
       console.log("game before generate");
       console.log(this.props.currentGame);
@@ -95,9 +78,9 @@ class MultiplayerOptions extends React.Component {
 
         this.joinSocket(this.props.currentGame.data.roomId);
         // .then(() =>
-        // this.props.history.push(
-        //   `/game/${this.props.currentGame.data.roomId}/lobby`
-        // );
+        this.props.history.push(
+          `/game/${this.props.currentGame.data.roomId}/lobby`
+        );
         // );
       });
     });

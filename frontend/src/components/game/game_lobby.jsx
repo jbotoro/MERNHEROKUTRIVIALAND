@@ -2,6 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 // import socketIOClient from 'socket.io-client';
 
+// import { socket } from "../../index";
+
 class GameLobby extends React.Component {
   constructor(props) {
     super(props);

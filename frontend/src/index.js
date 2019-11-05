@@ -11,15 +11,41 @@ import { logout } from "./actions/session_actions";
 
 import { fetchGameStats } from "./actions/game_stats_actions";
 
+export const socket =
+  process.env.NODE_ENV === "development"
+    ? socketIOClient("localhost:5000")
+    : socketIOClient(window.location);
+
+socket.on("connect", () => {
+  console.log("working");
+  socket.emit("testing", { testing: true });
+});
+socket.on("echo", msg => {
+  console.log(msg);
+});
+
 document.addEventListener("DOMContentLoaded", () => {
-  let client = socketIOClient("http://localhost:5000");
-  client.on("connect", () => {
-    console.log("working");
-    client.emit("testing", { testing: true });
-  });
-  client.on("echo", msg => {
-    console.log(msg);
-  });
+  // let client = socketIOClient("http://localhost:5000");
+  // client.on("connect", () => {
+  //   console.log("working");
+  //   client.emit("testing", { testing: true });
+  // });
+  // client.on("echo", msg => {
+  //   console.log(msg);
+  // });
+
+  // const socket =
+  //   process.env.NODE_ENV === "development"
+  //     ? socketIOClient("localhost:5000")
+  //     : socketIOClient(window.location);
+
+  // socket.on("connect", () => {
+  //   console.log("working");
+  //   socket.emit("testing", { testing: true });
+  // });
+  // socket.on("echo", msg => {
+  //   console.log(msg);
+  // });
 
   let store;
 
@@ -51,5 +77,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const root = document.getElementById("root");
 
-  ReactDOM.render(<Root store={store} />, root);
+  ReactDOM.render(<Root store={store} socket={socket} />, root);
 });

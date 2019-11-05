@@ -21,18 +21,36 @@ router.post(
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
     const user = req.user;
-    // const questions = req.body.questions;
-    console.log("QUESTIONS", req.body);
+    const questions = req.body.questions;
 
-    user["isActive"] = {
-      isActive: false,
-      roomId: null,
-      isTurn: true,
-      currentScore: 0,
-      round1Score: 0,
-      round2Score: 0,
-      round3Score: 0
+    const updateUser = async user => {
+      try {
+        var updatedUser = await User.findOneAndUpdate(
+          { _id: user.id },
+          {
+            isActive: {
+              isActive: false,
+              roomId: null,
+              isTurn: true,
+              currentScore: 0,
+              round1Score: 0,
+              round2Score: 0,
+              round3Score: 0
+            }
+          },
+          { new: true }
+        );
+        console.log("updated User Backend Success: ", updatedUser);
+        return updatedUser;
+      } catch (err) {
+        console.log("ERROR ON CREATING GAME: ", err);
+        return err;
+      }
     };
+
+    let updatedUser = updateUser(user);
+
+    // updatedUser = await User.findOne({ _id: user.id });
 
     // console.log("FROM /create route", user);
 
@@ -57,9 +75,9 @@ router.post(
 
       const newGame = new Game({
         creator: req.user.id,
-        // questions: questions,
+        questions: questions,
         round: 1,
-        players: [user], // value was req.user.id, but want entire user model
+        players: [updatedUser], // value was req.user.id, but want entire user model
         numberPlayers: 1, // for score update
         roomId: roomId,
         isOnePlayerGame: isOnePlayerGame,
@@ -84,15 +102,32 @@ router.patch(
 
     const user = req.user;
 
-    user["isActive"] = {
-      isActive: false,
-      roomId: null,
-      isTurn: true,
-      currentScore: 0,
-      round1Score: 0,
-      round2Score: 0,
-      round3Score: 0
+    const updateUser = async user => {
+      try {
+        var updatedUser = await User.findOneAndUpdate(
+          { _id: user.id },
+          {
+            isActive: {
+              isActive: false,
+              roomId: null,
+              isTurn: true,
+              currentScore: 0,
+              round1Score: 0,
+              round2Score: 0,
+              round3Score: 0
+            }
+          },
+          { new: true }
+        );
+        console.log("updated User Backend Success: ", updatedUser);
+        return updatedUser;
+      } catch (err) {
+        console.log("ERROR ON CREATING GAME: ", err);
+        return err;
+      }
     };
+
+    let updatedUser = updateUser(user);
 
     // hope with lines of code is that it will tap into current users model
     // and reset scores
@@ -105,7 +140,7 @@ router.patch(
       let players = game["players"];
 
       if (!players.includes(newPlayerId)) {
-        game["players"].push(user);
+        game["players"].push(updatedUser);
         game["numberPlayers"] += 1;
 
         Game.updateOne(
@@ -117,7 +152,7 @@ router.patch(
             // console.log(err);
             // console.log(result);
           }
-        ).then(updated => {
+        ).then(() => {
           res.json(game);
         });
       } else {
@@ -143,7 +178,8 @@ router.patch(
     let playerId = req.user.id;
 
     Game.findOne({ roomId: gameId }).then(game => {
-      // let players = game["players"];
+      let players = game["players"];
+
       game["players"].map(player => {
         User.findOne({ _id: player.id }).then(player => {
           return player;

@@ -8,13 +8,12 @@ import { receiveAllQuestions } from "../../actions/questions_actions";
 import { fetchAllQuestions } from "../../util/questions_util";
 // import { fetchAllQuestions } from "../../actions/questions_actions";
 
-const msp = state => {
+const msp = (state, ownProps) => {
   // let currentUser = state.session.user;
   let currentGame = state.entities.game;
   let currentUser = state.session.user;
-  let socket = state.entities.socket;
+  const socket = ownProps.socket;
   return {
-    state: state,
     currentGame,
     currentUser,
     socket

@@ -22,11 +22,13 @@ export const startGame = gameId => {
   return axios.patch(`/api/games/${gameId}/startGame`);
 };
 
-// export const updateScore = (gameId) => {
-//     return axios.patch(`/api/games/${gameId}/updateScore/`);
-// }
-
 export const updateScore = gameId => {
+  return axios.patch(`/api/games/${gameId}/updateScore/`);
+};
+
+// payload
+
+export const updateGameScore = gameId => {
   //   socket.emit('update score', ());
 
   return axios.patch(`/api/games/${gameId}/updateScore/`);

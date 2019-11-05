@@ -16,9 +16,9 @@ const GameSchema = new Schema({
     uniqueItems: true
   },
 
-  // questions: {
-  //   type: Object
-  // },
+  questions: {
+    type: Object
+  },
 
   round: {
     type: Number,

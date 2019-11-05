@@ -8,6 +8,8 @@ import GameOver from "./game_over";
 import HighScores from "./high_scores";
 import Clock from "./clock";
 
+// import { socket } from "../../index";
+
 class MultiplayerGame extends React.Component {
   constructor(props) {
     super(props);
