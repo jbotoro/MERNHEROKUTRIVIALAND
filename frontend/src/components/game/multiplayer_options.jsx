@@ -46,43 +46,48 @@ class MultiplayerOptions extends React.Component {
   }
 
   handleJoinGame(e) {
-    let gameId = this.state.gameId;
+    let roomId = this.state.gameId;
     console.log("gameID", this.state);
-    this.props.addPlayer(gameId).then(() => {
-      //   this.joinSocket(gameId);
-      this.props.history.push(`/game/${gameId}/lobby`);
+    this.props.addPlayer(roomId).then(() => {
+      this.props.newPlayerFetchQuestions(roomId).then(() => {
+        this.props.history.push(`/game/${roomId}/lobby`);
+      });
     });
   }
 
   handleCreateGame() {
-    let newGameInput = {};
+    let questionsPayload = {};
 
     // {
     //   creator: this.props.state.session.user.id,
     //   isOnePlayerGame: true
     // };
+    let newGameInput = {};
+    newGameInput["creator"] = this.props.currentUser.id;
+    newGameInput["isOnePlayerGame"] = true;
 
-    fetchAllQuestions().then(questions => {
-      newGameInput["creator"] = this.props.currentUser.id;
-      newGameInput["isOnePlayerGame"] = true;
-      let parsedQuestions = generateGameBoards(questions.data);
-      newGameInput["questions"] = parsedQuestions;
-      console.log("Parsed Qs", parsedQuestions);
-
-      console.log("game before generate");
+    this.props.generateGame(newGameInput).then(() => {
+      console.log("current game after generate");
       console.log(this.props.currentGame);
 
-      this.props.generateGame(newGameInput).then(() => {
-        console.log("current game after generate");
-        console.log(this.props.currentGame);
-
-        this.joinSocket(this.props.currentGame.data.roomId);
-        // .then(() =>
-        this.props.history.push(
-          `/game/${this.props.currentGame.data.roomId}/lobby`
-        );
-        // );
+      questionsPayload["roomId"] = this.props.currentGame.data.roomId;
+      fetchAllQuestions().then(questions => {
+        let parsedQuestions = generateGameBoards(questions.data);
+        questionsPayload = Object.assign(questionsPayload, {
+          round1Questions: parsedQuestions.round1Questions,
+          round2Questions: parsedQuestions.round2Questions,
+          round3Questions: parsedQuestions.round3Questions
+        });
+        console.log("payload Qs", questionsPayload);
+        this.props.createCurrentQuestions(questionsPayload);
       });
+
+      this.joinSocket(this.props.currentGame.data.roomId);
+      // .then(() =>
+      this.props.history.push(
+        `/game/${this.props.currentGame.data.roomId}/lobby`
+      );
+      // );
     });
   }
 

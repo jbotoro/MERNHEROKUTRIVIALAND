@@ -6,6 +6,11 @@ import MultiplayerOptions from "./multiplayer_options";
 import { receiveSocket, removeSocket } from "../../actions/socket_action";
 import { receiveAllQuestions } from "../../actions/questions_actions";
 import { fetchAllQuestions } from "../../util/questions_util";
+import {
+  createCurrentQuestions,
+  newPlayerFetchQuestions,
+  deleteAllGameQuestions
+} from "../../actions/current_game_questions_actions";
 // import { fetchAllQuestions } from "../../actions/questions_actions";
 
 const msp = (state, ownProps) => {
@@ -32,11 +37,12 @@ const mdp = dispatch => {
     emitSetup: socket => dispatch(emitSetup(socket)),
     onSetup: socket => dispatch(onSetup(socket)),
 
-    // socket actions to pass around socket, pass on to logout button as well so
-    // that when logout, socket can erase
-    receiveSocket: socket => dispatch(receiveSocket(socket)),
-    removeSocket: socket => dispatch(removeSocket(socket))
-    // fetchAllQuestions: () => dispatch(fetchAllQuestions())
+    //mutliplayer questions
+    createCurrentQuestions: questions =>
+      dispatch(createCurrentQuestions(questions)),
+    newPlayerFetchQuestions: questions =>
+      dispatch(newPlayerFetchQuestions(questions)),
+    deleteAllGameQuestions: () => dispatch(deleteAllGameQuestions())
 
     // store update with questions if wanting to
   };

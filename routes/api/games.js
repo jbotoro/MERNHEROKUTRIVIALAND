@@ -18,6 +18,7 @@ router.post(
   "/create",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+    console.log("Create game OBJECT BACKEND: ", req.body);
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
     const user = req.user;

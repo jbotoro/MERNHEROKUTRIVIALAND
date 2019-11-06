@@ -87,7 +87,7 @@ io.on("connection", socket => {
   socket.room = socket.handshake.query.room;
   socket.join(socket.room);
 
-  socket.on("join room", ({ room, currentGameState }) => {
+  socket.on("join room", ({ room }) => {
     console.log("server side socket", socket);
     console.log("joined new room");
     socket.leave(socket.room);

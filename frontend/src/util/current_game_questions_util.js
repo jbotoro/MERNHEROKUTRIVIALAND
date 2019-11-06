@@ -5,7 +5,7 @@ export const createQuestions = questionsPayload => {
 };
 
 export const fetchCurrentGameQuestions = roomId => {
-  return axios.get("/api/currentGameQuestions/getCurrentQuestions", roomId);
+  return axios.get(`/api/currentGameQuestions/getCurrentQuestions/${roomId}`);
 };
 
 export const deleteCurrentGameQuestions = roomId => {

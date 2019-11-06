@@ -55,7 +55,6 @@ class GameLobby extends React.Component {
   render() {
     console.log(this.props);
     console.log(this.props.game);
-    console.log(this.props.game.data._id);
     // console.log(this.props.currentUser.id , this.props.game.data.creator)
 
     // if (!Object.keys(this.props.state.entities.game.data.players.length)) {

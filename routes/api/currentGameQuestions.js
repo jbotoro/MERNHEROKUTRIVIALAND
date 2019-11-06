@@ -10,13 +10,13 @@ const keys = require("../../config/keys");
 const CurrentGameQuestions = require("../../models/CurrentGameQuestions");
 
 router.post("/create", (req, res) => {
-  let gameId = req.body.gameId;
+  let roomId = req.body.roomId;
   let round1Questions = req.body.round1Questions;
   let round2Questions = req.body.round2Questions;
   let round3Questions = req.body.round3Questions;
 
   const currentGameQuestions = new CurrentGameQuestions({
-    gameId,
+    roomId,
     round1Questions,
     round2Questions,
     round3Questions
@@ -28,12 +28,18 @@ router.post("/create", (req, res) => {
     .catch(err => console.log("COULDN'T CREATE QUESTIONS: ", err));
 });
 
-router.get("/getCurrentQuestions", (req, res) => {
-  let roomId = req.body.roomId;
+router.get("/getCurrentQuestions/:gameId", (req, res) => {
+  let roomId = req.params.gameId;
+
+  console.log(
+    "-----------------------------------------------room id in UTIL",
+    roomId
+  );
 
   CurrentGameQuestions.find({ roomId: roomId })
     .then(questions => {
       res.json(questions);
+      console.log(questions);
     })
     .catch(err => console.log("QUESTIONS DON'T EXIST FOR THIS GAME: ", err));
 });

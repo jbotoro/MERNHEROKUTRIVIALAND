@@ -3,18 +3,15 @@ import * as GameAction from "../../actions/game_actions";
 import * as GameUtil from "../../util/game_util";
 import { emitSetup, onSetup } from "../../util/socket_util";
 import GameLobby from "./game_lobby";
-import { receiveSocket, removeSocket } from "../../actions/socket_action";
 import { fetchAllQuestions } from "../../util/questions_util";
 
 const msp = (state, ownProps) => {
   let game = state.entities.game;
   let currentUser = state.session.user;
-  let socket = state.entities.socket;
   return {
     currentUser: currentUser,
     game: game,
-    state: state,
-    socket: socket
+    state: state
   };
 };
 
@@ -35,14 +32,6 @@ const mdp = dispatch => {
     // below regular action creators
     startGame: game => dispatch(GameAction.startGame(game)),
     updateRoomScore: game => dispatch(GameAction.updateRoomScore(game)),
-
-    // socket actions to pass around socket, pass on to logout button as well so
-    // that when logout, socket can erase
-    receiveSocket: socket => dispatch(receiveSocket(socket)),
-    removeSocket: socket => dispatch(removeSocket(socket)),
-
-    emitSetup: socket => dispatch(emitSetup(socket)),
-    onSetup: socket => dispatch(onSetup(socket)),
 
     fetchAllQuestions: () => dispatch(fetchAllQuestions())
 
