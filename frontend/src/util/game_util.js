@@ -37,3 +37,7 @@ export const updateGameScore = gameId => {
 export const endGame = gameId => {
   return axios.delete(`/api/games/${gameId}/endGame`);
 };
+
+export const fetchGame = gameId => {
+  return axios.get(`/api/games/getGame/${gameId}`);
+};

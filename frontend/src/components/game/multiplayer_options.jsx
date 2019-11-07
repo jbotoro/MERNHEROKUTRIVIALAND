@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import { withRouter } from "react-router-dom";
-import socketIOClient from "socket.io-client";
+// import socketIOClient from "socket.io-client";
 import generateGameBoards from "../../game_logic/boards";
 import { fetchAllQuestions } from "../../util/questions_util";
 
@@ -34,8 +34,8 @@ class MultiplayerOptions extends React.Component {
   }
 
   joinSocket(room) {
-    let currentUser = this.props.currentUser;
-    const socket = this.props.socket;
+    // let currentUser = this.props.currentUser;
+    this.props.socket.emit("join room", room);
   }
 
   handleJoinInput(e) {
@@ -50,6 +50,7 @@ class MultiplayerOptions extends React.Component {
     console.log("gameID", this.state);
     this.props.addPlayer(roomId).then(() => {
       this.props.newPlayerFetchQuestions(roomId).then(() => {
+        this.joinSocket(roomId);
         this.props.history.push(`/game/${roomId}/lobby`);
       });
     });

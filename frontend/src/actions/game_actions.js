@@ -1,6 +1,7 @@
 import * as GameUtil from "../util/game_util";
 import { create } from "domain";
 import Game from "../components/game/game";
+import { socket } from "../index";
 
 export const CREATE_NEW_GAME = "CREATE_NEW_GAME";
 export const ADD_PLAYER_TO_ROOM = "ADD_PLAYER_TO_ROOM";
@@ -8,6 +9,7 @@ export const REMOVE_PLAYER_FROM_ROOM = "REMOVE_PLAYER_FROM_ROOM";
 export const START_GAME = "START_GAME";
 export const UPDATE_GAME_STATE = "UPDATE_GAME_STATE";
 export const UPDATE_ROOM_SCORE = "UPDATE_ROOM_SCORE"; // when one user updates score
+export const RECIEVE_CURRENT_GAME = "RECIEVE_CURRENT_GAME";
 // all users will recieve update score
 export const END_GAME = "END_GAME";
 
@@ -46,6 +48,14 @@ export const endGame = gameId => ({
   gameId
 });
 
+export const fetchGame = game => ({
+  type: RECIEVE_CURRENT_GAME,
+  game
+});
+
+export const fetchCurrentGame = roomId => dispatch =>
+  GameUtil.fetchGame(roomId).then(game => dispatch(fetchGame(game)));
+
 export const generateGame = newGame => dispatch =>
   GameUtil.generateGame(newGame).then(game => dispatch(createNewGame(game)));
 
@@ -73,3 +83,9 @@ export const updateScore = gameId => dispatch =>
 
 export const endCurrentGame = gameId => dispatch =>
   GameUtil.endGame(gameId).then(gameId => dispatch(endGame(gameId)));
+
+// socket.on("added player", room => {
+//   console.log("UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ", room);
+//   debugger;
+//   fetchCurrentGame(room);
+// });

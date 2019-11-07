@@ -5,21 +5,27 @@ import {
   START_GAME,
   UPDATE_ROOM_SCORE,
   END_GAME,
+  RECIEVE_CURRENT_GAME,
   UPDATE_GAME_STATE
 } from "../actions/game_actions";
+
+// import { socket } from "../index.js";
 
 export default function(state = {}, action) {
   Object.freeze(state);
   let newState;
   switch (action.type) {
     case CREATE_NEW_GAME:
-      //   console.log("I created a new game in REDUCER!");
       return action.game;
     case ADD_PLAYER_TO_ROOM:
       return action.game;
     case REMOVE_PLAYER_FROM_ROOM:
       return action.game;
     case START_GAME:
+      return action.game;
+
+    case RECIEVE_CURRENT_GAME:
+      debugger;
       return action.game;
 
     case UPDATE_GAME_STATE:

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //   console.log(msg);
   // });
 
-  // const socket =
+  // export const socket =
   //   process.env.NODE_ENV === "development"
   //     ? socketIOClient("localhost:5000")
   //     : socketIOClient(window.location);

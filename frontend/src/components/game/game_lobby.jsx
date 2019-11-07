@@ -13,12 +13,6 @@ class GameLobby extends React.Component {
     this.handleStartButton = this.handleStartButton.bind(this);
     // need to transport client socket from multiplayer options somehow
     // through redux state and use it across the the sequential sockets
-
-    this.props.socket
-      //   .to(this.props.socket.room)
-      .on("room change", ({ room, currentGameState }) => {
-        console.log("changing rooms", room);
-      });
   }
 
   componentDidMount() {
@@ -27,13 +21,13 @@ class GameLobby extends React.Component {
     }
   }
 
-  // handleStartGame() {
-  //     if (this.props.game.data.players.length === 1) {
-  //         this.props.history.push(`/game`);
-  //     } else {
-  //         this.props.history.push(`/game/${this.props.game.id}`);
-  //     }
-  // }
+  handleStartGame() {
+    if (this.props.game.data.players.length === 1) {
+      this.props.history.push(`/game`);
+    } else {
+      this.props.history.push(`/game/${this.props.game.id}`);
+    }
+  }
 
   handleStartButton(e) {
     console.log(this.props.game);
@@ -62,7 +56,6 @@ class GameLobby extends React.Component {
     //   return null;
     // }
 
-    console.log(this.props.state);
     // this.props.socket.to(room).on('room change', )
     // if (this.props.game.hasStarted) {
     //     this.handleStartGame();

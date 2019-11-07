@@ -87,13 +87,15 @@ io.on("connection", socket => {
   socket.room = socket.handshake.query.room;
   socket.join(socket.room);
 
-  socket.on("join room", ({ room }) => {
-    console.log("server side socket", socket);
+  socket.on("join room", room => {
+    console.log("ROOM ID RECIEVED FROM CLIENT SIDE: ", room);
+    console.log("server side socket room before reassingment", socket.room);
     console.log("joined new room");
     socket.leave(socket.room);
     socket.room = room;
     socket.join(socket.room);
-    socket.to(socket.room).emit("room change", { room, currentGameState });
+    console.log("SOCKET.JOIN(ROOM)", socket.room);
+    socket.to(socket.room).emit("added player", room);
   });
 
   socket.on("testing", function(msg) {
@@ -107,7 +109,7 @@ io.on("connection", socket => {
   });
 
   // socket.on("disconnect", ({ room, game }) => {
-  //   // console.log('user disconnected');
+  // console.log('user disconnected');
   //   socket.to(room).emit("disconnect", {});
   //   socket.leave(socket.room);
   // });

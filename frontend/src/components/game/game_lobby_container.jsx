@@ -8,10 +8,11 @@ import { fetchAllQuestions } from "../../util/questions_util";
 const msp = (state, ownProps) => {
   let game = state.entities.game;
   let currentUser = state.session.user;
+  const socket = ownProps.socket;
   return {
     currentUser: currentUser,
     game: game,
-    state: state
+    socket
   };
 };
 
@@ -33,7 +34,8 @@ const mdp = dispatch => {
     startGame: game => dispatch(GameAction.startGame(game)),
     updateRoomScore: game => dispatch(GameAction.updateRoomScore(game)),
 
-    fetchAllQuestions: () => dispatch(fetchAllQuestions())
+    fetchAllQuestions: () => dispatch(fetchAllQuestions()),
+    fetchCurrentGame: roomId => dispatch(GameAction.fetchCurrentGame(roomId))
 
     // util for the response and then utilize action object creator
     // to send to store

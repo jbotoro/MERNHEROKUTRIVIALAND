@@ -22,6 +22,10 @@ router.post(
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
     const user = req.user;
+    console.log(
+      "CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ",
+      user
+    );
     const questions = req.body.questions;
 
     const updateUser = async user => {
@@ -307,6 +311,11 @@ router.delete("/deleteAllGames", (req, res) => {
 
     // res.send(gameMap);
   });
+});
+
+router.get("/getGame/:gameId", (req, res) => {
+  let roomId = req.params.gameId;
+  Game.find({ roomId }).then(game => res.json(game));
 });
 
 module.exports = router;
