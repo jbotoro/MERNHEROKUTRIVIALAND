@@ -15,11 +15,11 @@ class MultiplayerOptions extends React.Component {
       gameId: ""
     };
 
-    // this.props.socket
-    //   .to(this.props.socket.room)
-    //   .on("room change", ({ room, currentGameState }) => {
-    //     console.log("changing rooms", room);
-    //   });
+    this.props.socket
+      .to(this.props.socket.room)
+      .on("room change", ({ room, currentGameState }) => {
+        console.log("changing rooms", room);
+      });
 
     this.handleJoinInput = this.handleJoinInput.bind(this);
     this.handleJoinGame = this.handleJoinGame.bind(this);

@@ -70,6 +70,7 @@ router.post(
     // req.user.round3Score = 0;
 
     Game.find().then(games => {
+      console.log("IN THE BACKEND LOOKING AT GAMES COLLECTION: ", games);
       let roomIds = games.map(game => {
         return game["roomId"];
       });

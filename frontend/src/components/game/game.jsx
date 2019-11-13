@@ -13,7 +13,7 @@ class Game extends React.Component {
     super(props);
     //Need to add current user in State
     this.state = {
-      round: 1,
+      round: 5,
       currentScore: 1000,
       round1Score: 0,
       round2Score: 0,
