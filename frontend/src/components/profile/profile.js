@@ -27,8 +27,7 @@ class Profile extends React.Component {
 
   componentDidMount() {
     this.props.fetchCurrentUserData(this.props.currentUser.username);
-
-    // this.props.fetchUserData(this.props.currentUser._id);
+    // this.props.message = "NEW MESSAGE REASSIGNEMT!!";
   }
 
   playGame(player) {

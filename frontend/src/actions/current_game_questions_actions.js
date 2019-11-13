@@ -29,7 +29,7 @@ export const createCurrentQuestions = questionsPayload => dispatch =>
 
 export const newPlayerFetchQuestions = roomId => dispatch =>
   CurrentQuestions.fetchCurrentGameQuestions(roomId).then(questionsPayload => {
-    console.log("in actions:", questionsPayload);
+    console.log("QUESTION PAYLOAD FROM USER JOINING:  ", questionsPayload);
     dispatch(fetchQuestions(questionsPayload));
   });
 

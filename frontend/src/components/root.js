@@ -5,10 +5,11 @@ import App from "./app";
 
 // const hello = "Hello World";
 
-const Root = ({ store, socket }) => (
+const Root = ({ store }) => (
   <Provider store={store}>
     <HashRouter>
-      <App socket={socket} />
+      <App />
+      {/* socket={socket} */}
     </HashRouter>
   </Provider>
 );

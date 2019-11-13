@@ -54,7 +54,10 @@ export const fetchGame = game => ({
 });
 
 export const fetchCurrentGame = roomId => dispatch =>
-  GameUtil.fetchGame(roomId).then(game => dispatch(fetchGame(game)));
+  GameUtil.fetchGame(roomId).then(game => {
+    debugger;
+    dispatch(fetchGame(game));
+  });
 
 export const generateGame = newGame => dispatch =>
   GameUtil.generateGame(newGame).then(game => dispatch(createNewGame(game)));

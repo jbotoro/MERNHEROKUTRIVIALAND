@@ -14,20 +14,51 @@ import MultiplayerOptionsContainer from "./game/multiplayer_options_container";
 import GameLobbyContainer from "./game/game_lobby_container";
 import { persistStore } from "redux-persist";
 import GameMultiplayerContainer from "./game/multiplayer_game_container";
+import socketIOClient from "socket.io-client";
+import * as GameActions from "../actions/game_actions";
 
 // import { emitSetup, onSetup } from '../util/sockets_util';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      socket: "",
+      message: "ON THE APP PAGE"
+    };
 
-    // this.sockets = [];
-    // this.isHost = null;
+    this.socket =
+      process.env.NODE_ENV === "development"
+        ? socketIOClient("localhost:5000")
+        : socketIOClient(window.location);
 
-    // this.createSocket = this.createSocket.bind(this);
-    // this.connectSocket = this.connectSocket.bind(this);
-    // this.joinSocket = this.joinSocket.bind(this);
+    // this.message = "ON THE APP PAGE";
+  }
+
+  componentDidMount() {
+    // console.log("ON THE STARTUP APP PAGE: ", this.message);
+    // this.message = "NEW MESSAGE REASSIGNED!! ON TO THE NEXT PAGES!!";
+
+    // const socket =
+    //   process.env.NODE_ENV === "development"
+    //     ? socketIOClient("localhost:5000")
+    //     : socketIOClient(window.location);
+
+    this.socket.on("connect", () => {
+      console.log("working");
+      console.log("IN THE APP PAGE!");
+      this.socket.emit("testing", { testing: true });
+    });
+
+    this.socket.on("echo", msg => {
+      console.log(msg);
+    });
+
+    this.socket.on("added player", room => {
+      console.log("UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ", room);
+      // debugger;
+      GameActions.fetchCurrentGame(room);
+    });
   }
 
   render() {
@@ -44,10 +75,17 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/profile"
-            component={() => <ProfileContainer socket={this.props.socket} />}
+            component={() => (
+              <ProfileContainer socket={this.socket} message={this.message} />
+            )}
           />
 
-          <ProtectedRoute exact path="/game" component={GameContainer} />
+          <ProtectedRoute
+            exact
+            path="/game"
+            component={GameContainer}
+            message={this.message}
+          />
 
           {/* <ProtectedRoute
             exact
@@ -58,7 +96,9 @@ class App extends React.Component {
           <ProtectedRoute
             exact
             path="/game/:gameId/lobby"
-            component={() => <GameLobbyContainer socket={this.props.socket} />}
+            component={() => (
+              <GameLobbyContainer socket={this.socket} message={this.message} />
+            )}
           />
 
           {/*  ^^^^ playerlobby component for users who joined another room */}
@@ -72,7 +112,10 @@ class App extends React.Component {
             exact
             path="/game/:gameId"
             component={() => (
-              <GameMultiplayerContainer socket={this.props.socket} />
+              <GameMultiplayerContainer
+                socket={this.socket}
+                message={this.message}
+              />
             )}
           />
 
@@ -86,7 +129,10 @@ class App extends React.Component {
             exact
             path="/multiplayerOptions"
             component={() => (
-              <MultiplayerOptionsContainer socket={this.props.socket} />
+              <MultiplayerOptionsContainer
+                socket={this.socket}
+                message={this.message}
+              />
             )}
           />
         </Switch>

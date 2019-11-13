@@ -45,7 +45,6 @@ router.post(
           },
           { new: true }
         );
-        console.log("updated User Backend Success: ", updatedUser);
         return updatedUser;
       } catch (err) {
         console.log("ERROR ON CREATING GAME: ", err);
@@ -53,10 +52,12 @@ router.post(
       }
     };
 
-    let updatedUser = updateUser(user);
+    console.log("updated User Backend Success: ", updateUser);
+
+    // let updatedUser = updateUser(user);
+    // console.log("updated User Backend Success: ", updatedUser);
 
     // updatedUser = await User.findOne({ _id: user.id });
-
     // console.log("FROM /create route", user);
 
     //   User.updateOne({ _id:  })
