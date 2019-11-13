@@ -2,7 +2,7 @@
 
 _A multi-player online trivia game._
 
-[TraviaLand Live](https://trivialand-app.herokuapp.com/ "Checkoff")
+[TriviaLand Live](https://trivialand-app.herokuapp.com/ "Checkoff")
 ***
 ## Background and Overview
 ***
