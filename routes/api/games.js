@@ -22,10 +22,7 @@ router.post(
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
     const user = req.user;
-    console.log(
-      "CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ",
-      user
-    );
+    console.log("CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ");
     const questions = req.body.questions;
 
     const updateUser = async user => {
@@ -52,9 +49,9 @@ router.post(
       }
     };
 
-    console.log("updated User Backend Success: ", updateUser);
+    console.log("updated User Backend Success: ", updateUser(user));
 
-    // let updatedUser = updateUser(user);
+    let updatedUser = updateUser(user);
     // console.log("updated User Backend Success: ", updatedUser);
 
     // updatedUser = await User.findOne({ _id: user.id });
