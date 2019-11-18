@@ -1,6 +1,7 @@
 import React from "react";
 import "./game.css";
 import RoundOne from "./rounds/round_one";
+import RoundOneMult from "./rounds/multiplayer/round_one_mult";
 import RoundTwoContainer from "./rounds/round_two_container";
 import RoundThree from "./rounds/round_three";
 import ScoreBoardContainer from "./scoreboard/scoreboard_container";
@@ -15,22 +16,23 @@ class MultiplayerGame extends React.Component {
     super(props);
     //Need to add current user in State
     this.state = {
+      game: null,
       round: 5,
       currentScore: 5000,
       round1Score: 0,
       round2Score: 0,
-      round3Score: 0,
-      currentPlayer: {
-        id: this.props.currentUser.id,
-        username: this.props.currentUser.username,
-        round1Score: 0,
-        round2Score: 0,
-        round3Score: 0,
-        currentScore: 0,
-        inGame: true,
-        round2Strikes: 0,
-        clock: 0
-      }
+      round3Score: 0
+      // currentPlayer: {
+      //   id: this.props.currentUser.id,
+      //   username: this.props.currentUser.username,
+      //   round1Score: 0,
+      //   round2Score: 0,
+      //   round3Score: 0,
+      //   currentScore: 0,
+      //   inGame: true,
+      //   round2Strikes: 0,
+      //   clock: 0
+      // }
     };
 
     this.updateScore = this.updateScore.bind(this);
@@ -42,6 +44,19 @@ class MultiplayerGame extends React.Component {
     //console.log(this.props)
     // this.props.fetchAllQuestions();
     // this.props.fetchUsersInGame();
+
+    // socket.on("update score", ({ room, game }) => {
+    //   socket.to(room).emit("update score", { room, game });
+    // });
+
+    this.props.socket.on("update score", game => {
+      this.props.updateRoomScore(game);
+    });
+
+    this.props.socket.on("remove player", ({ room, game }) => {
+      this.props.removePlayerFromGame(game);
+    });
+
     this.setState({
       currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
     });

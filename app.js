@@ -108,11 +108,12 @@ io.on("connection", socket => {
     socket.emit("profile page join", data);
   });
 
-  // socket.on("disconnect", ({ room, game }) => {
-  // console.log('user disconnected');
-  //   socket.to(room).emit("disconnect", {});
-  //   socket.leave(socket.room);
-  // });
+  socket.on("disconnect", ({ room, game }) => {
+    console.log("user disconnected");
+    // socket.to(room).emit("disconnect", {});
+    socket.leave(socket.room);
+    socket.to(room).emit("remove player", { room, game });
+  });
 
   // want to add some logic that communicates with the models of game
   // and checks if a certain room with that particular game model has
@@ -127,9 +128,9 @@ io.on("connection", socket => {
   //   socket.to(room).emit("add player", { room, player });
   // });
 
-  // socket.on("update score", ({ room, game }) => {
-  //   socket.to(room).emit("update score", { room, game });
-  // });
+  socket.on("update score", ({ room, game }) => {
+    socket.to(room).emit("update score", { room, game });
+  });
 
   // socket.on("From Client Input", Input => {
   //   // console.log(GameState);

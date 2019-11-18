@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import MultiplayerGame from "./multiplayer_game";
 import { fetchAllQuestions } from "../../actions/questions_actions";
 import { fetchUsersInGame } from "../../actions/session_actions";
-import GameActions from "../../actions/game_actions";
+import * as GameActions from "../../actions/game_actions";
 import GameUtil from "../../util/game_util";
 
 const mapStateToProps = (state, ownProps) => {
@@ -11,6 +11,7 @@ const mapStateToProps = (state, ownProps) => {
   let rnd1Qs = state.entities.questions.round1Questions;
   let rnd2Qs = state.entities.questions.round2Questions;
   let rnd3Qs = state.entities.questions.round3Questions;
+  let game = this.state.game;
   // const socket = ownProps.socket;
 
   // let currentGame = state.entities.game;
@@ -28,7 +29,8 @@ const mapStateToProps = (state, ownProps) => {
     questions,
     rnd1Qs,
     rnd2Qs,
-    rnd3Qs
+    rnd3Qs,
+    game
     // socket
   };
 };
@@ -36,7 +38,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUserData: "currently not fully setup", //id => dispatch(fetchUserData(id))
-    fetchAllQuestions: () => dispatch(fetchAllQuestions())
+    fetchAllQuestions: () => dispatch(fetchAllQuestions()),
+    updateRoomScore: game => dispatch(GameActions.updateRoomScore(game)),
+    removePlayerFromGame: game =>
+      dispatch(GameActions.removePlayerFromGame(game))
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),
   };
 };
