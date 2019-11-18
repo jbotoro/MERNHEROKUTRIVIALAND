@@ -18,6 +18,10 @@ export default function(state = {}, action) {
     case CREATE_NEW_GAME:
       return action.game;
     case ADD_PLAYER_TO_ROOM:
+      console.log(
+        "IN REDUCER FOR USER JOINING GAME, HERE's POJO: ",
+        action.game
+      );
       return action.game;
     case REMOVE_PLAYER_FROM_ROOM:
       return action.game;

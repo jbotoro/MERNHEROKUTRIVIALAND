@@ -54,14 +54,15 @@ class App extends React.Component {
       console.log(msg);
     });
 
-    this.socket.on("added player", room => {
-      console.log("UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ", room);
-      debugger;
-      // FOR SOME REASON FETCHCURRENTGAME IS NOT INSTANTIATING SUPPOSODELY
-      // I HAVE DEBUGGERS IN THE ACTIONS IN THE OTHER FILES BUT THEY ARE NO EXECUTING
-      // FETCH CURRENT GAME IS WITH UPDATED PLAYERS ARRAY FROM INDIVIDUAL JOINING GAME
-      GameActions.fetchCurrentGame(room);
-    });
+    // this.socket.on("added player", room => {
+    //   console.log("UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ", room);
+    //   console.log("ON THE FRONTEND APP SHOWING THIS!!-----: ", this);
+    //   debugger;
+    //   // FOR SOME REASON FETCHCURRENTGAME IS NOT INSTANTIATING SUPPOSODELY
+    //   // I HAVE DEBUGGERS IN THE ACTIONS IN THE OTHER FILES BUT THEY ARE NO EXECUTING
+    //   // FETCH CURRENT GAME IS WITH UPDATED PLAYERS ARRAY FROM INDIVIDUAL JOINING GAME
+    //   GameActions.fetchCurrentGame(room);
+    // });
   }
 
   render() {

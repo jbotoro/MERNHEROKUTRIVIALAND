@@ -11,6 +11,8 @@ const mapStateToProps = (state, ownProps) => {
   let rnd1Qs = state.entities.questions.round1Questions;
   let rnd2Qs = state.entities.questions.round2Questions;
   let rnd3Qs = state.entities.questions.round3Questions;
+  // const socket = ownProps.socket;
+
   // let currentGame = state.entities.game;
   // pretend currentGame and the players array is getting
   // desired effect where each player was assigned the
@@ -27,6 +29,7 @@ const mapStateToProps = (state, ownProps) => {
     rnd1Qs,
     rnd2Qs,
     rnd3Qs
+    // socket
   };
 };
 
@@ -38,7 +41,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MultiplayerGame);
+export default connect(mapStateToProps, mapDispatchToProps)(MultiplayerGame);

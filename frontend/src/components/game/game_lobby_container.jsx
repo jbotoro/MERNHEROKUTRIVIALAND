@@ -12,7 +12,8 @@ const msp = (state, ownProps) => {
   return {
     currentUser: currentUser,
     game: game,
-    socket
+    socket,
+    state
   };
 };
 
@@ -42,7 +43,4 @@ const mdp = dispatch => {
   };
 };
 
-export default connect(
-  msp,
-  mdp
-)(GameLobby);
+export default connect(msp, mdp)(GameLobby);

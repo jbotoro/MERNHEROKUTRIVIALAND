@@ -22,36 +22,37 @@ router.post(
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
     const user = req.user;
+    console.log("WHAT USER MODEL LOOKS LIKE IN BACKEND REQUEST: ", user);
     console.log("CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ");
     const questions = req.body.questions;
 
-    const updateUser = async user => {
-      try {
-        var updatedUser = await User.findOneAndUpdate(
-          { _id: user.id },
-          {
-            isActive: {
-              isActive: false,
-              roomId: null,
-              isTurn: true,
-              currentScore: 0,
-              round1Score: 0,
-              round2Score: 0,
-              round3Score: 0
-            }
-          },
-          { new: true }
-        );
-        return updatedUser;
-      } catch (err) {
-        console.log("ERROR ON CREATING GAME: ", err);
-        return err;
-      }
-    };
+    // const updateUser = async user => {
+    //   try {
+    //     var updatedUser = await User.findOneAndUpdate(
+    //       { _id: user.id },
+    //       {
+    //         isActive: {
+    //           isActive: false,
+    //           roomId: null,
+    //           isTurn: true,
+    //           currentScore: 0,
+    //           round1Score: 0,
+    //           round2Score: 0,
+    //           round3Score: 0
+    //         }
+    //       },
+    //       { new: true }
+    //     );
+    //     return updatedUser;
+    //   } catch (err) {
+    //     console.log("ERROR ON CREATING GAME: ", err);
+    //     return err;
+    //   }
+    // };
 
-    console.log("updated User Backend Success: ", updateUser(user));
+    // console.log("updated User Backend Success: ", updateUser(user));
 
-    let updatedUser = updateUser(user);
+    // let updatedUser = updateUser(user);
     // console.log("updated User Backend Success: ", updatedUser);
 
     // updatedUser = await User.findOne({ _id: user.id });
@@ -80,7 +81,7 @@ router.post(
         creator: req.user.id,
         questions: questions,
         round: 1,
-        players: [updatedUser], // value was req.user.id, but want entire user model
+        players: [user], // value was req.user.id, but want entire user model
         numberPlayers: 1, // for score update
         roomId: roomId,
         isOnePlayerGame: isOnePlayerGame,
@@ -105,32 +106,32 @@ router.patch(
 
     const user = req.user;
 
-    const updateUser = async user => {
-      try {
-        var updatedUser = await User.findOneAndUpdate(
-          { _id: user.id },
-          {
-            isActive: {
-              isActive: false,
-              roomId: null,
-              isTurn: true,
-              currentScore: 0,
-              round1Score: 0,
-              round2Score: 0,
-              round3Score: 0
-            }
-          },
-          { new: true }
-        );
-        console.log("updated User Backend Success: ", updatedUser);
-        return updatedUser;
-      } catch (err) {
-        console.log("ERROR ON CREATING GAME: ", err);
-        return err;
-      }
-    };
+    // const updateUser = async user => {
+    //   try {
+    //     var updatedUser = await User.findOneAndUpdate(
+    //       { _id: user.id },
+    //       {
+    //         isActive: {
+    //           isActive: false,
+    //           roomId: null,
+    //           isTurn: true,
+    //           currentScore: 0,
+    //           round1Score: 0,
+    //           round2Score: 0,
+    //           round3Score: 0
+    //         }
+    //       },
+    //       { new: true }
+    //     );
+    //     // console.log("updated User Backend Success: ", updatedUser);
+    //     return updatedUser;
+    //   } catch (err) {
+    //     console.log("ERROR ON CREATING GAME: ", err);
+    //     return err;
+    //   }
+    // };
 
-    let updatedUser = updateUser(user);
+    // let updatedUser = updateUser(user);
 
     // hope with lines of code is that it will tap into current users model
     // and reset scores
@@ -143,7 +144,7 @@ router.patch(
       let players = game["players"];
 
       if (!players.includes(newPlayerId)) {
-        game["players"].push(updatedUser);
+        game["players"].push(user);
         game["numberPlayers"] += 1;
 
         Game.updateOne(
@@ -313,7 +314,7 @@ router.delete("/deleteAllGames", (req, res) => {
 
 router.get("/getGame/:gameId", (req, res) => {
   let roomId = req.params.gameId;
-  Game.find({ roomId }).then(game => res.json(game));
+  Game.findOne({ roomId }).then(game => res.json(game));
 });
 
 module.exports = router;

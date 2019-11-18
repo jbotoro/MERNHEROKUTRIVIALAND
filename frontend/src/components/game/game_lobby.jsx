@@ -16,6 +16,19 @@ class GameLobby extends React.Component {
   }
 
   componentDidMount() {
+    this.props.socket.on("added player", room => {
+      console.log("UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ", room);
+      console.log(
+        "ON THE FRONTEND APP SHOWING THIS!!-----: ",
+        this.props.state
+      );
+      debugger;
+      // FOR SOME REASON FETCHCURRENTGAME IS NOT INSTANTIATING SUPPOSODELY
+      // I HAVE DEBUGGERS IN THE ACTIONS IN THE OTHER FILES BUT THEY ARE NO EXECUTING
+      // FETCH CURRENT GAME IS WITH UPDATED PLAYERS ARRAY FROM INDIVIDUAL JOINING GAME
+      this.props.fetchCurrentGame(room);
+    });
+
     if (this.props.game.hasStarted) {
       this.handleStartGame();
     }
@@ -62,8 +75,10 @@ class GameLobby extends React.Component {
     // }
 
     let display =
-      this.props.game &&
-      this.props.currentUser.id === this.props.game.data.creator ? (
+      (this.props.game &&
+        this.props.currentUser.id === this.props.game.data.creator) ||
+      (this.props.game.data[0] &&
+        this.props.currentUser.id === this.props.game.data[0].creator) ? (
         <div>
           <div>
             <button onClick={this.handleStartButton}>Start Game</button>
