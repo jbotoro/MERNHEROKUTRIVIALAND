@@ -1,7 +1,7 @@
 import React from "react";
 import "./game.css";
 import RoundOne from "./rounds/round_one";
-import RoundOneMult from "./rounds/multiplayer/round_one_mult";
+import RoundOneMult from "./rounds/multiplayer/round_one_mult_container";
 import RoundTwoContainer from "./rounds/round_two_container";
 import RoundThree from "./rounds/round_three";
 import ScoreBoardContainer from "./scoreboard/scoreboard_container";
@@ -17,7 +17,7 @@ class MultiplayerGame extends React.Component {
     //Need to add current user in State
     this.state = {
       game: null,
-      round: 5,
+      round: 1,
       currentScore: 5000,
       round1Score: 0,
       round2Score: 0,
@@ -57,9 +57,9 @@ class MultiplayerGame extends React.Component {
       this.props.removePlayerFromGame(game);
     });
 
-    this.setState({
-      currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
-    });
+    // this.setState({
+    //   currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
+    // });
   }
 
   updateScore(points) {
@@ -138,10 +138,10 @@ class MultiplayerGame extends React.Component {
     if (this.state.round === 1) {
       questions = this.props.rnd1Qs;
       display = (
-        <RoundOne
+        <RoundOneMult
           updateScore={this.updateScore}
-          questions={questions}
           changeRounds={this.changeRounds}
+          // questions={questions}
         />
       );
     } else if (this.state.round === 2) {

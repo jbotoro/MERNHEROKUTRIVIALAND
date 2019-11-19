@@ -29,9 +29,18 @@ class GameLobby extends React.Component {
       this.props.fetchCurrentGame(room);
     });
 
-    if (this.props.game.hasStarted) {
-      this.handleStartGame();
-    }
+    this.props.socket.on("game started", room => {
+      console.log("=======================", room);
+      this.props.history.push(`/game/${this.props.game.data._id}`);
+    });
+
+    this.props.socket.on("startTest", room => {
+      console.log("Test this shite", room);
+    });
+
+    // if (this.props.game.hasStarted) {
+    //   this.handleStartGame();
+    // }
   }
 
   handleStartGame() {
@@ -53,7 +62,10 @@ class GameLobby extends React.Component {
     if (this.props.game.data.players.length === 1) {
       this.props.history.push(`/game`);
     } else {
-      this.props.history.push(`/game/${this.props.game.data._id}`);
+      // this.socket.to(this.props.game.data.roomId).emit("start game");
+      this.props.socket.emit("start game", this.props.game.data.roomId);
+
+      // this.props.history.push(`/game/${this.props.game.data._id}`);
     }
 
     // this.handleStartButton();

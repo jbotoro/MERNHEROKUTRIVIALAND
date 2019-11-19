@@ -1,7 +1,7 @@
 import React from "react";
 // import '../game.css'
-import GameCategoryRow from "../game_category_row";
-import Clock from "../clock";
+import GameCategoryRow from "../../game_category_row";
+import Clock from "../../clock";
 
 class RoundOne extends React.Component {
   constructor(props) {

@@ -93,9 +93,18 @@ io.on("connection", socket => {
     console.log("joined new room");
     socket.leave(socket.room);
     socket.room = room;
-    socket.join(socket.room);
+    socket.join(room);
     console.log("SOCKET.JOIN(ROOM)", socket.room);
-    socket.to(socket.room).emit("added player", room);
+    socket.to(room).emit("added player", room);
+  });
+
+  socket.on("start game", room => {
+    console.log("WHAT ROOM LOOKS LIKE IN BACKEND @ START GAME: ", room);
+    // socket.to(room).emit("game started", room);
+    socket.emit("game started", room);
+
+    // socket.to(room).emit("added player", room);
+    // socket.to(room).emit("startTest", room);
   });
 
   socket.on("testing", function(msg) {
@@ -111,8 +120,8 @@ io.on("connection", socket => {
   socket.on("disconnect", ({ room, game }) => {
     console.log("user disconnected");
     // socket.to(room).emit("disconnect", {});
-    socket.leave(socket.room);
-    socket.to(room).emit("remove player", { room, game });
+    // socket.leave(socket.room);
+    // socket.to(room).emit("remove player", { room, game });
   });
 
   // want to add some logic that communicates with the models of game

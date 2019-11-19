@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => {
   let rnd1Qs = state.entities.questions.round1Questions;
   let rnd2Qs = state.entities.questions.round2Questions;
   let rnd3Qs = state.entities.questions.round3Questions;
-  let game = this.state.game;
+  let game = state.game;
   // const socket = ownProps.socket;
 
   // let currentGame = state.entities.game;
