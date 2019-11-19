@@ -16,13 +16,19 @@ class GameLobby extends React.Component {
   }
 
   componentDidMount() {
-    this.props.socket.on("added player", room => {
-      console.log("UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ", room);
+    this.props.socket.on("added player", ({ room, roster }) => {
+      console.log(
+        "UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ",
+        roster,
+        "socket",
+        this.props.socket
+      );
       console.log(
         "ON THE FRONTEND APP SHOWING THIS!!-----: ",
         this.props.state
       );
-      debugger;
+
+      // debugger;
       // FOR SOME REASON FETCHCURRENTGAME IS NOT INSTANTIATING SUPPOSODELY
       // I HAVE DEBUGGERS IN THE ACTIONS IN THE OTHER FILES BUT THEY ARE NO EXECUTING
       // FETCH CURRENT GAME IS WITH UPDATED PLAYERS ARRAY FROM INDIVIDUAL JOINING GAME

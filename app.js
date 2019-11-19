@@ -84,26 +84,29 @@ const players = {};
 io.on("connection", socket => {
   console.log("User connected");
 
-  socket.room = socket.handshake.query.room;
-  socket.join(socket.room);
+  // socket.room = socket.handshake.query.room;
+  // socket.join(socket.room);
 
   socket.on("join room", room => {
     console.log("ROOM ID RECIEVED FROM CLIENT SIDE: ", room);
     console.log("server side socket room before reassingment", socket.room);
     console.log("joined new room");
-    socket.leave(socket.room);
+    // socket.leave(socket.room);
     socket.room = room;
     socket.join(room);
     console.log("SOCKET.JOIN(ROOM)", socket.room);
-    socket.to(room).emit("added player", room);
+    console.log("-----------THIS IS IO IN BACKEND ---------------", io);
+    let roster = io.sockets.adapter.rooms[room];
+
+    socket.to(room).emit("added player", { roster, room });
   });
 
   socket.on("start game", room => {
     console.log("WHAT ROOM LOOKS LIKE IN BACKEND @ START GAME: ", room);
     // socket.to(room).emit("game started", room);
-    socket.emit("game started", room);
 
-    // socket.to(room).emit("added player", room);
+    io.to(room).emit("game started", room);
+
     // socket.to(room).emit("startTest", room);
   });
 

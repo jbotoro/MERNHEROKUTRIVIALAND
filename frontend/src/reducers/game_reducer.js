@@ -29,7 +29,7 @@ export default function(state = {}, action) {
       return action.game;
 
     case RECIEVE_CURRENT_GAME:
-      debugger;
+      // debugger;
       return action.game;
 
     case UPDATE_GAME_STATE:
