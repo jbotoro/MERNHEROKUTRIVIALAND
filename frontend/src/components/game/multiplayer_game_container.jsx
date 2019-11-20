@@ -47,7 +47,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUserData: "currently not fully setup", //id => dispatch(fetchUserData(id))
     fetchAllQuestions: () => dispatch(fetchAllQuestions()),
-    updateRoomScore: player => dispatch(GameActions.updateRoomScore(player)),
+    updateRoomScore: players => dispatch(GameActions.updateRoomScore(players)),
     removePlayerFromGame: game =>
       dispatch(GameActions.removePlayerFromGame(game))
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),

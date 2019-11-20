@@ -55,8 +55,8 @@ class MultiplayerGame extends React.Component {
 
     this.props.socket.on("updated score", ({ player, idx }) => {
       // this.props.players[idx] = player;
-      console.log("UPDATE SCORE ON MULTIPLAYER: ", idx, player);
-      let players = this.props.players[idx];
+      console.log("UPDATE SCORE ON MULTIPLAYER: ", idx);
+      let players = this.props.players;
       players[idx] = player;
       this.props.updateRoomScore(players);
     });
@@ -73,7 +73,7 @@ class MultiplayerGame extends React.Component {
       });
       let player = this.props.players[this.props.index];
       player.isActive.currentScore = 0;
-      let room = this.props.game.roomId;
+      let room = this.props.game.data.roomId;
       // let idx = this.props.index;
       this.props.socket.emit("update score", {
         room,
@@ -87,7 +87,7 @@ class MultiplayerGame extends React.Component {
 
       let player = this.props.players[this.props.index];
       player.isActive.currentScore = this.state.currentScore + points;
-      let room = this.props.game.roomId;
+      let room = this.props.game.data.roomId;
       // let idx = this.props.index;
       this.props.socket.emit("update score", {
         room,

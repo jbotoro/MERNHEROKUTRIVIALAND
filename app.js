@@ -121,7 +121,7 @@ io.on("connection", socket => {
   });
 
   socket.on("update score", ({ room, player, idx }) => {
-    console.log("IN THIS MOTHA UPDATE SCORE", idx, player);
+    console.log("IN THIS MOTHA UPDATE SCORE", idx, player, socket);
     io.to(room).emit("updated score", { player, idx });
   });
 

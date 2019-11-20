@@ -40,8 +40,6 @@ export default function(state = {}, action) {
       newState = Object.assign(state, {});
       newState.data.players = newPlayerArray;
       return newState;
-
-      return action.game;
     case END_GAME:
       newState = Object.assign({}, state);
       delete newState[action.gameId];
