@@ -32,7 +32,7 @@ const mdp = dispatch => {
     addPlayer: gameId => dispatch(GameUtil.addPlayer(gameId)),
     removePlayer: gameId => dispatch(GameUtil.removePlayer(gameId)),
     startGame: gameId => dispatch(GameUtil.startGame(gameId)),
-    updateScore: gameId => dispatch(GameUtil.updateScore(gameId)),
+    // updateScore: gameId => dispatch(GameUtil.updateScore(gameId)),
     endGame: gameId => dispatch(GameUtil.endGame(gameId)),
     emitSetup: socket => dispatch(emitSetup(socket)),
     onSetup: socket => dispatch(onSetup(socket)),
@@ -48,7 +48,4 @@ const mdp = dispatch => {
   };
 };
 
-export default connect(
-  msp,
-  mdp
-)(MultiplayerOptions);
+export default connect(msp, mdp)(MultiplayerOptions);

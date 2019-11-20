@@ -8,6 +8,7 @@ import ScoreBoardContainer from "./scoreboard/scoreboard_container";
 import GameOver from "./game_over";
 import HighScores from "./high_scores";
 import Clock from "./clock";
+import Marquee from "./rounds/multiplayer/marquee";
 
 // import { socket } from "../../index";
 
@@ -65,6 +66,8 @@ class MultiplayerGame extends React.Component {
     //   currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
     // });
   }
+
+  comp;
 
   updateScore(points) {
     if (this.state.currentScore + points < 0) {
@@ -231,7 +234,9 @@ class MultiplayerGame extends React.Component {
       <div className="game-container">
         <ScoreBoardContainer currentScore={this.state.currentScore} />
         {display}
-        <div className="marquee-container">
+
+        <Marquee players={this.props.players} />
+        {/* <div className="marquee-container">
           <marquee behavior="scroll" direction="right" scrollamount="10">
             <div className="marquee-scores">
               {this.props.players.map(player => (
@@ -241,7 +246,7 @@ class MultiplayerGame extends React.Component {
               ))}
             </div>
           </marquee>
-        </div>
+        </div> */}
       </div>
     );
   }
