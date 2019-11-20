@@ -43,7 +43,7 @@ const UserSchema = new Schema({
   isActive: {
     type: Object,
     default: {
-      isActive: false,
+      isActive: true,
       roomId: null,
       isTurn: true,
       currentScore: 0,

@@ -8,10 +8,15 @@ import GameUtil from "../../util/game_util";
 
 const mapStateToProps = (state, ownProps) => {
   let questions = state.entities.questions;
-  let rnd1Qs = state.entities.questions.round1Questions;
-  let rnd2Qs = state.entities.questions.round2Questions;
-  let rnd3Qs = state.entities.questions.round3Questions;
-  let game = state.game;
+  let rnd1Qs = state.entities.multiplayerQuestions.round1Questions;
+  let rnd2Qs = state.entities.multiplayerQuestions.round2Questions;
+  let rnd3Qs = state.entities.multiplayerQuestions.round3Questions;
+  let game = state.entities.game;
+  let socket = ownProps.socket;
+  let players = game.data.players;
+  let index = players.findIndex(player => {
+    return player.username === state.session.user.username;
+  });
   // const socket = ownProps.socket;
 
   // let currentGame = state.entities.game;
@@ -30,7 +35,10 @@ const mapStateToProps = (state, ownProps) => {
     rnd1Qs,
     rnd2Qs,
     rnd3Qs,
-    game
+    game,
+    socket,
+    players,
+    index
     // socket
   };
 };
@@ -39,7 +47,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchUserData: "currently not fully setup", //id => dispatch(fetchUserData(id))
     fetchAllQuestions: () => dispatch(fetchAllQuestions()),
-    updateRoomScore: game => dispatch(GameActions.updateRoomScore(game)),
+    updateRoomScore: player => dispatch(GameActions.updateRoomScore(player)),
     removePlayerFromGame: game =>
       dispatch(GameActions.removePlayerFromGame(game))
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),

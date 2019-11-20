@@ -38,9 +38,9 @@ export const startGame = game => ({
   game
 });
 
-export const updateRoomScore = game => ({
+export const updateRoomScore = players => ({
   type: UPDATE_ROOM_SCORE,
-  game
+  players
 });
 
 export const endGame = gameId => ({

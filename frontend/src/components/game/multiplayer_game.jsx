@@ -18,7 +18,7 @@ class MultiplayerGame extends React.Component {
     this.state = {
       game: null,
       round: 1,
-      currentScore: 5000,
+      currentScore: 0,
       round1Score: 0,
       round2Score: 0,
       round3Score: 0
@@ -49,12 +49,16 @@ class MultiplayerGame extends React.Component {
     //   socket.to(room).emit("update score", { room, game });
     // });
 
-    this.props.socket.on("update score", game => {
-      this.props.updateRoomScore(game);
-    });
-
     this.props.socket.on("remove player", ({ room, game }) => {
       this.props.removePlayerFromGame(game);
+    });
+
+    this.props.socket.on("updated score", ({ player, idx }) => {
+      // this.props.players[idx] = player;
+      console.log("UPDATE SCORE ON MULTIPLAYER: ", idx, player);
+      let players = this.props.players[idx];
+      players[idx] = player;
+      this.props.updateRoomScore(players);
     });
 
     // this.setState({
@@ -67,12 +71,33 @@ class MultiplayerGame extends React.Component {
       this.setState({
         currentScore: 0
       });
+      let player = this.props.players[this.props.index];
+      player.isActive.currentScore = 0;
+      let room = this.props.game.roomId;
+      // let idx = this.props.index;
+      this.props.socket.emit("update score", {
+        room,
+        player,
+        idx: this.props.index
+      });
     } else {
       this.setState({
         currentScore: this.state.currentScore + points
       });
+
+      let player = this.props.players[this.props.index];
+      player.isActive.currentScore = this.state.currentScore + points;
+      let room = this.props.game.roomId;
+      // let idx = this.props.index;
+      this.props.socket.emit("update score", {
+        room,
+        player,
+        idx: this.props.index
+      });
     }
   }
+
+  updateAllScores() {}
 
   changeRounds(round = null) {
     // console.log('changing rounds')
@@ -132,7 +157,7 @@ class MultiplayerGame extends React.Component {
 
     //console.log(this.state.currentPlayer.currentScore);
 
-    let questions;
+    let questions = this.props.rnd1Qs;
     //console.log(this.new_questions)
     let display;
     if (this.state.round === 1) {
@@ -141,7 +166,7 @@ class MultiplayerGame extends React.Component {
         <RoundOneMult
           updateScore={this.updateScore}
           changeRounds={this.changeRounds}
-          // questions={questions}
+          questions={questions}
         />
       );
     } else if (this.state.round === 2) {
@@ -206,6 +231,17 @@ class MultiplayerGame extends React.Component {
       <div className="game-container">
         <ScoreBoardContainer currentScore={this.state.currentScore} />
         {display}
+        <div className="marquee-container">
+          <marquee behavior="scroll" direction="right" scrollamount="10">
+            <div className="marquee-scores">
+              {this.props.players.map(player => (
+                <h1>
+                  {player.username}: {player.isActive.currentScore} pts
+                </h1>
+              ))}
+            </div>
+          </marquee>
+        </div>
       </div>
     );
   }

@@ -26,33 +26,33 @@ router.post(
     console.log("CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ");
     const questions = req.body.questions;
 
-    // const updateUser = async user => {
-    //   try {
-    //     var updatedUser = await User.findOneAndUpdate(
-    //       { _id: user.id },
-    //       {
-    //         isActive: {
-    //           isActive: false,
-    //           roomId: null,
-    //           isTurn: true,
-    //           currentScore: 0,
-    //           round1Score: 0,
-    //           round2Score: 0,
-    //           round3Score: 0
-    //         }
-    //       },
-    //       { new: true }
-    //     );
-    //     return updatedUser;
-    //   } catch (err) {
-    //     console.log("ERROR ON CREATING GAME: ", err);
-    //     return err;
-    //   }
-    // };
+    const updateUser = async user => {
+      try {
+        var updatedUser = await User.findOneAndUpdate(
+          { _id: user.id },
+          {
+            isActive: {
+              isActive: true,
+              roomId: null,
+              isTurn: true,
+              currentScore: 0,
+              round1Score: 0,
+              round2Score: 0,
+              round3Score: 0
+            }
+          },
+          { new: true }
+        );
+        return updatedUser;
+      } catch (err) {
+        console.log("ERROR ON CREATING GAME: ", err);
+        return err;
+      }
+    };
 
     // console.log("updated User Backend Success: ", updateUser(user));
 
-    // let updatedUser = updateUser(user);
+    let updatedUser = updateUser(user);
     // console.log("updated User Backend Success: ", updatedUser);
 
     // updatedUser = await User.findOne({ _id: user.id });
@@ -106,32 +106,32 @@ router.patch(
 
     const user = req.user;
 
-    // const updateUser = async user => {
-    //   try {
-    //     var updatedUser = await User.findOneAndUpdate(
-    //       { _id: user.id },
-    //       {
-    //         isActive: {
-    //           isActive: false,
-    //           roomId: null,
-    //           isTurn: true,
-    //           currentScore: 0,
-    //           round1Score: 0,
-    //           round2Score: 0,
-    //           round3Score: 0
-    //         }
-    //       },
-    //       { new: true }
-    //     );
-    //     // console.log("updated User Backend Success: ", updatedUser);
-    //     return updatedUser;
-    //   } catch (err) {
-    //     console.log("ERROR ON CREATING GAME: ", err);
-    //     return err;
-    //   }
-    // };
+    const updateUser = async user => {
+      try {
+        var updatedUser = await User.findOneAndUpdate(
+          { _id: user.id },
+          {
+            isActive: {
+              isActive: true,
+              roomId: null,
+              isTurn: true,
+              currentScore: 0,
+              round1Score: 0,
+              round2Score: 0,
+              round3Score: 0
+            }
+          },
+          { new: true }
+        );
+        // console.log("updated User Backend Success: ", updatedUser);
+        return updatedUser;
+      } catch (err) {
+        console.log("ERROR ON CREATING GAME: ", err);
+        return err;
+      }
+    };
 
-    // let updatedUser = updateUser(user);
+    let updatedUser = updateUser(user);
 
     // hope with lines of code is that it will tap into current users model
     // and reset scores

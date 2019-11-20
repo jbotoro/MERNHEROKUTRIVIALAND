@@ -36,6 +36,11 @@ export default function(state = {}, action) {
       return action.game;
 
     case UPDATE_ROOM_SCORE:
+      let newPlayerArray = action.players;
+      newState = Object.assign(state, {});
+      newState.data.players = newPlayerArray;
+      return newState;
+
       return action.game;
     case END_GAME:
       newState = Object.assign({}, state);

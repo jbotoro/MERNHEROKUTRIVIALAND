@@ -120,6 +120,11 @@ io.on("connection", socket => {
     socket.emit("profile page join", data);
   });
 
+  socket.on("update score", ({ room, player, idx }) => {
+    console.log("IN THIS MOTHA UPDATE SCORE", idx, player);
+    io.to(room).emit("updated score", { player, idx });
+  });
+
   socket.on("disconnect", ({ room, game }) => {
     console.log("user disconnected");
     // socket.to(room).emit("disconnect", {});
