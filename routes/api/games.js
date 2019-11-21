@@ -84,6 +84,7 @@ router.post(
         players: [user], // value was req.user.id, but want entire user model
         numberPlayers: 1, // for score update
         roomId: roomId,
+        round2Rooms: {},
         isOnePlayerGame: isOnePlayerGame,
         hasStarted: false,
         startedAt: null

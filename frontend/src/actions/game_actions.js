@@ -10,8 +10,14 @@ export const START_GAME = "START_GAME";
 export const UPDATE_GAME_STATE = "UPDATE_GAME_STATE";
 export const UPDATE_ROOM_SCORE = "UPDATE_ROOM_SCORE"; // when one user updates score
 export const RECIEVE_CURRENT_GAME = "RECIEVE_CURRENT_GAME";
+export const CREATE_ROUND2_ROOMS = "CREATE_ROUND2_ROOMS";
 // all users will recieve update score
 export const END_GAME = "END_GAME";
+
+export const createRound2Rooms = rooms => ({
+  type: CREATE_ROUND2_ROOMS,
+  rooms
+});
 
 export const createNewGame = game => ({
   type: CREATE_NEW_GAME,

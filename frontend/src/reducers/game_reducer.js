@@ -6,7 +6,8 @@ import {
   UPDATE_ROOM_SCORE,
   END_GAME,
   RECIEVE_CURRENT_GAME,
-  UPDATE_GAME_STATE
+  UPDATE_GAME_STATE,
+  CREATE_ROUND2_ROOMS
 } from "../actions/game_actions";
 
 // import { socket } from "../index.js";
@@ -40,6 +41,12 @@ export default function(state = {}, action) {
       newState = Object.assign(state, {});
       newState.data.players = newPlayerArray;
       return newState;
+
+    case CREATE_ROUND2_ROOMS:
+      newState = Object.assign(state, {});
+      newState.data.round2Rooms = action.rooms;
+      return newState;
+
     case END_GAME:
       newState = Object.assign({}, state);
       delete newState[action.gameId];

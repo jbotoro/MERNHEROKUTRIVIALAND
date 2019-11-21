@@ -25,6 +25,11 @@ const GameSchema = new Schema({
     default: 1
   },
 
+  round2Rooms: {
+    type: Object,
+    default: {}
+  },
+
   numberPlayers: {
     type: Number
   },

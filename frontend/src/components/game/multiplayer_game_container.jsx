@@ -17,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   let index = players.findIndex(player => {
     return player.username === state.session.user.username;
   });
+  let player = players[index];
   // const socket = ownProps.socket;
 
   // let currentGame = state.entities.game;
@@ -38,7 +39,8 @@ const mapStateToProps = (state, ownProps) => {
     game,
     socket,
     players,
-    index
+    index,
+    player
     // socket
   };
 };
@@ -49,7 +51,8 @@ const mapDispatchToProps = dispatch => {
     fetchAllQuestions: () => dispatch(fetchAllQuestions()),
     updateRoomScore: players => dispatch(GameActions.updateRoomScore(players)),
     removePlayerFromGame: game =>
-      dispatch(GameActions.removePlayerFromGame(game))
+      dispatch(GameActions.removePlayerFromGame(game)),
+    createRound2Rooms: rooms => dispatch(GameActions.createRound2Rooms(rooms))
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),
   };
 };
