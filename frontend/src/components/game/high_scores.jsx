@@ -30,7 +30,9 @@ class HighScore extends React.Component {
             <div className="high-scores-display-container">
                 <div className="high-scores-title-container">
                     <h1>The average score for the last round was: <p className="the-avg-score"></p></h1>
-                    <h1>High Scores Round: {this.props.round-1}</h1>
+                    <h1>High Scores </h1>
+                    <h1> Round: {this.props.round - 1} </h1>
+                        
                 </div>
                 <div className="high-scores-container">
                     <div className="high-score-names">

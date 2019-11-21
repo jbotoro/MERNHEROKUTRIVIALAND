@@ -164,10 +164,10 @@ class RoundThree extends React.Component {
         let playersTurnDisplay = this.state.currentUserTurn? 
         (<div className="rnd-3-category-container">
             <h1 className="rnd-3-cat-title">Choose Your Final Category</h1>
-            <h1 className="rnd-3-cat-instructs">All Questions Are Hard</h1>
-            <h1 className={this.state.miniRound === 1? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>1- You have 10 Seconds to choose your category</h1>
-            <h1 className={this.state.miniRound === 2? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>2 -You have 10 Seconds to choose your wager</h1>
-            <h1 className={this.state.miniRound === 3? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>3 -You have 15 Seconds to Answer</h1>
+            <h1 className="rnd-3-cat-instructs-first">All Questions Are Hard</h1>
+            <h1 className={this.state.miniRound === 1? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>1: You have 10 Seconds to choose your category</h1>
+            <h1 className={this.state.miniRound === 2? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>2: You have 10 Seconds to choose your wager</h1>
+            <h1 className={this.state.miniRound === 3? "rnd-3-cat-instructs instructs-bold" : "rnd-3-cat-instructs"}>3: You have 15 Seconds to Answer</h1>
             {(this.state.currentUsersCategory)?
                 (<div className="rnd-3-cat-selector">{this.state.currentUsersCategory}</div>)
                 :
@@ -192,7 +192,7 @@ class RoundThree extends React.Component {
                 </div>
 
                 <div className="game-board-rnd3-title">
-                    <h1 className="rnd_3_title">Round three</h1>
+                    <h1 className="rnd_3_title">Round Three</h1>
                 </div>
 
                 <div className="game-board-rnd3-main-user">

@@ -5,7 +5,7 @@
 .category-container{
   /* height: 10%; */
   /* width: 15%; */
-  background-color: #F9F871;
+  background-color: #9cc25e;
   position: relative;
   display: flex;
   justify-content: center;
@@ -36,6 +36,15 @@
 
   }
 
+  .card-question > h1 {
+  padding-top: 6px;
+  padding-bottom: 10px;
+  color: rgb(202, 228, 190);
+  text-decoration: underline;
+  font-weight: 600
+  
+}
+
   .category-ul{
     list-style-type: none;
   }
@@ -51,6 +60,7 @@
   
   .card-top-container{
     position: relative;
+    height: 12vh;
   }
 
 .scene {
@@ -58,14 +68,14 @@
   height: 20%; */
   border: 1px solid #CCC;
   /* margin: 40px 0; */
-  perspective: 1000px;
+  /* perspective: 100px; */
 }
 
 .scene-flipped{
   position: fixed;
   top: 23vh;
   left: 65vw;
-  border: 0px solid #CCC;
+  border: 1px solid #CCC;
 }
 
 .card {
@@ -97,6 +107,12 @@
   font-weight: bold;
   font-size: 10vh;
   border-radius: 2px;
+  box-shadow: 4px 4px 4px 4px black;
+  /* padding-top: 10px; */
+}
+
+.card-face-front > h1 {
+  color: rgb(210, 255, 189);
 }
 
 .card-face-back {
@@ -105,6 +121,7 @@
   font-size: 5px;
   transform: rotateY(180deg);
 }
+
 
 .new_card-face-back {
   position: absolute;
@@ -115,7 +132,7 @@
   font-size: 5px;
   transform: rotateY(180deg);
   display: inline-table;
-  box-shadow: 2px 2px 1px whitesmoke;
+  box-shadow: 4px 4px 4px 4px black;
   border-radius: 2px;
 }
 
@@ -145,6 +162,7 @@
 .answers-list{
   display: flex;
   flex-direction: column;
+  padding-bottom: 5px;
 }
 
 section {
@@ -162,18 +180,28 @@ section {
     border: .5px solid #CCC;
     margin-bottom:1px;
     padding: 1px;
+    padding-bottom: 2px;
   }
   .answer-container:hover{
-    background-color: black;
+    background-color: rgb(202, 228, 190);
+    color: black;
   }
 
 
   .already-answered-wrong{
     background-color: red;
+    z-index: -1000;
+    
+  }
+
+  .scene-face {
+    border-radius: 2px;
+    box-shadow: 4px 4px 4px 4px black;
   }
 
   .already-answered-right{
     background-color: #5DD682;
+    z-index: -1000;
   }
 
 /*

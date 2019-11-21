@@ -115,7 +115,7 @@ class Card extends React.Component {
             (//allready answere questions
                 <div className="scene">
 
-                    <div>
+                    <div className='scene-face'>
 
                         <div className={this.state.answeredCorrectly?"card-face card-face-front already-answered-right":"card-face card-face-front already-answered-wrong"}>
                             <h1>{value}</h1>

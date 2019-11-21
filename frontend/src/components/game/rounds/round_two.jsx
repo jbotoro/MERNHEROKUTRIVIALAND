@@ -146,8 +146,9 @@ class RoundTwo extends React.Component {
                 <div className="game-board-rnd2-left">
                     <div className="round-two-rules">
                         <h1>Round Two</h1>
-                        <h2>Rules: you have 15 seconds to answer a question or you will get one wrong</h2>
-                        <h2>You must get any 3 out of 5 questions right</h2>
+                        <h2>Rules:</h2>
+                        <h3> 15 seconds to answer question or you will get it wrong</h3>
+                        <h3 className="round-two-rules-bottom">You must get any 3 out of 5 questions right</h3>
                     </div>
                     <div className="cat-questions-container">
                         <GameCategoryRow 
@@ -161,7 +162,7 @@ class RoundTwo extends React.Component {
                 </div>
 
                 <div className="game-board-rnd2-right">
-                    <div>
+                    <div className="game-board-rnd2-clock">
                         <Clock seconds={15} ref={this.clock}/>
                     </div>
                     <div className="rnd2-username">
@@ -175,7 +176,7 @@ class RoundTwo extends React.Component {
                         <h1>Wrong Answers</h1>
                         {wrongAnswersDisplay}
                     </div>
-                    <div>
+                    <div className='rnd2-player-score'>
                         <h1>Player Scores</h1>
                     </div>
                 </div>

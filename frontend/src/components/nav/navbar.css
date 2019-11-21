@@ -5,7 +5,8 @@
     justify-content: space-between;
     align-items: center;
     animation: color-change 6s ease-in-out infinite;
-    color: white;
+    color: #DD4B47;
+    border-bottom: 1px solid black;
 }
 
 .navbar-links{
@@ -15,33 +16,40 @@
 
 .link-button{
     margin: 0px 15px 0px 0px;
-    background-color: white;
-    padding: 3px;
+    background-color: #E5D8CE;
+    padding: 2px 5px;
     border-radius: 7px;
+    text-shadow: 0.5px 0px #DD4B47;
+    box-shadow: 2px 2px black;
 }
 
-img{
-    width:19%;
+.navvy > li{
+    width:16%;
+    align-self: center;
+    list-style-type: none;
+    padding-left: 10px;
+    padding-bottom: 10px;
 }
+
 
 
 
 @keyframes color-change {
     25% {
-        background-color: #D65DB1;
-        color: pink;
+        background-color: rgb(111, 196, 85);
+        /* color: pink; */
     }
     50% {
         background-color: #FF9671;
-        color: black;
+        /* color: black; */
         }
-    90% {
-        background-color: #F9F871;
-        color: #FF9671;
+    75% {
+        background-color: #71DAFF;
+        /* color: #FF9671; */
     }
     100%{
-        background-color: pink;
-        color: #D65DB1;
+        background-color: #DD71FF;
+        /* color: #D65DB1; */
     }
 }
 
