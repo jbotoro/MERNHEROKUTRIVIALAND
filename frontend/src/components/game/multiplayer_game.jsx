@@ -92,6 +92,7 @@ class MultiplayerGame extends React.Component {
       });
 
       let player = this.state.players[this.props.index];
+      console.log(player);
       player.isActive.currentScore = this.state.currentScore + points;
       let room = this.props.game.data.roomId;
       // let idx = this.props.index;
@@ -104,16 +105,14 @@ class MultiplayerGame extends React.Component {
   }
 
   multiRound2Setup() {
-    let players = this.state.players;
+    let players = this.state.players.map(plyr => {
+      return plyr;
+    });
     players.sort((a, b) =>
       a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
     );
     let index = players.findIndex(player => {
       return player.username === this.props.currentUser.username;
-    });
-    this.setState({
-      players: players,
-      index: index
     });
 
     //Splitting up players into heads up object
@@ -134,12 +133,6 @@ class MultiplayerGame extends React.Component {
     }
     this.props.createRound2Rooms(rooms);
     // this.props.game.data.round2Rooms;
-    this.setState({
-      round1Score: this.state.currentScore,
-      round: this.state.round + 1,
-      index: index,
-      players
-    });
   }
 
   updateAllScores() {}
@@ -151,6 +144,8 @@ class MultiplayerGame extends React.Component {
         round: 10
       });
     } else if (this.state.round === 1) {
+      this.multiRound2Setup();
+
       this.setState({
         round1Score: this.state.currentScore,
         round: this.state.round + 1
@@ -215,7 +210,13 @@ class MultiplayerGame extends React.Component {
         />
       );
     } else if (this.state.round === 2) {
-      display = <HighScores round={2} changeRounds={this.changeRounds} />;
+      display = (
+        <HighScores
+          players={this.state.players}
+          round={2}
+          changeRounds={this.changeRounds}
+        />
+      );
     } else if (this.state.round === 3) {
       //Real Round TWO
       questions = this.props.rnd2Qs;
@@ -243,6 +244,7 @@ class MultiplayerGame extends React.Component {
     } else if (this.state.round === 6) {
       display = (
         <HighScores
+          players={this.state.players}
           round={4}
           changeRounds={this.changeRounds}
           round3Score={this.state.round3Score}
@@ -252,6 +254,7 @@ class MultiplayerGame extends React.Component {
     } else if (this.state.round === 7) {
       display = (
         <HighScores
+          players={this.state.players}
           changeRounds={this.changeRounds}
           round1Score={this.state.round1Score}
           round2Score={this.state.round2Score}
