@@ -17,8 +17,9 @@ class HighScore extends React.Component {
 
   componentDidMount() {
     this.sortHighScores();
-
-    this.props.socket.on("change round", () => this.props.changeRounds());
+    if (this.props.socket) {
+      this.props.socket.on("change round", () => this.props.changeRounds());
+    }
   }
 
   componentWillUnmount() {
@@ -42,6 +43,28 @@ class HighScore extends React.Component {
     if (0) {
       return null;
     }
+    let button = this.props.socket ? (
+      <button
+        onClick={() => {
+          this.props.socket.emit("tryChangeRoom", this.props.room);
+          //   this.props.changeRounds();
+        }}
+        className="next-round-button"
+      >
+        Click to Proceed
+      </button>
+    ) : (
+      <button
+        onClick={() => {
+          //this.props.socket.emit("tryChangeRoom", this.props.room);
+          this.props.changeRounds();
+        }}
+        className="next-round-button"
+      >
+        Click to Proceed
+      </button>
+    );
+
     return (
       <div className="high-scores-display-container">
         <div className="high-scores-title-container">
@@ -63,17 +86,7 @@ class HighScore extends React.Component {
             ))}
           </div>
         </div>
-        <div className="next-round-button-container">
-          <button
-            onClick={() => {
-              this.props.socket.emit("tryChangeRoom", this.props.room);
-              //   this.props.changeRounds();
-            }}
-            className="next-round-button"
-          >
-            Click to Proceed
-          </button>
-        </div>
+        <div className="next-round-button-container">{button}</div>
         {/* <div className="next-round-clock-container">
                     <Clock seconds={15}/>
                 </div> */}{" "}

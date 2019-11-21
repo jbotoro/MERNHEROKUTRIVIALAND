@@ -34,6 +34,7 @@ class Game extends React.Component {
     this.updateScore = this.updateScore.bind(this);
     this.changeRounds = this.changeRounds.bind(this);
     this.fetchCurrentRnd2Score = this.fetchCurrentRnd2Score.bind(this);
+    this.singlePlayerHighScorePass = this.singlePlayerHighScorePass.bind(this);
   }
 
   componentDidMount() {
@@ -108,6 +109,17 @@ class Game extends React.Component {
     return score;
   }
 
+  singlePlayerHighScorePass() {
+    return [
+      {
+        username: this.props.currentUser.username,
+        isActive: {
+          currentScore: this.state.currentScore
+        }
+      }
+    ];
+  }
+
   render() {
     if (!this.props.rnd1Qs) {
       return null;
@@ -128,7 +140,13 @@ class Game extends React.Component {
         />
       );
     } else if (this.state.round === 2) {
-      display = <HighScores round={2} changeRounds={this.changeRounds} />;
+      display = (
+        <HighScores
+          players={this.singlePlayerHighScorePass()}
+          round={2}
+          changeRounds={this.changeRounds}
+        />
+      );
     } else if (this.state.round === 3) {
       //Real Round TWO
       questions = this.props.rnd2Qs;
