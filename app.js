@@ -125,6 +125,10 @@ io.on("connection", socket => {
     io.to(room).emit("updated score", { player, idx });
   });
 
+  socket.on("tryChangeRoom", room => {
+    io.to(room).emit("change round");
+  });
+
   socket.on("disconnect", ({ room, game }) => {
     console.log("user disconnected");
     // socket.to(room).emit("disconnect", {});

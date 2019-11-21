@@ -17,6 +17,8 @@ class HighScore extends React.Component {
 
   componentDidMount() {
     this.sortHighScores();
+
+    this.props.socket.on("change round", () => this.props.changeRounds());
   }
 
   componentWillUnmount() {
@@ -64,7 +66,8 @@ class HighScore extends React.Component {
         <div className="next-round-button-container">
           <button
             onClick={() => {
-              this.props.changeRounds();
+              this.props.socket.emit("tryChangeRoom", this.props.room);
+              //   this.props.changeRounds();
             }}
             className="next-round-button"
           >

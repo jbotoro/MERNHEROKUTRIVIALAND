@@ -215,6 +215,8 @@ class MultiplayerGame extends React.Component {
           players={this.state.players}
           round={2}
           changeRounds={this.changeRounds}
+          socket={this.props.socket}
+          room={this.props.game.data.roomId}
         />
       );
     } else if (this.state.round === 3) {
