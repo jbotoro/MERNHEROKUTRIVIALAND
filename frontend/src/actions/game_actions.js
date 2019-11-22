@@ -14,6 +14,12 @@ export const CREATE_ROUND2_ROOMS = "CREATE_ROUND2_ROOMS";
 // all users will recieve update score
 export const END_GAME = "END_GAME";
 
+export const UPDATE_RND2_GAME_STATE = "UPDATE_RND2_GAME_STATE";
+export const updateRnd2GameStat = data => ({
+  type: UPDATE_RND2_GAME_STATE,
+  data
+});
+
 export const createRound2Rooms = rooms => ({
   type: CREATE_ROUND2_ROOMS,
   rooms

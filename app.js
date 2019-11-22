@@ -92,6 +92,15 @@ io.on("connection", socket => {
     console.log("server side socket room before reassingment", socket.room);
     console.log("joined new room");
     // socket.leave(socket.room);
+    /* if (socket.room) {
+      socket.leave(socket.room);
+      socket.room = room;
+      socket.join(room);
+    } else {
+      socket.room = room;
+      socket.join(room);
+    } */
+
     socket.room = room;
     socket.join(room);
     console.log("SOCKET.JOIN(ROOM)", socket.room);
@@ -123,6 +132,10 @@ io.on("connection", socket => {
   socket.on("update score", ({ room, player, idx }) => {
     console.log("IN THIS MOTHA UPDATE SCORE", idx, player, socket);
     io.to(room).emit("updated score", { player, idx });
+  });
+
+  socket.on("updateRnd2", ({ round2Room, players, room }) => {
+    io.to(room).emit("update round 2 answers", { players, round2Room });
   });
 
   socket.on("tryChangeRoom", room => {

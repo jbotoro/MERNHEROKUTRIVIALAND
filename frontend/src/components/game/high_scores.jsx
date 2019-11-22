@@ -30,9 +30,9 @@ class HighScore extends React.Component {
     let players = this.props.players.map(plyr => {
       return plyr;
     });
-    // players.sort((a, b) =>
-    //   a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
-    // );
+    players.sort((a, b) =>
+      a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
+    );
 
     this.setState({
       players: players

@@ -2,7 +2,7 @@ import React from "react";
 import "./game.css";
 import RoundOne from "./rounds/round_one";
 import RoundOneMult from "./rounds/multiplayer/round_one_mult_container";
-import RoundTwoContainer from "./rounds/round_two_container";
+import RoundTwoContainer from "./rounds/multiplayer/round_two_multi_container";
 import RoundThree from "./rounds/round_three";
 import ScoreBoardContainer from "./scoreboard/scoreboard_container";
 import GameOver from "./game_over";
@@ -19,11 +19,12 @@ class MultiplayerGame extends React.Component {
     this.state = {
       game: null,
       round: 1,
-      currentScore: 0,
+      currentScore: 500,
       round1Score: 0,
       round2Score: 0,
       round3Score: 0,
-      players: this.props.players
+      players: this.props.players,
+      round2RoomNum: null
       // currentPlayer: {
       //   id: this.props.currentUser.id,
       //   username: this.props.currentUser.username,
@@ -64,6 +65,13 @@ class MultiplayerGame extends React.Component {
       this.setState({ players: players });
       this.props.updateRoomScore(players);
     });
+
+    this.props.socket.on(
+      "update round 2 answers",
+      ({ round2Room, players }) => {
+        console.log("RND 2 DATA PASS", round2Room, players);
+      }
+    );
 
     // this.setState({
     //   currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
@@ -122,11 +130,24 @@ class MultiplayerGame extends React.Component {
     while (players.length > 0) {
       if (top) {
         //while(players[0].isActive.isActive === false) ;
-        rooms[count] = [players.shift()];
+        let player = players.shift();
+        if (player.username === this.props.currentUser.username) {
+          this.setState({
+            round2RoomNum: count
+          });
+        }
+        rooms[count] = [player];
         top = false;
       } else {
         //while(players[0].isActive.isActive === false) ;
-        rooms[count].push(players.pop());
+        let player = players.pop();
+        if (player.username === this.props.currentUser.username) {
+          this.setState({
+            round2RoomNum: count
+          });
+        }
+
+        rooms[count].push(player);
         count++;
         top = true;
       }
@@ -224,6 +245,9 @@ class MultiplayerGame extends React.Component {
       questions = this.props.rnd2Qs;
       display = (
         <RoundTwoContainer
+          socket={this.props.socket}
+          updateRnd2GameStat={this.props.updateRnd2GameStat}
+          round2RoomNum={this.state.round2RoomNum}
           updateScore={this.updateScore}
           questions={questions}
           changeRounds={this.changeRounds}

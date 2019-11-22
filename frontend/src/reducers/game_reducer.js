@@ -7,8 +7,10 @@ import {
   END_GAME,
   RECIEVE_CURRENT_GAME,
   UPDATE_GAME_STATE,
-  CREATE_ROUND2_ROOMS
+  CREATE_ROUND2_ROOMS,
+  UPDATE_RND2_GAME_STATE
 } from "../actions/game_actions";
+import { bindActionCreators } from "../../../../../../Library/Caches/typescript/3.6/node_modules/redux";
 
 // import { socket } from "../index.js";
 
@@ -47,6 +49,10 @@ export default function(state = {}, action) {
       newState.data.round2Rooms = action.rooms;
       return newState;
 
+    case UPDATE_RND2_GAME_STATE:
+      newState = Object.assign(state, {});
+      newState.data.round2Rooms[action.data.round2Room] = action.data.players;
+      return newState;
     case END_GAME:
       newState = Object.assign({}, state);
       delete newState[action.gameId];
