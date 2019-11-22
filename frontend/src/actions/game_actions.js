@@ -10,8 +10,20 @@ export const START_GAME = "START_GAME";
 export const UPDATE_GAME_STATE = "UPDATE_GAME_STATE";
 export const UPDATE_ROOM_SCORE = "UPDATE_ROOM_SCORE"; // when one user updates score
 export const RECIEVE_CURRENT_GAME = "RECIEVE_CURRENT_GAME";
+export const CREATE_ROUND2_ROOMS = "CREATE_ROUND2_ROOMS";
 // all users will recieve update score
 export const END_GAME = "END_GAME";
+
+export const UPDATE_RND2_GAME_STATE = "UPDATE_RND2_GAME_STATE";
+export const updateRnd2GameStat = data => ({
+  type: UPDATE_RND2_GAME_STATE,
+  data
+});
+
+export const createRound2Rooms = rooms => ({
+  type: CREATE_ROUND2_ROOMS,
+  rooms
+});
 
 export const createNewGame = game => ({
   type: CREATE_NEW_GAME,
@@ -38,9 +50,9 @@ export const startGame = game => ({
   game
 });
 
-export const updateRoomScore = game => ({
+export const updateRoomScore = players => ({
   type: UPDATE_ROOM_SCORE,
-  game
+  players
 });
 
 export const endGame = gameId => ({
@@ -54,7 +66,10 @@ export const fetchGame = game => ({
 });
 
 export const fetchCurrentGame = roomId => dispatch =>
-  GameUtil.fetchGame(roomId).then(game => dispatch(fetchGame(game)));
+  GameUtil.fetchGame(roomId).then(game => {
+    // debugger;
+    dispatch(fetchGame(game));
+  });
 
 export const generateGame = newGame => dispatch =>
   GameUtil.generateGame(newGame).then(game => dispatch(createNewGame(game)));

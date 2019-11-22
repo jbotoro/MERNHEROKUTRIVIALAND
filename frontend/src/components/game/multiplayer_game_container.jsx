@@ -3,14 +3,23 @@ import { connect } from "react-redux";
 import MultiplayerGame from "./multiplayer_game";
 import { fetchAllQuestions } from "../../actions/questions_actions";
 import { fetchUsersInGame } from "../../actions/session_actions";
-import GameActions from "../../actions/game_actions";
+import * as GameActions from "../../actions/game_actions";
 import GameUtil from "../../util/game_util";
 
 const mapStateToProps = (state, ownProps) => {
   let questions = state.entities.questions;
-  let rnd1Qs = state.entities.questions.round1Questions;
-  let rnd2Qs = state.entities.questions.round2Questions;
-  let rnd3Qs = state.entities.questions.round3Questions;
+  let rnd1Qs = state.entities.multiplayerQuestions.round1Questions;
+  let rnd2Qs = state.entities.multiplayerQuestions.round2Questions;
+  let rnd3Qs = state.entities.multiplayerQuestions.round3Questions;
+  let game = state.entities.game;
+  let socket = ownProps.socket;
+  let players = game.data.players;
+  let index = players.findIndex(player => {
+    return player.username === state.session.user.username;
+  });
+  let player = players[index];
+  // const socket = ownProps.socket;
+
   // let currentGame = state.entities.game;
   // pretend currentGame and the players array is getting
   // desired effect where each player was assigned the
@@ -26,19 +35,27 @@ const mapStateToProps = (state, ownProps) => {
     questions,
     rnd1Qs,
     rnd2Qs,
-    rnd3Qs
+    rnd3Qs,
+    game,
+    socket,
+    players,
+    index,
+    player
+    // socket
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchUserData: "currently not fully setup", //id => dispatch(fetchUserData(id))
-    fetchAllQuestions: () => dispatch(fetchAllQuestions())
+    fetchAllQuestions: () => dispatch(fetchAllQuestions()),
+    updateRoomScore: players => dispatch(GameActions.updateRoomScore(players)),
+    removePlayerFromGame: game =>
+      dispatch(GameActions.removePlayerFromGame(game)),
+    createRound2Rooms: rooms => dispatch(GameActions.createRound2Rooms(rooms)),
+    updateRnd2GameStat: data => dispatch(GameActions.updateRnd2GameStat(data))
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MultiplayerGame);
+export default connect(mapStateToProps, mapDispatchToProps)(MultiplayerGame);

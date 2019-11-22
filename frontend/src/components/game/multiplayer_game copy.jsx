@@ -2,7 +2,7 @@ import React from "react";
 import "./game.css";
 import RoundOne from "./rounds/round_one";
 import RoundOneMult from "./rounds/multiplayer/round_one_mult_container";
-import RoundTwoContainer from "./rounds/multiplayer/round_two_multi_container";
+import RoundTwoContainer from "./rounds/round_two_container";
 import RoundThree from "./rounds/round_three";
 import ScoreBoardContainer from "./scoreboard/scoreboard_container";
 import GameOver from "./game_over";
@@ -19,12 +19,15 @@ class MultiplayerGame extends React.Component {
     this.state = {
       game: null,
       round: 1,
-      currentScore: 500,
+      currentScore: 0,
       round1Score: 0,
       round2Score: 0,
       round3Score: 0,
       players: this.props.players,
-      round2RoomNum: null
+      index: this.props.index,
+      player: this.props.player,
+      round2Room: null
+
       // currentPlayer: {
       //   id: this.props.currentUser.id,
       //   username: this.props.currentUser.username,
@@ -60,103 +63,93 @@ class MultiplayerGame extends React.Component {
     this.props.socket.on("updated score", ({ player, idx }) => {
       // this.props.players[idx] = player;
       console.log("UPDATE SCORE ON MULTIPLAYER: ", idx);
-      let players = this.state.players;
-      players[idx] = player;
-      this.setState({ players: players });
-      this.props.updateRoomScore(players);
+      let updatedPlayers = this.state.players;
+      updatedPlayers[idx] = player;
+      this.setState({ players: updatedPlayers });
+      this.props.updateRoomScore(updatedPlayers);
     });
-
-    this.props.socket.on(
-      "update round 2 answers",
-      ({ round2Room, players }) => {
-        console.log("RND 2 DATA PASS", round2Room, players);
-      }
-    );
 
     // this.setState({
     //   currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
     // });
   }
 
-  // comp;
-
   updateScore(points) {
     if (this.state.currentScore + points < 0) {
       this.setState({
         currentScore: 0
       });
-      let player = this.state.players[this.props.index];
+      let player = this.state.players[this.state.index];
       player.isActive.currentScore = 0;
       let room = this.props.game.data.roomId;
       // let idx = this.props.index;
       this.props.socket.emit("update score", {
         room,
         player,
-        idx: this.props.index
+        idx: this.state.index
       });
     } else {
       this.setState({
         currentScore: this.state.currentScore + points
       });
 
-      let player = this.state.players[this.props.index];
-      console.log(player);
+      let player = this.state.players[this.state.index];
       player.isActive.currentScore = this.state.currentScore + points;
       let room = this.props.game.data.roomId;
       // let idx = this.props.index;
       this.props.socket.emit("update score", {
         room,
         player,
-        idx: this.props.index
+        idx: this.state.index
       });
     }
   }
 
-  multiRound2Setup() {
-    let players = this.state.players.map(plyr => {
-      return plyr;
-    });
-    players.sort((a, b) =>
-      a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
-    );
-    let index = players.findIndex(player => {
-      return player.username === this.props.currentUser.username;
-    });
-
-    //Splitting up players into heads up object
-    let rooms = {};
-    let top = true;
-    let count = 1;
-    while (players.length > 0) {
-      if (top) {
-        //while(players[0].isActive.isActive === false) ;
-        let player = players.shift();
-        if (player.username === this.props.currentUser.username) {
-          this.setState({
-            round2RoomNum: count
-          });
-        }
-        rooms[count] = [player];
-        top = false;
-      } else {
-        //while(players[0].isActive.isActive === false) ;
-        let player = players.pop();
-        if (player.username === this.props.currentUser.username) {
-          this.setState({
-            round2RoomNum: count
-          });
-        }
-
-        rooms[count].push(player);
-        count++;
-        top = true;
-      }
-    }
-    this.props.createRound2Rooms(rooms);
-    // this.props.game.data.round2Rooms;
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.players !== this.props.players) {
+  //     this.setState({ players: this.props.players });
+  //   }
+  // }
 
   updateAllScores() {}
+
+  multiRound2Setup() {
+    // let players = this.state.players;
+    // players.sort((a, b) =>
+    //   a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
+    // );
+    // let index = players.findIndex(player => {
+    //   return player.username === this.props.currentUser.username;
+    // });
+    // this.setState({
+    //   players: players,
+    //   index: index
+    // });
+    // //Splitting up players into heads up object
+    // let rooms = {};
+    // let top = true;
+    // let count = 1;
+    // while (players.length > 0) {
+    //   if (top) {
+    //     //while(players[0].isActive.isActive === false) ;
+    //     rooms[count] = [players.shift()];
+    //     top = false;
+    //   } else {
+    //     //while(players[0].isActive.isActive === false) ;
+    //     rooms[count].push(players.pop());
+    //     count++;
+    //     top = true;
+    //   }
+    // }
+    // this.props.createRnd2Rooms(rooms);
+    // this.props.game.data.round2Heads
+    // this.setState({
+    //   round1Score: this.state.currentScore,
+    //   round: this.state.round + 1,
+    //   index: index,
+    //   players
+    // });
+  }
 
   changeRounds(round = null) {
     // console.log('changing rounds')
@@ -165,6 +158,16 @@ class MultiplayerGame extends React.Component {
         round: 10
       });
     } else if (this.state.round === 1) {
+      // let players = this.state.players;
+
+      // players.sort((a, b) =>
+      //   a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
+      // );
+
+      // let index = players.findIndex(player => {
+      //   return player.username === this.props.currentUser.username;
+      // });
+
       this.multiRound2Setup();
 
       this.setState({
@@ -233,11 +236,9 @@ class MultiplayerGame extends React.Component {
     } else if (this.state.round === 2) {
       display = (
         <HighScores
-          players={this.state.players}
           round={2}
           changeRounds={this.changeRounds}
-          socket={this.props.socket}
-          room={this.props.game.data.roomId}
+          players={this.state.players}
         />
       );
     } else if (this.state.round === 3) {
@@ -245,9 +246,6 @@ class MultiplayerGame extends React.Component {
       questions = this.props.rnd2Qs;
       display = (
         <RoundTwoContainer
-          socket={this.props.socket}
-          updateRnd2GameStat={this.props.updateRnd2GameStat}
-          round2RoomNum={this.state.round2RoomNum}
           updateScore={this.updateScore}
           questions={questions}
           changeRounds={this.changeRounds}
@@ -270,7 +268,6 @@ class MultiplayerGame extends React.Component {
     } else if (this.state.round === 6) {
       display = (
         <HighScores
-          players={this.state.players}
           round={4}
           changeRounds={this.changeRounds}
           round3Score={this.state.round3Score}
@@ -280,7 +277,6 @@ class MultiplayerGame extends React.Component {
     } else if (this.state.round === 7) {
       display = (
         <HighScores
-          players={this.state.players}
           changeRounds={this.changeRounds}
           round1Score={this.state.round1Score}
           round2Score={this.state.round2Score}

@@ -12,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     currentUser: state.session.user,
     users,
     socket
+    // message
     // props
   };
 };

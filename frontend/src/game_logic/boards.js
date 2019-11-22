@@ -89,11 +89,20 @@ const generateGameBoards = questions => {
   round2Questions[round2QuestionsCategory]["hard"] = [];
 
   questions[round2QuestionsCategory].forEach(question => {
-    if (question["difficulty"] === "easy") {
+    if (
+      question["difficulty"] === "easy" &&
+      round2Questions[round2QuestionsCategory]["easy"].length < 10
+    ) {
       round2Questions[round2QuestionsCategory]["easy"].push(question);
-    } else if (question["difficulty"] === "medium") {
+    } else if (
+      question["difficulty"] === "medium" &&
+      round2Questions[round2QuestionsCategory]["medium"].length < 10
+    ) {
       round2Questions[round2QuestionsCategory]["medium"].push(question);
-    } else {
+    } else if (
+      question["difficulty"] === "hard" &&
+      round2Questions[round2QuestionsCategory]["hard"].length < 10
+    ) {
       round2Questions[round2QuestionsCategory]["hard"].push(question);
     }
   });
@@ -109,14 +118,22 @@ const generateGameBoards = questions => {
     round3Questions[category]["hard"] = [];
 
     questions[category].forEach(question => {
-      if (question["difficulty"] === "easy") {
+      if (question["difficulty"] === "hard") {
+        round3Questions[category]["hard"].push(question);
+      }
+    });
+
+    /*
+    
+    if (question["difficulty"] === "easy") {
         round3Questions[category]["easy"].push(question);
       } else if (question["difficulty"] === "medium") {
         round3Questions[category]["medium"].push(question);
       } else {
         round3Questions[category]["hard"].push(question);
       }
-    });
+
+    */
   });
 
   gameQuestions["round3Questions"] = round3Questions;

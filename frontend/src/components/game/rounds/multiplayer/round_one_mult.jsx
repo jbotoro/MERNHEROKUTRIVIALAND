@@ -1,7 +1,7 @@
 import React from "react";
 // import '../game.css'
-import GameCategoryRow from "../game_category_row";
-import Clock from "../clock";
+import GameCategoryRow from "../../game_category_row";
+import Clock from "../../clock";
 
 class RoundOne extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class RoundOne extends React.Component {
       currentUser: this.props.currentUser
     };
 
-    setTimeout(this.props.changeRounds, 11000);
+    setTimeout(this.props.changeRounds, 1000);
     // setTimeout(this.props.changeRounds, 60000);
   }
 

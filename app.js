@@ -84,18 +84,39 @@ const players = {};
 io.on("connection", socket => {
   console.log("User connected");
 
-  socket.room = socket.handshake.query.room;
-  socket.join(socket.room);
+  // socket.room = socket.handshake.query.room;
+  // socket.join(socket.room);
 
   socket.on("join room", room => {
     console.log("ROOM ID RECIEVED FROM CLIENT SIDE: ", room);
     console.log("server side socket room before reassingment", socket.room);
     console.log("joined new room");
-    socket.leave(socket.room);
+    // socket.leave(socket.room);
+    /* if (socket.room) {
+      socket.leave(socket.room);
+      socket.room = room;
+      socket.join(room);
+    } else {
+      socket.room = room;
+      socket.join(room);
+    } */
+
     socket.room = room;
-    socket.join(socket.room);
+    socket.join(room);
     console.log("SOCKET.JOIN(ROOM)", socket.room);
-    socket.to(socket.room).emit("added player", room);
+    console.log("-----------THIS IS IO IN BACKEND ---------------", io);
+    let roster = io.sockets.adapter.rooms[room];
+
+    socket.to(room).emit("added player", { roster, room });
+  });
+
+  socket.on("start game", room => {
+    console.log("WHAT ROOM LOOKS LIKE IN BACKEND @ START GAME: ", room);
+    // socket.to(room).emit("game started", room);
+
+    io.to(room).emit("game started", room);
+
+    // socket.to(room).emit("startTest", room);
   });
 
   socket.on("testing", function(msg) {
@@ -108,11 +129,25 @@ io.on("connection", socket => {
     socket.emit("profile page join", data);
   });
 
-  // socket.on("disconnect", ({ room, game }) => {
-  // console.log('user disconnected');
-  //   socket.to(room).emit("disconnect", {});
-  //   socket.leave(socket.room);
-  // });
+  socket.on("update score", ({ room, player, idx }) => {
+    console.log("IN THIS MOTHA UPDATE SCORE", idx, player, socket);
+    io.to(room).emit("updated score", { player, idx });
+  });
+
+  socket.on("updateRnd2", ({ round2Room, players, room }) => {
+    io.to(room).emit("update round 2 answers", { players, round2Room });
+  });
+
+  socket.on("tryChangeRoom", room => {
+    io.to(room).emit("change round");
+  });
+
+  socket.on("disconnect", ({ room, game }) => {
+    console.log("user disconnected");
+    // socket.to(room).emit("disconnect", {});
+    // socket.leave(socket.room);
+    // socket.to(room).emit("remove player", { room, game });
+  });
 
   // want to add some logic that communicates with the models of game
   // and checks if a certain room with that particular game model has
@@ -127,9 +162,9 @@ io.on("connection", socket => {
   //   socket.to(room).emit("add player", { room, player });
   // });
 
-  // socket.on("update score", ({ room, game }) => {
-  //   socket.to(room).emit("update score", { room, game });
-  // });
+  socket.on("update score", ({ room, game }) => {
+    socket.to(room).emit("update score", { room, game });
+  });
 
   // socket.on("From Client Input", Input => {
   //   // console.log(GameState);

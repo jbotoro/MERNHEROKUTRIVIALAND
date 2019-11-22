@@ -16,9 +16,37 @@ class GameLobby extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.game.hasStarted) {
-      this.handleStartGame();
-    }
+    this.props.socket.on("added player", ({ room, roster }) => {
+      console.log(
+        "UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ",
+        roster,
+        "socket",
+        this.props.socket
+      );
+      console.log(
+        "ON THE FRONTEND APP SHOWING THIS!!-----: ",
+        this.props.state
+      );
+
+      // debugger;
+      // FOR SOME REASON FETCHCURRENTGAME IS NOT INSTANTIATING SUPPOSODELY
+      // I HAVE DEBUGGERS IN THE ACTIONS IN THE OTHER FILES BUT THEY ARE NO EXECUTING
+      // FETCH CURRENT GAME IS WITH UPDATED PLAYERS ARRAY FROM INDIVIDUAL JOINING GAME
+      this.props.fetchCurrentGame(room);
+    });
+
+    this.props.socket.on("game started", room => {
+      console.log("=======================", room);
+      this.props.history.push(`/game/${this.props.game.data._id}`);
+    });
+
+    this.props.socket.on("startTest", room => {
+      console.log("Test this shite", room);
+    });
+
+    // if (this.props.game.hasStarted) {
+    //   this.handleStartGame();
+    // }
   }
 
   handleStartGame() {
@@ -40,7 +68,10 @@ class GameLobby extends React.Component {
     if (this.props.game.data.players.length === 1) {
       this.props.history.push(`/game`);
     } else {
-      this.props.history.push(`/game/${this.props.game.data._id}`);
+      // this.socket.to(this.props.game.data.roomId).emit("start game");
+      this.props.socket.emit("start game", this.props.game.data.roomId);
+
+      // this.props.history.push(`/game/${this.props.game.data._id}`);
     }
 
     // this.handleStartButton();
@@ -62,8 +93,10 @@ class GameLobby extends React.Component {
     // }
 
     let display =
-      this.props.game &&
-      this.props.currentUser.id === this.props.game.data.creator ? (
+      (this.props.game &&
+        this.props.currentUser.id === this.props.game.data.creator) ||
+      (this.props.game.data[0] &&
+        this.props.currentUser.id === this.props.game.data[0].creator) ? (
         <div>
           <div>
             <button onClick={this.handleStartButton}>Start Game</button>
