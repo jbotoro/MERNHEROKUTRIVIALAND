@@ -135,8 +135,14 @@ io.on("connection", socket => {
   });
 
   socket.on("updateRnd2", ({ round2Room, players, room }) => {
-    io.to(room).emit("update round 2 answers", { players, round2Room });
+    // io.to(room).emit("update round 2 answers", { players, round2Room });
+    socket.to(room).emit("update round 2 answers", { players, round2Room });
   });
+
+  // ^^^^ CHANGING LOGIC OF SOCKET TO EMIT ONLY TO OTHER USERS ^^^^^^
+  // REASON B/C UPON UPDATING PLAYERS ARRAY IN RIGHT ANSWER FUNCTION,
+  // CAN JUST USE ACTION FUNCTION IN THEIR TO BETTER TEST IF RECIPIENT OF DATA
+  // IS GOING THROUGH PROPERLY
 
   socket.on("tryChangeRoom", room => {
     io.to(room).emit("change round");

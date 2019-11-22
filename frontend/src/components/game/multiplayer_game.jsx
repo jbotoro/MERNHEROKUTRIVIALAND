@@ -66,12 +66,12 @@ class MultiplayerGame extends React.Component {
       this.props.updateRoomScore(players);
     });
 
-    this.props.socket.on(
-      "update round 2 answers",
-      ({ round2Room, players }) => {
-        console.log("RND 2 DATA PASS", round2Room, players);
-      }
-    );
+    // this.props.socket.on(
+    //   "update round 2 answers",
+    //   ({ round2Room, players }) => {
+    //     console.log("RND 2 DATA PASS", round2Room, players);
+    //   }
+    // );
 
     // this.setState({
     //   currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
@@ -246,7 +246,7 @@ class MultiplayerGame extends React.Component {
       display = (
         <RoundTwoContainer
           socket={this.props.socket}
-          updateRnd2GameStat={this.props.updateRnd2GameStat}
+          // updateRnd2GameStat={this.props.updateRnd2GameStat}
           round2RoomNum={this.state.round2RoomNum}
           updateScore={this.updateScore}
           questions={questions}

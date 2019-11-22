@@ -13,6 +13,7 @@ class GameLobby extends React.Component {
     this.handleStartButton = this.handleStartButton.bind(this);
     // need to transport client socket from multiplayer options somehow
     // through redux state and use it across the the sequential sockets
+    this.removeDuplicatePlayers = this.removeDuplicatePlayers.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +56,21 @@ class GameLobby extends React.Component {
     } else {
       this.props.history.push(`/game/${this.props.game.id}`);
     }
+  }
+
+  removeDuplicatePlayers() {
+    let players = this.props.players;
+    let playersReference = {};
+    players.forEach(player => {
+      playersReference[player.username] = player;
+    });
+
+    let updatedPlayers = Object.values(playersReference);
+    this.props.updateRoomScore(updatedPlayers);
+  }
+
+  componentWillUnmount() {
+    this.removeDuplicatePlayers();
   }
 
   handleStartButton(e) {

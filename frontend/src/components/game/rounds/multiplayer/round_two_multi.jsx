@@ -11,6 +11,8 @@ class RoundTwo extends React.Component {
       currentUser: this.props.currentUser,
       strikes: 0, // if number becomes three,
       rightAnswers: 0,
+      opponentStrikes: 0,
+      opponentRightAnswers: 0,
       timerSeconds: 15,
       currentPlayers: this.props.currentPlayers
     };
@@ -27,6 +29,22 @@ class RoundTwo extends React.Component {
   componentDidMount() {
     console.log(this.props.currentPlayers);
     // this.props.getQestions();
+    this.props.socket.on(
+      "update round 2 answers",
+      ({ round2Room, players }) => {
+        // console.log("RND 2 DATA PASS", round2Room, players);
+        let opponent = players[this.props.opponentIndex];
+
+        this.setState({
+          opponentStrikes: opponent.strikes,
+          opponentRightAnswers: opponent.rightAnswers
+        });
+
+        let room2Data = { players: players, round2Room: round2Room };
+
+        this.props.updateRnd2GameStat(room2Data);
+      }
+    );
   }
 
   componentWillUnmount() {
@@ -85,6 +103,10 @@ class RoundTwo extends React.Component {
 
     players[this.props.myIndex] = thisPlayer;
 
+    let room2Data = { players: players, round2Room: this.props.round2RoomNum };
+
+    this.props.updateRnd2GameStat(room2Data);
+
     this.props.socket.emit("updateRnd2", {
       round2Room: this.props.round2RoomNum,
       players,
@@ -142,7 +164,11 @@ class RoundTwo extends React.Component {
     //EveryTime we re-render we want to check if we got three strikes or 3 rights and change roungs if necessary
     this.numWrongRightCheck();
     this.setTimer();
-    // console.log(this.state.strikes);
+
+    console.log("MY STRIKES:   ", this.state.strikes);
+    console.log("MY RIGHT ANSWERS:   ", this.state.rightAnswers);
+    console.log("OPPONENT STRIKES:   ", this.state.opponentStrikes);
+    console.log("OPPONENT RIGHT ANSWERS:   ", this.state.opponentRightAnswers);
 
     let questionsObject = this.props.questions;
     //let categoryName = Object.keys(questionsObject)

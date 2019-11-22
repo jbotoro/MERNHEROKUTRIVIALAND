@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 //import Profile from './profile';
 import RoundTwo from "./round_two_multi";
+import { updateRnd2GameStat } from "../../../../actions/game_actions";
 
 const mapStateToProps = (state, ownProps) => {
   let round2RoomNum = ownProps.round2RoomNum;
@@ -17,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
     return player.username === state.session.user.username;
   });
   let opponentIndex = myIndex === 1 ? 0 : currentPlayers.length < 2 ? -1 : 1;
+  let socket = ownProps.socket;
 
   return {
     currentUser: state.session.user,
@@ -30,7 +32,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateRnd2GameStat: data => this.props.updateRnd2GameStat(data)
+    updateRnd2GameStat: data => dispatch(updateRnd2GameStat(data))
   };
 };
 
