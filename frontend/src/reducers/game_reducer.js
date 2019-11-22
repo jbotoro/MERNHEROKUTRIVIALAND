@@ -53,6 +53,7 @@ export default function(state = {}, action) {
       newState = Object.assign(state, {});
       newState.data.round2Rooms[action.data.round2Room] = action.data.players;
       return newState;
+
     case END_GAME:
       newState = Object.assign({}, state);
       delete newState[action.gameId];

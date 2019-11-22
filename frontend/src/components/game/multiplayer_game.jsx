@@ -24,7 +24,8 @@ class MultiplayerGame extends React.Component {
       round2Score: 0,
       round3Score: 0,
       players: this.props.players,
-      round2RoomNum: null
+      round2RoomNum: null,
+      isActive: true
       // currentPlayer: {
       //   id: this.props.currentUser.id,
       //   username: this.props.currentUser.username,
@@ -254,7 +255,13 @@ class MultiplayerGame extends React.Component {
         />
       );
     } else if (this.state.round === 4) {
-      display = <HighScores round={4} changeRounds={this.changeRounds} />;
+      display = (
+        <HighScores
+          players={this.state.players}
+          round={4}
+          changeRounds={this.changeRounds}
+        />
+      );
       // high score board for proceed
     } else if (this.state.round === 5) {
       questions = this.props.rnd3Qs;

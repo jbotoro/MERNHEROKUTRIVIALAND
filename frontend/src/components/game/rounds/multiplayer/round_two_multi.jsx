@@ -32,7 +32,7 @@ class RoundTwo extends React.Component {
     this.props.socket.on(
       "update round 2 answers",
       ({ round2Room, players }) => {
-        // console.log("RND 2 DATA PASS", round2Room, players);
+        console.log("RND 2 DATA PASS: ======", round2Room, players);
         let opponent = players[this.props.opponentIndex];
 
         this.setState({
@@ -42,7 +42,7 @@ class RoundTwo extends React.Component {
 
         let room2Data = { players: players, round2Room: round2Room };
 
-        this.props.updateRnd2GameStat(room2Data);
+        // this.props.updateRnd2GameStat(room2Data);
       }
     );
   }
@@ -103,9 +103,15 @@ class RoundTwo extends React.Component {
 
     players[this.props.myIndex] = thisPlayer;
 
-    let room2Data = { players: players, round2Room: this.props.round2RoomNum };
+    // let room2Data = { players: players, round2Room: this.props.round2RoomNum };
 
-    this.props.updateRnd2GameStat(room2Data);
+    // this.props.updateRnd2GameStat(room2Data);
+
+    // console.log(
+    //   "MY END ROUND 2 DATA PASS:    ",
+    //   room2Data.players,
+    //   room2Data.round2Room
+    // );
 
     this.props.socket.emit("updateRnd2", {
       round2Room: this.props.round2RoomNum,
@@ -123,6 +129,14 @@ class RoundTwo extends React.Component {
     } else if (this.state.rightAnswers === 3) {
       clearTimeout(this.questionTimer);
       setTimeout(this.props.changeRounds, 1200);
+    } else if (this.state.opponentStrikes === 3) {
+      clearTimeout(this.questionTimer);
+      setTimeout(this.props.changeRounds, 1200);
+    } else if (this.state.opponentRightAnswers === 3) {
+      clearTimeout(this.questionTimer);
+      setTimeout(() => {
+        this.props.changeRounds("gameover");
+      }, 1200);
     }
   }
 

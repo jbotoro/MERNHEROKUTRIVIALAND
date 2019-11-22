@@ -9,7 +9,7 @@ const msp = (state, ownProps) => {
   let game = state.entities.game;
   let currentUser = state.session.user;
   const socket = ownProps.socket;
-  let players = game.data.players;
+  let players = state.entities.game.data.players;
   return {
     currentUser: currentUser,
     game: game,

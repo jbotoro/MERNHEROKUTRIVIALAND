@@ -38,6 +38,7 @@ class GameLobby extends React.Component {
 
     this.props.socket.on("game started", room => {
       console.log("=======================", room);
+      this.removeDuplicatePlayers();
       this.props.history.push(`/game/${this.props.game.data._id}`);
     });
 
@@ -70,7 +71,8 @@ class GameLobby extends React.Component {
   }
 
   componentWillUnmount() {
-    this.removeDuplicatePlayers();
+    console.log("UNMOUNTING GAME LOBBY REMOVING DUP PLAYERS +++++++++++++++");
+    // this.removeDuplicatePlayers();
   }
 
   handleStartButton(e) {
