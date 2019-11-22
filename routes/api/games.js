@@ -53,6 +53,11 @@ router.post(
     // console.log("updated User Backend Success: ", updateUser(user));
 
     let updatedUser = updateUser(user);
+
+    // let updatedUser = await updateUser(user);
+
+    // ^^^^^^^^^^^ MAY NEED TO IMPLEMENT THIS ^^^^^^^^^^======
+
     // console.log("updated User Backend Success: ", updatedUser);
 
     // updatedUser = await User.findOne({ _id: user.id });
