@@ -139,6 +139,12 @@ io.on("connection", socket => {
     socket.to(room).emit("update round 2 answers", { players, round2Room });
   });
 
+  // idx below represents idx on players array from game.data pojo
+
+  socket.on("join room 3", ({ idx, room, round2RoomNum }) => {
+    io.to(room).emit("add player to room 3", { idx, round2RoomNum });
+  });
+
   // ^^^^ CHANGING LOGIC OF SOCKET TO EMIT ONLY TO OTHER USERS ^^^^^^
   // REASON B/C UPON UPDATING PLAYERS ARRAY IN RIGHT ANSWER FUNCTION,
   // CAN JUST USE ACTION FUNCTION IN THEIR TO BETTER TEST IF RECIPIENT OF DATA

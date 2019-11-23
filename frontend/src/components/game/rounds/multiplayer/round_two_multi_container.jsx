@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 //import Profile from './profile';
 import RoundTwo from "./round_two_multi";
-import { updateRnd2GameStat } from "../../../../actions/game_actions";
+import { updateRnd2GameStat, deleteRound2Rooms } from "../../../../actions/game_actions";
 
 const mapStateToProps = (state, ownProps) => {
   let round2RoomNum = ownProps.round2RoomNum;
@@ -32,7 +32,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateRnd2GameStat: data => dispatch(updateRnd2GameStat(data))
+    updateRnd2GameStat: data => dispatch(updateRnd2GameStat(data)),
+    deleteRound2Rooms: room => dispatch(deleteRound2Rooms(room))
   };
 };
 

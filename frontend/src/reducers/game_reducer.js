@@ -8,7 +8,9 @@ import {
   RECIEVE_CURRENT_GAME,
   UPDATE_GAME_STATE,
   CREATE_ROUND2_ROOMS,
-  UPDATE_RND2_GAME_STATE
+  DELETE_ROUND2_ROOMS,
+  UPDATE_RND2_GAME_STATE,
+  ADD_TO_ROUND3_ROOM
 } from "../actions/game_actions";
 import { bindActionCreators } from "../../../../../../Library/Caches/typescript/3.6/node_modules/redux";
 
@@ -49,9 +51,22 @@ export default function(state = {}, action) {
       newState.data.round2Rooms = action.rooms;
       return newState;
 
+    case DELETE_ROUND2_ROOMS:
+      newState = Object.assign(state, {});
+      delete newState.data.round2Rooms[action.room];
+      return newState;
+
     case UPDATE_RND2_GAME_STATE:
       newState = Object.assign(state, {});
       newState.data.round2Rooms[action.data.round2Room] = action.data.players;
+      return newState;
+
+    case ADD_TO_ROUND3_ROOM:
+      newState = Object.assign(state, {});
+      if (!newState.data.round3Room) newState.data.round3Room = {};
+      let currentPlayer = newState.data.players[action.idx];
+      newState.data.round3Room[currentPlayer.username] = currentPlayer;
+      console.log("ROUND 3 REDUCER", newState);
       return newState;
 
     case END_GAME:

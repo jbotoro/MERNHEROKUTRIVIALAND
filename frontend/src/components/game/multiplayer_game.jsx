@@ -67,12 +67,11 @@ class MultiplayerGame extends React.Component {
       this.props.updateRoomScore(players);
     });
 
-    // this.props.socket.on(
-    //   "update round 2 answers",
-    //   ({ round2Room, players }) => {
-    //     console.log("RND 2 DATA PASS", round2Room, players);
-    //   }
-    // );
+    this.props.socket.on("add player to room 3", ({ idx, round2RoomNum }) => {
+      console.log("RND 2 DATA PASS", idx);
+      this.props.addToRnd3Room(idx);
+      this.props.deleteRound2Rooms(round2RoomNum);
+    });
 
     // this.setState({
     //   currentPlayer: { currentScore: this.state.currentPlayer.currentScore }
@@ -252,6 +251,7 @@ class MultiplayerGame extends React.Component {
           updateScore={this.updateScore}
           questions={questions}
           changeRounds={this.changeRounds}
+          playersIndex={this.props.index}
         />
       );
     } else if (this.state.round === 4) {

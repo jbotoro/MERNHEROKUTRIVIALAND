@@ -79,7 +79,7 @@ class RoundTwo extends React.Component {
     let thisPlayer = players[this.props.myIndex];
 
     //calling clock child component reset clock function to display new countdown
-    if (this.state.rightAnswers < 3) {
+    if (this.clock.current && this.state.rightAnswers < 3) {
       this.clock.current.resetClock();
     }
     clearTimeout(this.questionTimer);
@@ -127,9 +127,19 @@ class RoundTwo extends React.Component {
         this.props.changeRounds("gameover");
       }, 1200);
     } else if (this.state.rightAnswers === 3) {
+      this.props.socket.emit("join room 3", {
+        round2Room: this.props.round2RoomNum,
+        room: this.props.socketRoom,
+        idx: this.props.playersIndex
+      });
       clearTimeout(this.questionTimer);
       setTimeout(this.props.changeRounds, 1200);
     } else if (this.state.opponentStrikes === 3) {
+      this.props.socket.emit("join room 3", {
+        round2Room: this.props.round2RoomNum,
+        room: this.props.socketRoom,
+        idx: this.props.playersIndex
+      });
       clearTimeout(this.questionTimer);
       setTimeout(this.props.changeRounds, 1200);
     } else if (this.state.opponentRightAnswers === 3) {

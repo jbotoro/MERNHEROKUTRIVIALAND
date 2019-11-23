@@ -20,6 +20,9 @@ class HighScore extends React.Component {
     if (this.props.socket) {
       this.props.socket.on("change round", () => this.props.changeRounds());
     }
+    if (this.props.round === 4) {
+      console.log("YOU'RE THE ROUND2 VICTOR, ROUND THREE IS NEXT!!!!");
+    }
   }
 
   componentWillUnmount() {
@@ -43,12 +46,16 @@ class HighScore extends React.Component {
     if (0) {
       return null;
     }
+
+    // let waitingClass = this.props.round === 4? :"next-round-button "
+
     let button = this.props.socket ? (
       <button
         onClick={() => {
           this.props.socket.emit("tryChangeRoom", this.props.room);
           //   this.props.changeRounds();
         }}
+        // className={waitingClass}
         className="next-round-button"
       >
         Click to Proceed

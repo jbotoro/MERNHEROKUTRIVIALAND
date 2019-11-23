@@ -10,14 +10,29 @@ export const START_GAME = "START_GAME";
 export const UPDATE_GAME_STATE = "UPDATE_GAME_STATE";
 export const UPDATE_ROOM_SCORE = "UPDATE_ROOM_SCORE"; // when one user updates score
 export const RECIEVE_CURRENT_GAME = "RECIEVE_CURRENT_GAME";
+//round 2 actions
 export const CREATE_ROUND2_ROOMS = "CREATE_ROUND2_ROOMS";
+export const DELETE_ROUND2_ROOMS = "DELETE_ROUND2_ROOMS";
+export const UPDATE_RND2_GAME_STATE = "UPDATE_RND2_GAME_STATE";
+//round 3 actions
+export const ADD_TO_ROUND3_ROOM = "ADD_TO_ROUND3_ROOM";
+// export const UPDATE_RND3_GAME_STATE = "UPDATE_RND3_GAME_STATE";
 // all users will recieve update score
 export const END_GAME = "END_GAME";
 
-export const UPDATE_RND2_GAME_STATE = "UPDATE_RND2_GAME_STATE";
+export const addToRnd3Room = idx => ({
+  type: ADD_TO_ROUND3_ROOM,
+  idx
+});
+
 export const updateRnd2GameStat = data => ({
   type: UPDATE_RND2_GAME_STATE,
   data
+});
+
+export const deleteRound2Rooms = room => ({
+  type: DELETE_ROUND2_ROOMS,
+  room
 });
 
 export const createRound2Rooms = rooms => ({

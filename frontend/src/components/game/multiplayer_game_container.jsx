@@ -53,7 +53,9 @@ const mapDispatchToProps = dispatch => {
     removePlayerFromGame: game =>
       dispatch(GameActions.removePlayerFromGame(game)),
     createRound2Rooms: rooms => dispatch(GameActions.createRound2Rooms(rooms)),
-    updateRnd2GameStat: data => dispatch(GameActions.updateRnd2GameStat(data))
+    deleteRound2Rooms: room => dispatch(GameActions.deleteRound2Rooms(room)),
+    updateRnd2GameStat: data => dispatch(GameActions.updateRnd2GameStat(data)),
+    addToRnd3Room: idx => dispatch(GameActions.addToRnd3Room(idx))
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),
   };
 };

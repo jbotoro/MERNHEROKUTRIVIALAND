@@ -13,7 +13,7 @@ class Game extends React.Component {
     super(props);
     //Need to add current user in State
     this.state = {
-      round: 1,
+      round: 5,
       currentScore: 1000,
       round1Score: 0,
       round2Score: 0,
@@ -158,7 +158,13 @@ class Game extends React.Component {
         />
       );
     } else if (this.state.round === 4) {
-      display = <HighScores round={4} changeRounds={this.changeRounds} />;
+      display = (
+        <HighScores
+          players={this.singlePlayerHighScorePass()}
+          round={4}
+          changeRounds={this.changeRounds}
+        />
+      );
       // high score board for proceed
     } else if (this.state.round === 5) {
       questions = this.props.rnd3Qs;
@@ -174,6 +180,7 @@ class Game extends React.Component {
     } else if (this.state.round === 6) {
       display = (
         <HighScores
+          players={this.singlePlayerHighScorePass()}
           round={4}
           changeRounds={this.changeRounds}
           round3Score={this.state.round3Score}
@@ -183,6 +190,7 @@ class Game extends React.Component {
     } else if (this.state.round === 7) {
       display = (
         <HighScores
+          players={this.singlePlayerHighScorePass()}
           changeRounds={this.changeRounds}
           round1Score={this.state.round1Score}
           round2Score={this.state.round2Score}
