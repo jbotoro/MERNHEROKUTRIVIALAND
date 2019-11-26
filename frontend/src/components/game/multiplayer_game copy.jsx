@@ -62,7 +62,6 @@ class MultiplayerGame extends React.Component {
 
     this.props.socket.on("updated score", ({ player, idx }) => {
       // this.props.players[idx] = player;
-      console.log("UPDATE SCORE ON MULTIPLAYER: ", idx);
       let updatedPlayers = this.state.players;
       updatedPlayers[idx] = player;
       this.setState({ players: updatedPlayers });

@@ -70,8 +70,6 @@ class Profile extends React.Component {
         </button>
       ) : null;
 
-    console.log(this.props.currentUser);
-
     if (!user) {
       return null;
     }

@@ -31,10 +31,10 @@ router.post("/create", (req, res) => {
 router.get("/getCurrentQuestions/:gameId", (req, res) => {
   let roomId = req.params.gameId;
 
-  console.log(
-    "-----------------------------------------------room id in UTIL",
-    roomId
-  );
+  // console.log(
+  //   "-----------------------------------------------room id in UTIL",
+  //   roomId
+  // );
 
   CurrentGameQuestions.find({ roomId: roomId })
     .then(questions => {

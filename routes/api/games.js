@@ -58,8 +58,6 @@ router.post(
 
     // ^^^^^^^^^^^ MAY NEED TO IMPLEMENT THIS ^^^^^^^^^^======
 
-    // console.log("updated User Backend Success: ", updatedUser);
-
     // updatedUser = await User.findOne({ _id: user.id });
     // console.log("FROM /create route", user);
 
@@ -91,6 +89,7 @@ router.post(
         numberPlayers: 1, // for score update
         roomId: roomId,
         round2Rooms: {},
+        round3Room: {},
         isOnePlayerGame: isOnePlayerGame,
         hasStarted: false,
         startedAt: null

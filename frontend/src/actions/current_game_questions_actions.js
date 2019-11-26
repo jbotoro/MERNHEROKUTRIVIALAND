@@ -22,14 +22,15 @@ export const deleteQuestions = () => ({
 
 //THUNK
 export const createCurrentQuestions = questionsPayload => dispatch =>
-  CurrentQuestions.createQuestions(questionsPayload).then(
-    backendQuestionsPayload =>
-      dispatch(createQuestions(backendQuestionsPayload))
+  CurrentQuestions.createQuestions(
+    questionsPayload
+  ).then(backendQuestionsPayload =>
+    dispatch(createQuestions(backendQuestionsPayload))
   );
 
 export const newPlayerFetchQuestions = roomId => dispatch =>
   CurrentQuestions.fetchCurrentGameQuestions(roomId).then(questionsPayload => {
-    console.log("QUESTION PAYLOAD FROM USER JOINING:  ", questionsPayload);
+    // console.log("QUESTION PAYLOAD FROM USER JOINING:  ", questionsPayload);
     dispatch(fetchQuestions(questionsPayload));
   });
 

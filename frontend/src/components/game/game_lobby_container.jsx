@@ -9,11 +9,13 @@ const msp = (state, ownProps) => {
   let game = state.entities.game;
   let currentUser = state.session.user;
   const socket = ownProps.socket;
+  let players = state.entities.game.data.players;
   return {
     currentUser: currentUser,
     game: game,
     socket,
-    state
+    state,
+    players: players
   };
 };
 
@@ -32,7 +34,11 @@ const mdp = dispatch => {
     endGame: gameId => dispatch(GameAction.endCurrentGame(gameId)),
 
     // below regular action creators
+
+    // USING THIS ACTION CREATOR FOR TRUNCATING DUPLICATE PLAYERS ON COMPONENTWILLUNMOUNT
     startGame: game => dispatch(GameAction.startGame(game)),
+    // USING THIS ACTION CREATOR FOR TRUNCATING DUPLICATE PLAYERS ON COMPONENTWILLUNMOUNT
+
     updateRoomScore: game => dispatch(GameAction.updateRoomScore(game)),
 
     fetchAllQuestions: () => dispatch(fetchAllQuestions()),

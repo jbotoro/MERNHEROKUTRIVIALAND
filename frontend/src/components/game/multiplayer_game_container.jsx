@@ -23,6 +23,8 @@ const mapStateToProps = (state, ownProps) => {
   });
   let player = players[index];
   // const socket = ownProps.socket;
+  // let rnd3Players = state.entities.game.data.round3Room;
+  // console.log("IN MULTIPLAYER GAME CONTAINER:   ", rnd3Players);
 
   // let currentGame = state.entities.game;
   // pretend currentGame and the players array is getting
@@ -34,6 +36,7 @@ const mapStateToProps = (state, ownProps) => {
     round2Score: 0,
     round3Score: 0,
   } */
+  console.log("IN MULTIPLAYER GAME CONTAINER:   ", state);
   return {
     currentUser: state.session.user,
     questions,
@@ -44,7 +47,8 @@ const mapStateToProps = (state, ownProps) => {
     socket,
     players,
     index,
-    player
+    player,
+    rnd3Players: game.data.round3Room
     // socket
   };
 };
@@ -57,7 +61,9 @@ const mapDispatchToProps = dispatch => {
     removePlayerFromGame: game =>
       dispatch(GameActions.removePlayerFromGame(game)),
     createRound2Rooms: rooms => dispatch(GameActions.createRound2Rooms(rooms)),
-    updateRnd2GameStat: data => dispatch(GameActions.updateRnd2GameStat(data))
+    deleteRound2Rooms: room => dispatch(GameActions.deleteRound2Rooms(room)),
+    updateRnd2GameStat: data => dispatch(GameActions.updateRnd2GameStat(data)),
+    addToRnd3Room: idx => dispatch(GameActions.addToRnd3Room(idx))
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),
   };
 };
