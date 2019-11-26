@@ -6,23 +6,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 
-<<<<<<< HEAD
-app.use(passport.initialize());
-require('./config/passport')(passport);
-
-/*
-//sockets
-const path = require('path');
-const socketIO = require('socket.io');
-const http = requirez('http');
-
-const server = http.createServer(app);
-
-const GameState = require('./models/Game');
-=======
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
->>>>>>> c1ee586e1d7d6afffa50f1e6c1386d05b98137b0
 
 app.use(passport.initialize());
 require("./config/passport")(passport);
@@ -73,42 +58,6 @@ app.use("/api/currentGameQuestions", currentGameQuestions);
 //     socket.emit("echo", msg);
 //   });
 
-<<<<<<< HEAD
-//Wesocket Details Below
-
-
-gameState = function(currentUSer){
-  return {userID:currentUSer.id, currentScore:0, stillPlaying:true, round:1}
-}
-
-
- currentUsers = [];
- const http = require('http').Server(app);
- const io = require('socket.io')(http);
- io.on('connection', function (socket) {
-  console.log('a user connected');
-  // console.log(socket);
-  socket.on('disconnect', function () {
-    console.log('User Disconnected');
-  });
-  socket.on('testing', function (msg) {
-    console.log('message: ' + JSON.stringify(msg));
-    socket.emit("echo",msg);
-  });
-  socket.join("my_room");
-  io.to("my_room").emit("echo","mfing");
-  socket.on('join_a_room', function (msg) {
-    // socket.emit("echo", msg);
-    socket.join(msg.roomID);
-    currentUsers.push(gameState(msg.userInfo))
-  });
- });
- http.listen(port);
-
-
-/*
-const io = socketIO(server);
-=======
 //   socket.join("my_room");
 //   io.to("my_room").emit("echo", "mfing");
 
@@ -122,7 +71,6 @@ const io = socketIO(server);
 // http.listen(port);
 
 //Wesocket Details Below
->>>>>>> c1ee586e1d7d6afffa50f1e6c1386d05b98137b0
 
 const http = require("http").Server(app);
 const io = require("socket.io")(http);

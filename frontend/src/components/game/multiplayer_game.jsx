@@ -9,6 +9,7 @@ import GameOver from "./game_over";
 import HighScores from "./high_scores";
 import Clock from "./clock";
 import Marquee from "./rounds/multiplayer/marquee";
+import { Route, Redirect, withRouter } from "react-router-dom";
 
 // import { socket } from "../../index";
 
@@ -213,7 +214,7 @@ class MultiplayerGame extends React.Component {
 
   render() {
     if (!this.props.rnd1Qs) {
-      return null;
+      return <Redirect to="/profile" />
     }
 
     //console.log(this.state.currentPlayer.currentScore);

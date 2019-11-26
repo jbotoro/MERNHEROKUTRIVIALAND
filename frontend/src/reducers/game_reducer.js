@@ -10,7 +10,7 @@ import {
   CREATE_ROUND2_ROOMS,
   UPDATE_RND2_GAME_STATE
 } from "../actions/game_actions";
-import { bindActionCreators } from "../../../../../../Library/Caches/typescript/3.6/node_modules/redux";
+import { bindActionCreators } from "redux";
 
 // import { socket } from "../index.js";
 

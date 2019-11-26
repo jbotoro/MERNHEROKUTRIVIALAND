@@ -7,13 +7,17 @@ import * as GameActions from "../../actions/game_actions";
 import GameUtil from "../../util/game_util";
 
 const mapStateToProps = (state, ownProps) => {
+  if(!state.entities.game.data){
+    return {}
+  }
+
   let questions = state.entities.questions;
   let rnd1Qs = state.entities.multiplayerQuestions.round1Questions;
   let rnd2Qs = state.entities.multiplayerQuestions.round2Questions;
   let rnd3Qs = state.entities.multiplayerQuestions.round3Questions;
   let game = state.entities.game;
   let socket = ownProps.socket;
-  let players = game.data.players;
+  let players = state.entities.game.data.players;
   let index = players.findIndex(player => {
     return player.username === state.session.user.username;
   });
