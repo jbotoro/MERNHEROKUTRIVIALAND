@@ -16,6 +16,7 @@ export const DELETE_ROUND2_ROOMS = "DELETE_ROUND2_ROOMS";
 export const UPDATE_RND2_GAME_STATE = "UPDATE_RND2_GAME_STATE";
 //round 3 actions
 export const ADD_TO_ROUND3_ROOM = "ADD_TO_ROUND3_ROOM";
+export const FETCH_ROUND3_ROOM = "FETCH_ROUND3_ROOM";
 // export const UPDATE_RND3_GAME_STATE = "UPDATE_RND3_GAME_STATE";
 // all users will recieve update score
 export const END_GAME = "END_GAME";
@@ -23,6 +24,10 @@ export const END_GAME = "END_GAME";
 export const addToRnd3Room = idx => ({
   type: ADD_TO_ROUND3_ROOM,
   idx
+});
+
+export const fetchRound3Room = () => ({
+  type: FETCH_ROUND3_ROOM,
 });
 
 export const updateRnd2GameStat = data => ({

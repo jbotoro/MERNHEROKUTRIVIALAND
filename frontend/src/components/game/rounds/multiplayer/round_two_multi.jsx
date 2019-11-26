@@ -123,11 +123,32 @@ class RoundTwo extends React.Component {
   }
 
   numWrongRightCheck() {
+
+    // if (this.state.strikes === 3 || this.state.opponentRightAnswers === 3) {
+    //   clearTimeout(this.questionTimer);
+    //   setTimeout(() => {
+    //     this.props.changeRounds("gameover");
+    //   }, 1200);
+    // } else if (this.state.rightAnswers === 3 || this.state.opponentStrikes === 3) {
+    //   console.log(
+    //     "JOINING ROUND 3 ROUND 2 ROOM NUM DELETION:  ",
+    //     this.props.round2RoomNum
+    //   );
+    //   this.props.socket.emit("join room 3", {
+    //     round2Room: this.props.round2RoomNum,
+    //     room: this.props.socketRoom,
+    //     idx: this.props.playersIndex
+    //   });
+    //   clearTimeout(this.questionTimer);
+    //   setTimeout(this.props.changeRounds, 1200);
+    // } 
+
+
     if (this.state.strikes === 3) {
       clearTimeout(this.questionTimer);
       setTimeout(() => {
         this.props.changeRounds("gameover");
-      }, 1200);
+      }, 1400);
     } else if (this.state.rightAnswers === 3) {
       console.log(
         "JOINING ROUND 3 ROUND 2 ROOM NUM DELETION:  ",
@@ -156,8 +177,10 @@ class RoundTwo extends React.Component {
       clearTimeout(this.questionTimer);
       setTimeout(() => {
         this.props.changeRounds("gameover");
-      }, 1200);
+      }, 1400);
     }
+
+
   }
 
   wrongAnswersDisplay() {

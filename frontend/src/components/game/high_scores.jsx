@@ -49,6 +49,8 @@ class HighScore extends React.Component {
       return null;
     }
 
+    if(this.state.players.length !== this.props.players.length) this.setState({players:this.props.players});
+
     // console.log(this.props.players);
 
     // let waitingClass = this.props.round === 4? :"next-round-button "

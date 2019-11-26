@@ -17,11 +17,12 @@ const mapStateToProps = (state, ownProps) => {
   let rnd3Qs = state.entities.multiplayerQuestions.round3Questions;
   let game = state.entities.game;
   let socket = ownProps.socket;
-  let players = state.entities.game.data.players;
+  let players = state.entities.game.data.players || [];
   let index = players.findIndex(player => {
     return player.username === state.session.user.username;
   });
   let player = players[index];
+  let rnd3Room = state.entities.game.data.round3Room;
   // const socket = ownProps.socket;
   // let rnd3Players = state.entities.game.data.round3Room;
   // console.log("IN MULTIPLAYER GAME CONTAINER:   ", rnd3Players);
@@ -63,7 +64,8 @@ const mapDispatchToProps = dispatch => {
     createRound2Rooms: rooms => dispatch(GameActions.createRound2Rooms(rooms)),
     deleteRound2Rooms: room => dispatch(GameActions.deleteRound2Rooms(room)),
     updateRnd2GameStat: data => dispatch(GameActions.updateRnd2GameStat(data)),
-    addToRnd3Room: idx => dispatch(GameActions.addToRnd3Room(idx))
+    addToRnd3Room: idx => dispatch(GameActions.addToRnd3Room(idx)),
+
     //fetchUsersInGame: () => dispatch(fetchUsersInGame()),
   };
 };

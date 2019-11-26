@@ -27,7 +27,8 @@ class MultiplayerGame extends React.Component {
       players: this.props.players,
       round2RoomNum: null,
       isActive: true,
-      round3Players: []
+      round3Players: [],
+      testRnd3Plyrs: []
       // currentPlayer: {
       //   id: this.props.currentUser.id,
       //   username: this.props.currentUser.username,
@@ -46,6 +47,9 @@ class MultiplayerGame extends React.Component {
     this.fetchCurrentRnd2Score = this.fetchCurrentRnd2Score.bind(this);
     this.multiRound2Setup = this.multiRound2Setup.bind(this);
     this.updateRound2HighScores = this.updateRound2HighScores.bind(this);
+
+
+    ///The begginning /   /   /
   }
 
   updateRound2HighScores() {}
@@ -66,7 +70,7 @@ class MultiplayerGame extends React.Component {
     this.props.socket.on("updated score", ({ player, idx }) => {
       // this.props.players[idx] = player;
       // console.log("UPDATE SCORE ON MULTIPLAYER: ", idx);
-      let players = this.state.players;
+      let players = this.state.players || [];
       players[idx] = player;
       this.setState({ players: players });
       this.props.updateRoomScore(players);
@@ -76,6 +80,12 @@ class MultiplayerGame extends React.Component {
       // console.log("RND 2 DATA PASS", idx);
       this.props.addToRnd3Room(idx);
       this.props.deleteRound2Rooms(round2Room);
+      
+      if(this.props.game){
+        this.setState({
+          testRnd3Plyrs: Object.values(this.props.game.data.round3Room)
+        })
+      }
     });
 
     // this.setState({
@@ -297,11 +307,7 @@ class MultiplayerGame extends React.Component {
       );
       display = (
         <HighScores
-          players={Object.keys(this.props.game.data.round3Room)
-            .map(plyr => this.props.game.data.round3Room[plyr])
-            .sort((a, b) =>
-              a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
-            )}
+          players={this.state.testRnd3Plyrs}
           round={4}
           changeRounds={this.changeRounds}
         />
