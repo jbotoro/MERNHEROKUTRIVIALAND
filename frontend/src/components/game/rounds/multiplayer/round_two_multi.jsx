@@ -27,18 +27,20 @@ class RoundTwo extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.currentPlayers);
+    console.log("ROUND 2 PLAYERS:   ", this.props);
     // this.props.getQestions();
     this.props.socket.on(
       "update round 2 answers",
       ({ round2Room, players }) => {
-        console.log("RND 2 DATA PASS: ======", round2Room, players);
-        let opponent = players[this.props.opponentIndex];
+        // console.log("RND 2 DATA PASS: ======", round2Room, players);
+        if (this.props.round2RoomNum === round2Room) {
+          let opponent = players[this.props.opponentIndex];
 
-        this.setState({
-          opponentStrikes: opponent.strikes,
-          opponentRightAnswers: opponent.rightAnswers
-        });
+          this.setState({
+            opponentStrikes: opponent.strikes,
+            opponentRightAnswers: opponent.rightAnswers
+          });
+        }
 
         let room2Data = { players: players, round2Room: round2Room };
 
@@ -127,6 +129,10 @@ class RoundTwo extends React.Component {
         this.props.changeRounds("gameover");
       }, 1200);
     } else if (this.state.rightAnswers === 3) {
+      console.log(
+        "JOINING ROUND 3 ROUND 2 ROOM NUM DELETION:  ",
+        this.props.round2RoomNum
+      );
       this.props.socket.emit("join room 3", {
         round2Room: this.props.round2RoomNum,
         room: this.props.socketRoom,
@@ -135,6 +141,10 @@ class RoundTwo extends React.Component {
       clearTimeout(this.questionTimer);
       setTimeout(this.props.changeRounds, 1200);
     } else if (this.state.opponentStrikes === 3) {
+      console.log(
+        "JOINING ROUND 3 ROUND 2 ROOM NUM DELETION:  ",
+        this.props.round2RoomNum
+      );
       this.props.socket.emit("join room 3", {
         round2Room: this.props.round2RoomNum,
         room: this.props.socketRoom,
@@ -189,10 +199,10 @@ class RoundTwo extends React.Component {
     this.numWrongRightCheck();
     this.setTimer();
 
-    console.log("MY STRIKES:   ", this.state.strikes);
-    console.log("MY RIGHT ANSWERS:   ", this.state.rightAnswers);
-    console.log("OPPONENT STRIKES:   ", this.state.opponentStrikes);
-    console.log("OPPONENT RIGHT ANSWERS:   ", this.state.opponentRightAnswers);
+    // console.log("MY STRIKES:   ", this.state.strikes);
+    // console.log("MY RIGHT ANSWERS:   ", this.state.rightAnswers);
+    // console.log("OPPONENT STRIKES:   ", this.state.opponentStrikes);
+    // console.log("OPPONENT RIGHT ANSWERS:   ", this.state.opponentRightAnswers);
 
     let questionsObject = this.props.questions;
     //let categoryName = Object.keys(questionsObject)
@@ -220,6 +230,10 @@ class RoundTwo extends React.Component {
         <div className="game-board-rnd2-left">
           <div className="round-two-rules">
             <h1>Round Two</h1>
+            <h1>
+              Opponent:{" "}
+              {this.state.currentPlayers[this.props.opponentIndex].username}
+            </h1>
             <h2>
               Rules: you have 15 seconds to answer a question or you will get
               one wrong

@@ -18,16 +18,16 @@ class GameLobby extends React.Component {
 
   componentDidMount() {
     this.props.socket.on("added player", ({ room, roster }) => {
-      console.log(
-        "UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ",
-        roster,
-        "socket",
-        this.props.socket
-      );
-      console.log(
-        "ON THE FRONTEND APP SHOWING THIS!!-----: ",
-        this.props.state
-      );
+      // console.log(
+      //   "UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ",
+      //   roster,
+      //   "socket",
+      //   this.props.socket
+      // );
+      // console.log(
+      //   "ON THE FRONTEND APP SHOWING THIS!!-----: ",
+      //   this.props.state
+      // );
 
       // debugger;
       // FOR SOME REASON FETCHCURRENTGAME IS NOT INSTANTIATING SUPPOSODELY
@@ -37,13 +37,9 @@ class GameLobby extends React.Component {
     });
 
     this.props.socket.on("game started", room => {
-      console.log("=======================", room);
+      // console.log("=======================", room);
       this.removeDuplicatePlayers();
       this.props.history.push(`/game/${this.props.game.data._id}`);
-    });
-
-    this.props.socket.on("startTest", room => {
-      console.log("Test this shite", room);
     });
 
     // if (this.props.game.hasStarted) {
@@ -71,17 +67,14 @@ class GameLobby extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log("UNMOUNTING GAME LOBBY REMOVING DUP PLAYERS +++++++++++++++");
     // this.removeDuplicatePlayers();
   }
 
   handleStartButton(e) {
-    console.log(this.props.game);
     let game = this.props.game;
     game.data.hasStarted = true;
     this.props.startGame(game);
     // will require a socket emit call with updated state at this point
-    console.log(this.props.game);
 
     if (this.props.game.data.players.length === 1) {
       this.props.history.push(`/game`);
@@ -96,8 +89,6 @@ class GameLobby extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    console.log(this.props.game);
     // console.log(this.props.currentUser.id , this.props.game.data.creator)
 
     // if (!Object.keys(this.props.state.entities.game.data.players.length)) {

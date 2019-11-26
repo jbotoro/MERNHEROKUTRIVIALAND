@@ -34,6 +34,11 @@ const GameSchema = new Schema({
     type: Number
   },
 
+  round3Room: {
+    type: Object,
+    default: {}
+  },
+
   roomId: {
     type: Number,
     minimum: 1000,

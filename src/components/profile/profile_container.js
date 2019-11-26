@@ -1,9 +1,9 @@
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import Profile from './profile';
-import { fetchCurrentUserData } from '../../actions/users_actions';
+import Profile from "./profile";
+import { fetchCurrentUserData } from "../../actions/users_actions";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const users = state.entities.users;
   // console.log(users);
   return {
@@ -14,8 +14,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCurrentUserData: username => dispatch(fetchCurrentUserData(username)),
-    fetchUserData: ()=> console.log("currently not fully setup")//id => dispatch(fetchUserData(id))
+    fetchCurrentUserData: username => dispatch(fetchCurrentUserData(username))
+    // fetchUserData: ()=> console.log("currently not fully setup")//id => dispatch(fetchUserData(id))
   };
 };
 

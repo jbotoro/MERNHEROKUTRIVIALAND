@@ -19,6 +19,8 @@ const mapStateToProps = (state, ownProps) => {
   });
   let player = players[index];
   // const socket = ownProps.socket;
+  // let rnd3Players = state.entities.game.data.round3Room;
+  // console.log("IN MULTIPLAYER GAME CONTAINER:   ", rnd3Players);
 
   // let currentGame = state.entities.game;
   // pretend currentGame and the players array is getting
@@ -30,6 +32,7 @@ const mapStateToProps = (state, ownProps) => {
     round2Score: 0,
     round3Score: 0,
   } */
+  console.log("IN MULTIPLAYER GAME CONTAINER:   ", state);
   return {
     currentUser: state.session.user,
     questions,
@@ -40,7 +43,8 @@ const mapStateToProps = (state, ownProps) => {
     socket,
     players,
     index,
-    player
+    player,
+    rnd3Players: game.data.round3Room
     // socket
   };
 };

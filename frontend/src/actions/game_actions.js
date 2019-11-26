@@ -91,7 +91,6 @@ export const generateGame = newGame => dispatch =>
 
 export const addPlayer = gameId => dispatch =>
   GameUtil.addPlayer(gameId).then(game => {
-    console.log("in actions:", game);
     dispatch(addPlayerToRoom(game));
   });
 

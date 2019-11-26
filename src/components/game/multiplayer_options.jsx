@@ -86,12 +86,12 @@ class MultiplayerOptions extends React.Component {
       //   newGameInput["questions"] = parsedQuestions;
       //   console.log("Parsed Qs", parsedQuestions);
 
-      console.log("game before generate");
-      console.log(this.props.currentGame);
+      // console.log("game before generate");
+      // console.log(this.props.currentGame);
 
       this.props.generateGame(newGameInput).then(() => {
-        console.log("current game after generate");
-        console.log(this.props.currentGame);
+        // console.log("current game after generate");
+        // console.log(this.props.currentGame);
 
         this.joinSocket(this.props.currentGame.data.roomId);
         // .then(() =>

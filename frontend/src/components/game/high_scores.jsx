@@ -16,12 +16,14 @@ class HighScore extends React.Component {
   }
 
   componentDidMount() {
+    console.log("HIGH SCORES PLAYERS:   ", this.props.players);
+
     this.sortHighScores();
     if (this.props.socket) {
       this.props.socket.on("change round", () => this.props.changeRounds());
     }
     if (this.props.round === 4) {
-      console.log("YOU'RE THE ROUND2 VICTOR, ROUND THREE IS NEXT!!!!");
+      // console.log("YOU'RE THE ROUND2 VICTOR, ROUND THREE IS NEXT!!!!");
     }
   }
 
@@ -46,6 +48,8 @@ class HighScore extends React.Component {
     if (0) {
       return null;
     }
+
+    // console.log(this.props.players);
 
     // let waitingClass = this.props.round === 4? :"next-round-button "
 

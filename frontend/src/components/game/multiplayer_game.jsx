@@ -25,7 +25,8 @@ class MultiplayerGame extends React.Component {
       round3Score: 0,
       players: this.props.players,
       round2RoomNum: null,
-      isActive: true
+      isActive: true,
+      round3Players: []
       // currentPlayer: {
       //   id: this.props.currentUser.id,
       //   username: this.props.currentUser.username,
@@ -43,7 +44,10 @@ class MultiplayerGame extends React.Component {
     this.changeRounds = this.changeRounds.bind(this);
     this.fetchCurrentRnd2Score = this.fetchCurrentRnd2Score.bind(this);
     this.multiRound2Setup = this.multiRound2Setup.bind(this);
+    this.updateRound2HighScores = this.updateRound2HighScores.bind(this);
   }
+
+  updateRound2HighScores() {}
 
   componentDidMount() {
     //console.log(this.props)
@@ -60,17 +64,17 @@ class MultiplayerGame extends React.Component {
 
     this.props.socket.on("updated score", ({ player, idx }) => {
       // this.props.players[idx] = player;
-      console.log("UPDATE SCORE ON MULTIPLAYER: ", idx);
+      // console.log("UPDATE SCORE ON MULTIPLAYER: ", idx);
       let players = this.state.players;
       players[idx] = player;
       this.setState({ players: players });
       this.props.updateRoomScore(players);
     });
 
-    this.props.socket.on("add player to room 3", ({ idx, round2RoomNum }) => {
-      console.log("RND 2 DATA PASS", idx);
+    this.props.socket.on("add player to room 3", ({ idx, round2Room }) => {
+      // console.log("RND 2 DATA PASS", idx);
       this.props.addToRnd3Room(idx);
-      this.props.deleteRound2Rooms(round2RoomNum);
+      this.props.deleteRound2Rooms(round2Room);
     });
 
     // this.setState({
@@ -100,7 +104,6 @@ class MultiplayerGame extends React.Component {
       });
 
       let player = this.state.players[this.props.index];
-      console.log(player);
       player.isActive.currentScore = this.state.currentScore + points;
       let room = this.props.game.data.roomId;
       // let idx = this.props.index;
@@ -211,6 +214,38 @@ class MultiplayerGame extends React.Component {
     return score;
   }
 
+  componentDidUpdate(prevProps) {
+    // if round 3 exists
+    //   if prev props of rnd 3 room =! current this.props.rnd3Room
+    //     setState
+    console.log(
+      "CHECKING COMPDIDUPDATE FOR ROUND_3_PLAYERS:   ",
+      this.props,
+      this.props.game.data.round3Room
+    );
+    let round3Players;
+    // Object.keys(this.props.rnd3Players).length
+    // this.state.rnd3Players.length
+    if (
+      this.props.game.data.round3Room &&
+      prevProps.game.data.round3Room != this.props.game.data.round3Room
+    ) {
+      round3Players = Object.keys(this.props.rnd3Players).map(
+        plyr => this.props.rnd3Players[plyr]
+      );
+      round3Players.sort((a, b) =>
+        a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
+      );
+      //sort
+
+      this.setState({
+        round3Players
+      });
+    }
+
+    // this.updateRound2HighScores();
+  }
+
   render() {
     if (!this.props.rnd1Qs) {
       return null;
@@ -255,9 +290,17 @@ class MultiplayerGame extends React.Component {
         />
       );
     } else if (this.state.round === 4) {
+      console.log(
+        "MULTIPLAYER AFTER RND 2 HIGH SCORES",
+        this.props.rnd3Players
+      );
       display = (
         <HighScores
-          players={this.state.players}
+          players={Object.keys(this.props.game.data.round3Room)
+            .map(plyr => this.props.game.data.round3Room[plyr])
+            .sort((a, b) =>
+              a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
+            )}
           round={4}
           changeRounds={this.changeRounds}
         />
@@ -314,17 +357,7 @@ class MultiplayerGame extends React.Component {
         {display}
 
         <Marquee players={this.state.players} />
-        {/* <div className="marquee-container">
-          <marquee behavior="scroll" direction="right" scrollamount="10">
-            <div className="marquee-scores">
-              {this.props.players.map(player => (
-                <h1>
-                  {player.username}: {player.isActive.currentScore} pts
-                </h1>
-              ))}
-            </div>
-          </marquee>
-        </div> */}
+        <h1>{this.props.currentUser.username}</h1>
       </div>
     );
   }

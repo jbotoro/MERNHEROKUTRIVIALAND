@@ -23,10 +23,6 @@ export default function(state = {}, action) {
     case CREATE_NEW_GAME:
       return action.game;
     case ADD_PLAYER_TO_ROOM:
-      console.log(
-        "IN REDUCER FOR USER JOINING GAME, HERE's POJO: ",
-        action.game
-      );
       return action.game;
     case REMOVE_PLAYER_FROM_ROOM:
       return action.game;
@@ -53,6 +49,7 @@ export default function(state = {}, action) {
 
     case DELETE_ROUND2_ROOMS:
       newState = Object.assign(state, {});
+      // console.log("DELETE ROUND 2 ROOM IN REDUX STATE: ", action);
       delete newState.data.round2Rooms[action.room];
       return newState;
 
@@ -66,7 +63,7 @@ export default function(state = {}, action) {
       if (!newState.data.round3Room) newState.data.round3Room = {};
       let currentPlayer = newState.data.players[action.idx];
       newState.data.round3Room[currentPlayer.username] = currentPlayer;
-      console.log("ROUND 3 REDUCER", newState);
+      // console.log("ROUND 3 REDUCER", newState);
       return newState;
 
     case END_GAME:

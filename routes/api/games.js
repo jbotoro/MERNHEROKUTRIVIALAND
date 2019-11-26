@@ -88,6 +88,7 @@ router.post(
         numberPlayers: 1, // for score update
         roomId: roomId,
         round2Rooms: {},
+        round3Room: {},
         isOnePlayerGame: isOnePlayerGame,
         hasStarted: false,
         startedAt: null

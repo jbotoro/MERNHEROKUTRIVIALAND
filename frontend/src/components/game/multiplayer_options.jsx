@@ -47,7 +47,7 @@ class MultiplayerOptions extends React.Component {
 
   handleJoinGame(e) {
     let roomId = this.state.gameId;
-    console.log("gameID", this.state);
+    // console.log("gameID", this.state);
     this.props.addPlayer(roomId).then(() => {
       this.props.newPlayerFetchQuestions(roomId).then(() => {
         this.joinSocket(roomId);
@@ -68,8 +68,8 @@ class MultiplayerOptions extends React.Component {
     newGameInput["isOnePlayerGame"] = true;
 
     this.props.generateGame(newGameInput).then(() => {
-      console.log("current game after generate");
-      console.log(this.props.currentGame);
+      // console.log("current game after generate");
+      // console.log(this.props.currentGame);
 
       questionsPayload["roomId"] = this.props.currentGame.data.roomId;
       fetchAllQuestions().then(questions => {
@@ -79,7 +79,7 @@ class MultiplayerOptions extends React.Component {
           round2Questions: parsedQuestions.round2Questions,
           round3Questions: parsedQuestions.round3Questions
         });
-        console.log("payload Qs", questionsPayload);
+        // console.log("payload Qs", questionsPayload);
         this.props.createCurrentQuestions(questionsPayload);
       });
 

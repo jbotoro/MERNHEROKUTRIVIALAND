@@ -7,8 +7,8 @@ export const generateGame = newGame => {
 };
 
 export const addPlayer = gameId => {
-  console.log("API UTIL CALL");
-  console.log(gameId);
+  // console.log("API UTIL CALL");
+  // console.log(gameId);
   return axios.patch(`/api/games/${gameId}/addPlayer`); // backend gets player id
   // automatically
   // resolve if issue

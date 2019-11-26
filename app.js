@@ -141,8 +141,8 @@ io.on("connection", socket => {
 
   // idx below represents idx on players array from game.data pojo
 
-  socket.on("join room 3", ({ idx, room, round2RoomNum }) => {
-    io.to(room).emit("add player to room 3", { idx, round2RoomNum });
+  socket.on("join room 3", ({ idx, room, round2Room }) => {
+    io.to(room).emit("add player to room 3", { idx, round2Room });
   });
 
   // ^^^^ CHANGING LOGIC OF SOCKET TO EMIT ONLY TO OTHER USERS ^^^^^^
