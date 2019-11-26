@@ -12,8 +12,15 @@
     "react-scripts": "2.1.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
+<<<<<<< HEAD
     "redux-thunk": "^2.3.0",
     "socket.io": "^2.3.0"
+=======
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.3.0",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+>>>>>>> c1ee586e1d7d6afffa50f1e6c1386d05b98137b0
   },
   "scripts": {
     "start": "react-scripts start",

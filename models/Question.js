@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema({
@@ -9,12 +9,12 @@ const QuestionSchema = new Schema({
   },
 
   questionType: {
-    type: String,
+    type: String
   },
 
   difficulty: {
     type: String,
-    required: true,
+    required: true
   },
 
   question: {
@@ -35,6 +35,6 @@ const QuestionSchema = new Schema({
     maxItems: 3,
     default: []
   }
-})
+});
 
-module.exports = Question = mongoose.model('questions', QuestionSchema);
+module.exports = Question = mongoose.model("questions", QuestionSchema);
