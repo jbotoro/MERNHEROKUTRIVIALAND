@@ -88,8 +88,8 @@ io.on("connection", socket => {
   // socket.join(socket.room);
 
   socket.on("join room", room => {
-    console.log("ROOM ID RECIEVED FROM CLIENT SIDE: ", room);
-    console.log("server side socket room before reassingment", socket.room);
+    // console.log("ROOM ID RECIEVED FROM CLIENT SIDE: ", room);
+    // console.log("server side socket room before reassingment", socket.room);
     console.log("joined new room");
     // socket.leave(socket.room);
     /* if (socket.room) {
@@ -103,8 +103,8 @@ io.on("connection", socket => {
 
     socket.room = room;
     socket.join(room);
-    console.log("SOCKET.JOIN(ROOM)", socket.room);
-    console.log("-----------THIS IS IO IN BACKEND ---------------", io);
+    // console.log("SOCKET.JOIN(ROOM)", socket.room);
+    // console.log("-----------THIS IS IO IN BACKEND ---------------", io);
     let roster = io.sockets.adapter.rooms[room];
 
     socket.to(room).emit("added player", { roster, room });
@@ -154,8 +154,14 @@ io.on("connection", socket => {
     io.to(room).emit("change round");
   });
 
-  socket.on("disconnect", ({ room, game }) => {
+  socket.on("disconnect", () => {
     console.log("user disconnected");
+    let room = socket.room;
+    if (!!socket.room) {
+      console.log("HERE'S THE SOCKET ROOM UPON LEAVING!!:   ", room);
+    }
+
+    // io.to()
     // socket.to(room).emit("disconnect", {});
     // socket.leave(socket.room);
     // socket.to(room).emit("remove player", { room, game });

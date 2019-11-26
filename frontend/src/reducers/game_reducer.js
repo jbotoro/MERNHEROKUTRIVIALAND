@@ -23,6 +23,22 @@ export default function(state = {}, action) {
     case CREATE_NEW_GAME:
       return action.game;
     case ADD_PLAYER_TO_ROOM:
+      // let players = action.game.data.players;
+      // let playersHash = {};
+      // // to reference individuals already in array
+      // // and remove them
+      // for (let i = players.length - 1; i >= 0; i--) {
+      //   if (playersHash[players[i].username]) {
+      //     players.splice(i, 1);
+      //   } else {
+      //     playersHash[players[i].username] = players[i];
+      //   }
+      // }
+      // // newState = Object.assign(state, {});
+      // // newState.data.players = players;
+      // let game = action.game;
+      // game.data.players = players;
+
       return action.game;
     case REMOVE_PLAYER_FROM_ROOM:
       return action.game;

@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const Game = require("../../models/Game");
 const User = require("../../models/User");
 const keys = require("../../config/keys");
+const CurrentGameQuestions = require("../../models/CurrentGameQuestions");
 
 router.get("/test", (req, res) => {
   return res.json({ msg: "This is the games route" });
@@ -18,12 +19,12 @@ router.post(
   "/create",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log("Create game OBJECT BACKEND: ", req.body);
+    // console.log("Create game OBJECT BACKEND: ", req.body);
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
     const user = req.user;
-    console.log("WHAT USER MODEL LOOKS LIKE IN BACKEND REQUEST: ", user);
-    console.log("CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ");
+    // console.log("WHAT USER MODEL LOOKS LIKE IN BACKEND REQUEST: ", user);
+    // console.log("CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ");
     const questions = req.body.questions;
 
     const updateUser = async user => {
@@ -72,7 +73,7 @@ router.post(
     // req.user.round3Score = 0;
 
     Game.find().then(games => {
-      console.log("IN THE BACKEND LOOKING AT GAMES COLLECTION: ", games);
+      // console.log("IN THE BACKEND LOOKING AT GAMES COLLECTION: ", games);
       let roomIds = games.map(game => {
         return game["roomId"];
       });
@@ -108,7 +109,7 @@ router.patch(
   (req, res) => {
     let gameId = req.params.gameId;
     let newPlayerId = req.user.id;
-    console.log("back it up request", req.user.id);
+    // console.log("back it up request", req.user.id);
 
     const user = req.user;
 
@@ -147,11 +148,18 @@ router.patch(
     // req.user.round3Score = 0;
 
     Game.findOne({ roomId: gameId }).then(game => {
-      let players = game["players"];
+      let players = game["players"].map(player => {
+        return player._id;
+      });
 
       if (!players.includes(newPlayerId)) {
         game["players"].push(user);
         game["numberPlayers"] += 1;
+
+        console.log(
+          "ADDING PLAYER IN BACKEND HERES WHAT GAME LOOKS LIKE:   ",
+          game
+        );
 
         Game.updateOne(
           { roomId: gameId },
@@ -166,7 +174,12 @@ router.patch(
           res.json(game);
         });
       } else {
-        return res.status(400).json({ error: "User is already in game" });
+        console.log(
+          "ADDING PLAYER IN BACKEND HERES WHAT GAME LOOKS LIKE:   ",
+          game
+        );
+        res.json(game);
+        // res.status(400).json({ error: "User is already in game" });
       }
     });
   }
@@ -217,13 +230,35 @@ router.patch("/:gameId/removePlayer", (req, res) => {
   Game.findOne({ roomId: gameId }).then(game => {
     let players = game["players"];
     let indexToDelete = players.indexOf(playerId);
+    let creator = game["creator"]; // player id of person who created game
+    let roomId = game.roomId;
 
     if (indexToDelete > -1) {
       players = players.splice(indexToDelete, 1);
+      // now check mutated players array if "creator" player id is among any players
+      // in current players array, if not, then reassign creator property of game
+      // to the id of the first player in the array
+
+      // boolean value to check if creator in array
+      let isCreatorInGame = false;
+      for (let i = 0; i < players.length; i++) {
+        if (players[i]._id === creator) {
+          isCreatorInGame = true;
+          break;
+        }
+      }
+
+      if (!isCreatorInGame) {
+        game["creator"] = players[0]._id;
+      }
+
       game["players"] = players;
 
       game["numberPlayers"] -= 1;
-
+      console.log(
+        "REMOVED PLAYER FROM LOBBY IN BACKEND, HERE'S NEW GAME POJO:    ",
+        game
+      );
       Game.updateOne(
         { roomId: gameId },
         {
@@ -233,14 +268,16 @@ router.patch("/:gameId/removePlayer", (req, res) => {
           console.log(err);
           console.log(result);
         }
-      ).then(updated => res.json(updated));
+      ).then(() => res.json(game));
     } else {
       return res.status(400).json({ error: "User is not in game" });
     }
 
-    if (!game.players) {
-      Game.deleteOne({ roomId: gameId });
-    }
+    // if (!game.players) {
+    //   // delete
+    //   CurrentGameQuestions.deleteOne({ roomId: roomId });
+    //   Game.deleteOne({ roomId: roomId });
+    // }
   });
 });
 
