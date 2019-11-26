@@ -74,12 +74,11 @@ class HighScore extends React.Component {
         return (
             <div className="rnd3-main-user-container">
                 <div className="rnd_3_user_display_clock">
-                    <h1>Clock:&nbsp;&nbsp;</h1>
-                    <h1 className="clock"> <Clock seconds={10} ref={this.clock}/> </h1>
+                    <h1>Clock:&nbsp;&nbsp;</h1><span className="rnd-3-clock"><Clock seconds={10} ref={this.clock}/></span>
                 </div>
 
                 <div className="rnd_3_user_display_clock">
-                    <h1>Username:&nbsp;&nbsp;</h1><h1 className="clock">{this.props.currentUser.username}</h1>
+                    <h1>Username:&nbsp;&nbsp;</h1><span>{this.props.currentUser.username}</span>
                 </div>
 
                 <div className='rnd3_chosen_category'>
