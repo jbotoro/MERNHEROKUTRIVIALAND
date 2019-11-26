@@ -63,12 +63,12 @@ class SignupForm extends React.Component {
       <div className="session-page-content">
         <div className="session-form-container">
           <form className="session-form" onSubmit={this.handleSubmit}>
-            <input type="text"
+            <input className="placeholder-text"type="text"
               value={this.state.username}
               onChange={this.update('username')}
               placeholder="Username"
             />
-            <input type="password"
+            <input className="placeholder-text" type="password"
               value={this.state.password}
               onChange={this.update('password')}
               placeholder="Password"

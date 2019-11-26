@@ -29,7 +29,7 @@ class MainPage extends React.Component {
             </li>
             <li>
               <p>Jordan Black</p>
-              <a href="">GitHub</a>
+              <a href="https://github.com/jbotoro">GitHub</a>
               <a href="https://www.linkedin.com/in/jordan-black-a88b0481/">LinkedIn</a>
               <a href="mailto: jblack530@gmail.com">Email</a>
             </li>

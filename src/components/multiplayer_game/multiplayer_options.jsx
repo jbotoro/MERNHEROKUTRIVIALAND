@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import socketIOClient from 'socket.io-client';
+import "./game.css";
 
 class MultiplayerOptions extends React.Component {
 
@@ -75,17 +76,27 @@ class MultiplayerOptions extends React.Component {
     render() {
 
         return (
-            <div>
-                <form onSubmit={this.handleJoinGame}>
-                    <input type="text" onChange={this.handleJoinInput}/>
-                    <button onClick={this.handleJoinGame}>Join Game</button>
-                </form>
-                
-                <button onClick={this.handleCreateGame}>Create Game</button>
-            </div>
-        )
+          <div className='multi-options'>
+            <form className='multi-options-form' onSubmit={this.handleJoinGame}>
+              <input
+                type="text"
+                onChange={this.handleJoinInput}
+              />
+              <button
+                onClick={this.handleJoinGame}
+              >
+                Join Game
+              </button>
+            </form>
 
-    }
+            <button
+              onClick={this.handleCreateGame}
+            >
+              Create A New Game
+            </button>
+          </div>
+        )
+    };
 
 }
 

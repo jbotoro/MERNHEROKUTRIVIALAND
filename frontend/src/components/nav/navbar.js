@@ -40,8 +40,13 @@ class NavBar extends React.Component {
   render() {
       return (
         <div className="navvy">
-            <img src={logo} alt="Logo"/>
-            { this.getLinks() }
+          <li>
+            <a href="trivialand-app.herokuapp.com">
+              <img src={logo} alt="Logo" />
+            </a>
+          </li>
+          
+          { this.getLinks() }
         </div>
       );
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "./game.css";
 
 import { withRouter } from "react-router-dom";
 // import socketIOClient from "socket.io-client";
@@ -94,19 +95,30 @@ class MultiplayerOptions extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <form onSubmit={this.handleJoinGame}>
+      <div className="multi_options_parent">
+        <div className="multi_options">
+          <form className="multi_options_form" onSubmit={this.handleJoinGame}>
             <input
+              className="multi_options_input"
               type="text"
               placeholder="Enter Room ID"
               onChange={this.handleJoinInput(this)}
             />
-            <button onClick={this.handleJoinGame}>Join Game</button>
+            <button
+              className="multi_options_text"
+              onClick={this.handleJoinGame}
+            >
+              Join Game
+            </button>
+              <p> Or </p>
+            <button
+              className="multi_options_text"
+              onClick={this.handleCreateGame}
+            >
+              Create Game
+            </button>
           </form>
         </div>
-
-        <button onClick={this.handleCreateGame}>Create Game</button>
       </div>
     );
   }

@@ -25,13 +25,13 @@ class GameOver extends React.Component {
     render() {
 
         let display = this.props.currentScore > 0 ? (
-        <div>
+        <div className ='game-over-message'>
             <h3>Congratulations! You Win!</h3>
         </div>
         ) 
         : 
         (
-            <div>
+            <div className ='game-over-message'>
                 <h1>Sorry You Lose</h1>
             </div>
         );
@@ -40,7 +40,7 @@ class GameOver extends React.Component {
             <div>
                 {display}
                 <div className="next-round-clock-container">
-                    <h2>Starting new Game in: </h2>
+                    <h2> Starting new Game in: &nbsp;&nbsp;</h2>
                     <Clock seconds={5} />
                     {this.startNewGame()}
                 </div>

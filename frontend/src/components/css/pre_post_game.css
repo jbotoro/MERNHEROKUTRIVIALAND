@@ -15,7 +15,7 @@
   padding: 50px;
   padding-bottom: 80px;
   width: 450px;
-  border-bottom: 2px solid pink;
+  border-bottom: 2px solid #F3EEE3;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,36 +25,43 @@
   font-size: 30px;
   margin: 20px;
   padding: 5px 20px;
-  background-color: rgb(235, 198, 204);
+  background-color: #E5D8CE;
   border-radius: 7px;
-  animation: color-change-2 8s ease-in-out infinite;
+  color: #DD4B47;
+  box-shadow: 2px 2px rgba(229, 216, 206, 0.664);
+  /* animation: color-change-2 8s ease-in-out infinite; */
 }
 
-@keyframes color-change-2 {
+/* @keyframes color-change-2 {
     25% {
-        background-color: rgb(212, 151, 194);
-        color: rgb(238, 85, 111);
+        background-color: #DD71FF;
+        color: #DD4B47;
     }
     50% {
-        background-color: rgb(245, 187, 166);
-        color: rgb(110, 8, 8);
+        background-color: #71DAFF;
+        color: #DD4B47;
         }
     90% {
-        background-color: rgb(240, 240, 157);
-        color: rgb(121, 40, 10);
+        background-color: #FF9671;
+        color: #DD4B47;
     }
     100%{
-        background-color: rgb(235, 198, 204);
-        color: rgb(212, 55, 165);
-    }
-}
+        background-color:#93FF71;
+        color: #DD4B47;
+    } */
+/* } */
 
 /* Contributors info */
+
+::placeholder {
+  color: #DD4B47;
+}
 
 .creators-box > h3 {
   padding-top: 20px;
   font-size: 22px;
   font-weight: 400;
+  color: #F3EEE3;
 }
 
 .creators-list {
@@ -79,10 +86,12 @@
   font-weight: 700;
   font-size: 16.5px;
   padding-bottom: 4px;
+  color: #F3EEE3;
 }
 
 .creators-list > li > a {
   padding-bottom: 1.5px;
+  color: rgb(202, 228, 190);
 }
 
 
@@ -108,24 +117,29 @@
   flex-direction: column;
   align-items: center;
   padding: 40px;
-  background-color: rgb(168, 201, 116);
+  background-color: #97AB8E;
   border-radius: 7px;
+  box-shadow: 3px 3px black;
 }
 
 .session-form input {
   margin-bottom: 10px;
-  background-color: rgb(211, 179, 201);
+  background-color: #F3EEE3;
   font-size: 20px;
   padding: 2px 10px;
+  color: #DD4B47;
+  font-weight: 800;
 }
 
 .submit-link-button {
-  background-color: rgb(235, 198, 204);
-  color: rgb(212, 55, 165);
+  background-color: #F3EEE3;
+  color: #DD4B47;
   border-radius: 7px;
   animation: color-change-2 8s ease-in-out infinite;
   padding: 3px;
   margin-top: 15px;
+  /* text-shadow: 0.25px 0.25px black; */
+  font-weight: 700;
 }
 
 
@@ -146,10 +160,11 @@
   flex-direction: column;
   justify-content: center;
   border-radius: 7px;
-  background-color: rgb(168, 201, 116);
+  background-color: #97AB8E;
   box-sizing: border-box;
   padding: 20px;
   margin-right: 50px;
+  box-shadow: 2px 2px black;
 }
 
 .profile-stats > h2 {
@@ -157,6 +172,14 @@
   font-weight: 800;
   margin: 0px auto;
   margin-bottom: 25px;
+  color: #F3EEE3;
+}
+.profile-stats > p {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0px auto;
+  margin-bottom: 25px;
+  color: #F3EEE3;
 }
 
 .players-stats-list {
@@ -179,13 +202,14 @@
 .play-button {
   font-size: 30px;
   font-weight: 800;
-  background-color: rgb(235, 198, 204);
-  color: rgb(212, 55, 165);
+  background-color: #E5D8CE;
+  color: #DD4B47;
   border-radius: 7px;
   animation: color-change-2 8s ease-in-out infinite;
   padding: 5px;
   max-width: 300px;
   margin-bottom: 20px;
+  box-shadow: 3px 3px black;
 }
 
 
