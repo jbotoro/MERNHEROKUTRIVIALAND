@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import "./game.css";
 // import socketIOClient from 'socket.io-client';
 
 // import { socket } from "../../index";
@@ -106,8 +107,8 @@ class GameLobby extends React.Component {
         this.props.currentUser.id === this.props.game.data.creator) ||
       (this.props.game.data[0] &&
         this.props.currentUser.id === this.props.game.data[0].creator) ? (
-        <div>
-          <div>
+        <div className='multi_lobby_parent'>
+          <div className='multi_lobby'>
             <button onClick={this.handleStartButton}>Start Game</button>
           </div>
 
@@ -119,13 +120,13 @@ class GameLobby extends React.Component {
           </div>
         </div>
       ) : (
-        <div>
-          <div>
+        <div className='multi_lobby_parent'>
+          <div className='multi_lobby_players'>
             <ul>
               {/* list of players will go here utilizing array of players in here */}
               {this.props.game.players}
             </ul>
-            <div>You are not the creator, wait for game to start</div>
+            <div className="multi_not_creator">You are not the creator, wait for game to start</div>
           </div>
         </div>
       );
@@ -133,7 +134,13 @@ class GameLobby extends React.Component {
     return (
       <div>
         {display}
-        <div>{this.props.game.data.roomId}</div>
+        <div className="roomnum">
+          {" "}
+          Lobby Number: 
+          <span>
+            {this.props.game.data.roomId}
+          </span>
+        </div>
       </div>
     );
   }
