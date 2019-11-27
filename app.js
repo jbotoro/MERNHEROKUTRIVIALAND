@@ -91,6 +91,8 @@ io.on("connection", socket => {
     // console.log("ROOM ID RECIEVED FROM CLIENT SIDE: ", room);
     // console.log("server side socket room before reassingment", socket.room);
     console.log("joined new room");
+    console.log("SOCKET IS:    ", socket.id);
+    // console.log("");
     // socket.leave(socket.room);
     /* if (socket.room) {
       socket.leave(socket.room);
@@ -157,8 +159,10 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log("user disconnected");
     let room = socket.room;
-    if (!!socket.room) {
+    if (!!room) {
       console.log("HERE'S THE SOCKET ROOM UPON LEAVING!!:   ", room);
+      console.log("HERES THE SOCKET ID UPON DISCONNECT:  ", socket.id);
+      // socket.to(room).emit("remove player");
     }
 
     // io.to()

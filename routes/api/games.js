@@ -22,10 +22,13 @@ router.post(
     // console.log("Create game OBJECT BACKEND: ", req.body);
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
-    const user = req.user;
+    let user = req.body.user;
+    console.log(
+      "WHAT DOES USER PAYLOAD LOOK LIKE IN BACKEND:   ",
+      req.body.user
+    );
     // console.log("WHAT USER MODEL LOOKS LIKE IN BACKEND REQUEST: ", user);
     // console.log("CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ");
-    const questions = req.body.questions;
 
     const updateUser = async user => {
       try {
@@ -51,9 +54,7 @@ router.post(
       }
     };
 
-    // console.log("updated User Backend Success: ", updateUser(user));
-
-    let updatedUser = updateUser(user);
+    // let updatedUser = updateUser(user);
 
     // let updatedUser = await updateUser(user);
 
@@ -84,7 +85,6 @@ router.post(
 
       const newGame = new Game({
         creator: req.user.id,
-        questions: questions,
         round: 1,
         players: [user], // value was req.user.id, but want entire user model
         numberPlayers: 1, // for score update
@@ -109,36 +109,40 @@ router.patch(
   (req, res) => {
     let gameId = req.params.gameId;
     let newPlayerId = req.user.id;
+    console.log(
+      "WHAT THE USER MODEL LOOKS LIKE FOR ADDING PLAYER:   ",
+      req.body.user
+    );
     // console.log("back it up request", req.user.id);
 
-    const user = req.user;
+    const user = req.body.user;
 
-    const updateUser = async user => {
-      try {
-        var updatedUser = await User.findOneAndUpdate(
-          { _id: user.id },
-          {
-            isActive: {
-              isActive: true,
-              roomId: null,
-              isTurn: true,
-              currentScore: 0,
-              round1Score: 0,
-              round2Score: 0,
-              round3Score: 0
-            }
-          },
-          { new: true }
-        );
-        // console.log("updated User Backend Success: ", updatedUser);
-        return updatedUser;
-      } catch (err) {
-        console.log("ERROR ON CREATING GAME: ", err);
-        return err;
-      }
-    };
+    // const updateUser = async user => {
+    //   try {
+    //     var updatedUser = await User.findOneAndUpdate(
+    //       { _id: user.id },
+    //       {
+    //         isActive: {
+    //           isActive: true,
+    //           roomId: null,
+    //           isTurn: true,
+    //           currentScore: 0,
+    //           round1Score: 0,
+    //           round2Score: 0,
+    //           round3Score: 0
+    //         }
+    //       },
+    //       { new: true }
+    //     );
+    //     // console.log("updated User Backend Success: ", updatedUser);
+    //     return updatedUser;
+    //   } catch (err) {
+    //     console.log("ERROR ON CREATING GAME: ", err);
+    //     return err;
+    //   }
+    // };
 
-    let updatedUser = updateUser(user);
+    // let updatedUser = updateUser(user);
 
     // hope with lines of code is that it will tap into current users model
     // and reset scores
@@ -230,6 +234,9 @@ router.patch("/:gameId/removePlayer", (req, res) => {
   Game.findOne({ roomId: gameId }).then(game => {
     let players = game["players"];
     let indexToDelete = players.indexOf(playerId);
+    // ^^ flawed logic, indexOf playerId is not the location in array,
+    // it is the player id
+
     let creator = game["creator"]; // player id of person who created game
     let roomId = game.roomId;
 

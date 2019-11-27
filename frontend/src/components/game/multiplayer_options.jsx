@@ -25,6 +25,31 @@ class MultiplayerOptions extends React.Component {
     this.handleJoinGame = this.handleJoinGame.bind(this);
     this.handleCreateGame = this.handleCreateGame.bind(this);
     this.joinSocket = this.joinSocket.bind(this);
+    this.createUserModel = this.createUserModel.bind(this);
+  }
+
+  createUserModel(socketId) {
+    return {
+      gamesPlayed: 0,
+      pointsPerGame: 0,
+      questionsAnswered: 0,
+      questionsCorrect: 0,
+      averageRoundOne: 0,
+      averageRoundTwo: 0,
+      isActive: {
+        isActive: true,
+        roomId: null,
+        isTurn: true,
+        currentScore: 0,
+        round1Score: 0,
+        round2Score: 0,
+        round3Score: 0
+      },
+      _id: this.props.currentUser.id,
+      username: this.props.currentUser.username,
+      socketId: socketId,
+      room3Player: false
+    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,7 +73,8 @@ class MultiplayerOptions extends React.Component {
   handleJoinGame(e) {
     let roomId = this.state.gameId;
     // console.log("gameID", this.state);
-    this.props.addPlayer(roomId).then(() => {
+    let user = this.createUserModel(this.props.socket.id);
+    this.props.addPlayer({ gameId: roomId, user }).then(() => {
       this.props.newPlayerFetchQuestions(roomId).then(() => {
         this.joinSocket(roomId);
         this.props.history.push(`/game/${roomId}/lobby`);
@@ -66,6 +92,14 @@ class MultiplayerOptions extends React.Component {
     let newGameInput = {};
     newGameInput["creator"] = this.props.currentUser.id;
     newGameInput["isOnePlayerGame"] = true;
+    newGameInput["socketId"] = this.props.socket.id;
+    let user = this.createUserModel(this.props.socket.id);
+    console.log("WHAT DATA TYPE OF SOCKET ID IS:   ", this.props.socket.id);
+    console.log(
+      "WHAT USER LOOKS LIKE IN FRONTEND UPON CREATING GAME:   ",
+      user
+    );
+    newGameInput["user"] = user;
 
     this.props.generateGame(newGameInput).then(() => {
       // console.log("current game after generate");

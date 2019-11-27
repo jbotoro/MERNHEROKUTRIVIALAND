@@ -17,6 +17,12 @@ class GameLobby extends React.Component {
   }
 
   componentDidMount() {
+    console.log(
+      "SOCKET ON FRONTEND IS:   ",
+      this.props.socket.id,
+      typeof this.props.socket.id
+    );
+
     this.props.socket.on("added player", ({ room, roster }) => {
       // console.log(
       //   "UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ",
@@ -35,6 +41,8 @@ class GameLobby extends React.Component {
       // FETCH CURRENT GAME IS WITH UPDATED PLAYERS ARRAY FROM INDIVIDUAL JOINING GAME
       this.props.fetchCurrentGame(room);
     });
+
+    // this.props.socket.on("", socketId)
 
     this.props.socket.on("game started", room => {
       // console.log("=======================", room);
