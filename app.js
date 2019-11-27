@@ -107,7 +107,8 @@ io.on("connection", socket => {
     socket.join(room);
     // console.log("SOCKET.JOIN(ROOM)", socket.room);
     // console.log("-----------THIS IS IO IN BACKEND ---------------", io);
-    let roster = io.sockets.adapter.rooms[room];
+    let roster = Object.keys(io.sockets.adapter.rooms[room].sockets);
+    console.log("HERE ARE ALL THE CURRENT SOCKETS IN THE ROOM:   ", roster);
 
     socket.to(room).emit("added player", { roster, room });
   });
@@ -162,13 +163,31 @@ io.on("connection", socket => {
     if (!!room) {
       console.log("HERE'S THE SOCKET ROOM UPON LEAVING!!:   ", room);
       console.log("HERES THE SOCKET ID UPON DISCONNECT:  ", socket.id);
-      // socket.to(room).emit("remove player");
+      let socketRemove = socket.id;
+      // now find first socket in rooms that is not socketRemove
+      // who will update the backend to remove that player from the
+      // game model
+      let roster = Object.keys(io.sockets.adapter.rooms[room].sockets);
+      let socketUpdater;
+      for (let i = 0; i < roster.length; i++) {
+        if (roster[i] != socketRemove) {
+          socketUpdater = i;
+          break;
+        }
+      }
+      console.log("HERE'S THE SOCKET UPDATER:   ", socketUpdater);
+      // socketUpdater will be in charge of calling thunk action, then emitting
+      // another socket call for all the other players to then recieve
+      // updated game pojo
+      socket.to(room).emit("remove player", { socketRemove, socketUpdater });
     }
 
-    // io.to()
-    // socket.to(room).emit("disconnect", {});
     // socket.leave(socket.room);
     // socket.to(room).emit("remove player", { room, game });
+  });
+
+  socket.on("receive updated game", room => {
+    socket.to(room).emit("retrieve updated game");
   });
 
   // want to add some logic that communicates with the models of game

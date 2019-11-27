@@ -17,7 +17,9 @@ export const addPlayer = payload => {
 };
 
 export const removePlayer = payload => {
-  return axios.patch(`/api/games/${payload.gameId}/removePlayer`, payload.user);
+  return axios.patch(`/api/games/${payload.gameId}/removePlayer`, {
+    removePlayerIndex: payload.removePlayerIndex
+  });
 };
 
 export const startGame = gameId => {

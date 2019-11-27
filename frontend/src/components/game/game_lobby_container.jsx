@@ -10,12 +10,16 @@ const msp = (state, ownProps) => {
   let currentUser = state.session.user;
   const socket = ownProps.socket;
   let players = state.entities.game.data.players;
+  let currentPlayer = players.find(player => {
+    return currentUser.username == player.username;
+  });
   return {
     currentUser: currentUser,
     game: game,
     socket,
     state,
-    players: players
+    players: players,
+    currentPlayer
   };
 };
 
@@ -30,7 +34,7 @@ const mdp = dispatch => {
     // updateScore: (gameId) => dispatch(GameAction.updateScore(gameId)),
 
     addPlayer: gameId => dispatch(GameAction.addPlayer(gameId)),
-    removePlayer: gameId => dispatch(GameAction.removePlayer(gameId)),
+    removePlayer: payload => dispatch(GameAction.removePlayer(payload)),
     endGame: gameId => dispatch(GameAction.endCurrentGame(gameId)),
 
     // below regular action creators

@@ -109,10 +109,10 @@ router.patch(
   (req, res) => {
     let gameId = req.params.gameId;
     let newPlayerId = req.user.id;
-    console.log(
-      "WHAT THE USER MODEL LOOKS LIKE FOR ADDING PLAYER:   ",
-      req.body.user
-    );
+    // console.log(
+    //   "WHAT THE USER MODEL LOOKS LIKE FOR ADDING PLAYER:   ",
+    //   req.body.user
+    // );
     // console.log("back it up request", req.user.id);
 
     const user = req.body.user;
@@ -160,10 +160,10 @@ router.patch(
         game["players"].push(user);
         game["numberPlayers"] += 1;
 
-        console.log(
-          "ADDING PLAYER IN BACKEND HERES WHAT GAME LOOKS LIKE:   ",
-          game
-        );
+        // console.log(
+        //   "ADDING PLAYER IN BACKEND HERES WHAT GAME LOOKS LIKE:   ",
+        //   game
+        // );
 
         Game.updateOne(
           { roomId: gameId },
@@ -178,10 +178,10 @@ router.patch(
           res.json(game);
         });
       } else {
-        console.log(
-          "ADDING PLAYER IN BACKEND HERES WHAT GAME LOOKS LIKE:   ",
-          game
-        );
+        // console.log(
+        //   "ADDING PLAYER IN BACKEND HERES WHAT GAME LOOKS LIKE:   ",
+        //   game
+        // );
         res.json(game);
         // res.status(400).json({ error: "User is already in game" });
       }
@@ -229,11 +229,12 @@ router.patch(
 
 router.patch("/:gameId/removePlayer", (req, res) => {
   let gameId = req.params.gameId;
-  let playerId = req.body["userId"];
+  // let playerId = req.body["userId"];
+  console.log("REMOVE PLAYER BACKEND INDEX:   ", req.body.removePlayerIndex);
 
   Game.findOne({ roomId: gameId }).then(game => {
     let players = game["players"];
-    let indexToDelete = players.indexOf(playerId);
+    let indexToDelete = req.body.removePlayerIndex;
     // ^^ flawed logic, indexOf playerId is not the location in array,
     // it is the player id
 
