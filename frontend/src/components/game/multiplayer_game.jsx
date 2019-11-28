@@ -20,7 +20,7 @@ class MultiplayerGame extends React.Component {
     this.state = {
       game: null,
       round: 1,
-      currentScore: 500,
+      currentScore: 0,
       round1Score: 0,
       round2Score: 0,
       round3Score: 0,
@@ -47,7 +47,6 @@ class MultiplayerGame extends React.Component {
     this.fetchCurrentRnd2Score = this.fetchCurrentRnd2Score.bind(this);
     this.multiRound2Setup = this.multiRound2Setup.bind(this);
     this.updateRound2HighScores = this.updateRound2HighScores.bind(this);
-
 
     ///The begginning /   /   /
   }
@@ -80,11 +79,11 @@ class MultiplayerGame extends React.Component {
       // console.log("RND 2 DATA PASS", idx);
       this.props.addToRnd3Room(idx);
       this.props.deleteRound2Rooms(round2Room);
-      
-      if(this.props.game){
+
+      if (this.props.game) {
         this.setState({
           testRnd3Plyrs: Object.values(this.props.game.data.round3Room)
-        })
+        });
       }
     });
 
@@ -259,7 +258,7 @@ class MultiplayerGame extends React.Component {
 
   render() {
     if (!this.props.rnd1Qs) {
-      return <Redirect to="/profile" />
+      return <Redirect to="/profile" />;
     }
 
     //console.log(this.state.currentPlayer.currentScore);
