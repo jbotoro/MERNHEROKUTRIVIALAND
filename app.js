@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const server = require("http").createServer(app);
 const db = require("./config/keys").mongoURI;
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -72,8 +73,8 @@ app.use("/api/currentGameQuestions", currentGameQuestions);
 
 //Wesocket Details Below
 
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
+// const http = require("http").Server(app);
+const io = require("socket.io")(server);
 
 // const server = http.createServer(app);
 
@@ -198,6 +199,8 @@ io.on("connection", socket => {
   // });
 });
 
-http.listen(port);
-
-// server.listen(port);
+// if (process.env.NODE_ENV === "development") {
+// http.listen(port);
+// } else {
+server.listen(port);
+// }
