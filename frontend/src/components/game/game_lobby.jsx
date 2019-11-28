@@ -1,6 +1,7 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import "./game.css";
+import { Route, Redirect, withRouter } from "react-router-dom";
+
 // import socketIOClient from 'socket.io-client';
 
 // import { socket } from "../../index";
@@ -101,6 +102,11 @@ class GameLobby extends React.Component {
     // if (this.props.game.hasStarted) {
     //     this.handleStartGame();
     // }
+
+    //If there is noting in state we are going to redirect to the logged in players profile page
+    if (!this.props.game) {
+      return <Redirect to="/profile" />;
+    }
 
     let display =
       (this.props.game &&

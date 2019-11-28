@@ -6,10 +6,14 @@ import GameLobby from "./game_lobby";
 import { fetchAllQuestions } from "../../util/questions_util";
 
 const msp = (state, ownProps) => {
-  let game = state.entities.game;
   let currentUser = state.session.user;
   const socket = ownProps.socket;
-  let players = state.entities.game.data.players;
+  let game;
+  let players;
+  if (state.entities.game.data){
+    game = state.entities.game;
+    players = state.entities.game.data.players;
+  }
   return {
     currentUser: currentUser,
     game: game,

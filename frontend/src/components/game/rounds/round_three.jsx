@@ -123,14 +123,16 @@ class RoundThree extends React.Component {
                 break;
             case 1:
                 if(!this.state.currentUsersCategory) this.chooseCategory(this.state.showingCategoriesArr[0]);
-                this.userDisplay.current.toggleSlider();
+                if(this.userDisplay.current) this.userDisplay.current.toggleSlider();
                 this.miniRoundTimer = setTimeout(this.changeMiniRound,10000)
                 break;
             case 2:
                 // console.log(this.state.currentUsersWager)
-                this.userDisplay.current.toggleSlider();
-                this.userDisplay.current.changeMiniRound(3)
-                this.miniRoundTimer = setTimeout(this.changeMiniRound,15000)
+                if(this.userDisplay.current) {
+                    this.userDisplay.current.toggleSlider();
+                    this.userDisplay.current.changeMiniRound(3)
+                    this.miniRoundTimer = setTimeout(this.changeMiniRound,15000)
+                }
                 break;
 
             case 3:         
