@@ -94,8 +94,8 @@ export const fetchCurrentGame = roomId => dispatch =>
 export const generateGame = newGame => dispatch =>
   GameUtil.generateGame(newGame).then(game => dispatch(createNewGame(game)));
 
-export const addPlayer = gameId => dispatch =>
-  GameUtil.addPlayer(gameId).then(game => {
+export const addPlayer = payload => dispatch =>
+  GameUtil.addPlayer(payload).then(game => {
     dispatch(addPlayerToRoom(game));
   });
 

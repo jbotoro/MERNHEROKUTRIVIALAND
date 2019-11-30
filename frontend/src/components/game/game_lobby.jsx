@@ -8,7 +8,9 @@ import "./game.css";
 class GameLobby extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      roster: []
+    };
     // this.handleStartGame = this.handleStartGame.bind(this);
 
     this.handleStartButton = this.handleStartButton.bind(this);
@@ -18,13 +20,19 @@ class GameLobby extends React.Component {
   }
 
   componentDidMount() {
+    console.log(
+      "SOCKET ON FRONTEND IS:   ",
+      this.props.socket.id,
+      typeof this.props.socket.id
+    );
+
     this.props.socket.on("added player", ({ room, roster }) => {
-      // console.log(
-      //   "UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ",
-      //   roster,
-      //   "socket",
-      //   this.props.socket
-      // );
+      console.log(
+        "UPDATING REDUX STATE GAME FROM CLIENT SIDE SOCKET: ",
+        roster,
+        "socket",
+        this.props.socket
+      );
       // console.log(
       //   "ON THE FRONTEND APP SHOWING THIS!!-----: ",
       //   this.props.state
@@ -37,9 +45,40 @@ class GameLobby extends React.Component {
       this.props.fetchCurrentGame(room);
     });
 
+    this.props.socket.on("remove player", ({ socketRemove, socketUpdater }) => {
+      console.log("REMOVE PLAYER IS WORKING ON THE SURFACE");
+      if (this.props.currentPlayer.socketId == socketUpdater) {
+        let players = this.props.players;
+        let removePlayerIndex;
+        for (let i = 0; i < players.length; i++) {
+          if (players[i].socketId == socketRemove) {
+            removePlayerIndex = i;
+            break;
+          }
+        }
+        let payload = {
+          gameId: this.props.game.data.roomId,
+          removePlayerIndex
+        };
+        this.props.removePlayer(payload).then(() => {
+          this.props.socket.emit(
+            "receive updated game",
+            this.props.game.data.roomId
+          );
+        });
+      }
+    });
+
+    this.props.socket.on("retrieve updated game", () => {
+      this.props.fetchCurrentGame();
+    });
+
     this.props.socket.on("game started", room => {
       // console.log("=======================", room);
-      this.removeDuplicatePlayers();
+      // this.removeDuplicatePlayers();
+      // we do not need to use ^^^ this remove function
+      // due to fix in backend that prohibits duplicated
+      // players
       this.props.history.push(`/game/${this.props.game.data._id}`);
     });
 

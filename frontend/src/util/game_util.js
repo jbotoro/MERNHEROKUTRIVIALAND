@@ -6,16 +6,20 @@ export const generateGame = newGame => {
   return axios.post("/api/games/create", newGame);
 };
 
-export const addPlayer = gameId => {
+export const addPlayer = payload => {
   // console.log("API UTIL CALL");
   // console.log(gameId);
-  return axios.patch(`/api/games/${gameId}/addPlayer`); // backend gets player id
+  return axios.patch(`/api/games/${payload.gameId}/addPlayer`, {
+    user: payload.user
+  }); // backend gets player id
   // automatically
   // resolve if issue
 };
 
-export const removePlayer = gameId => {
-  return axios.patch(`/api/games/${gameId}/removePlayer`);
+export const removePlayer = payload => {
+  return axios.patch(`/api/games/${payload.gameId}/removePlayer`, {
+    removePlayerIndex: payload.removePlayerIndex
+  });
 };
 
 export const startGame = gameId => {
