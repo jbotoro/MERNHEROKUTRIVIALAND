@@ -8,7 +8,7 @@ class GameLobby extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      roster: []
+      creator: false
     };
     // this.handleStartGame = this.handleStartGame.bind(this);
 
@@ -19,10 +19,17 @@ class GameLobby extends React.Component {
   }
 
   componentDidMount() {
+    // if (this.props.currentUser.id === this.props.game.data.creator) {
+    //   this.setState({
+    //     creator: true
+    //   });
+    // }
     console.log(
       "SOCKET ON FRONTEND IS:   ",
       this.props.socket.id,
-      typeof this.props.socket.id
+      "WHAT DOES THE SOCKET ID LOOK LIKE IN FRONTEND",
+      this.props.currentPlayer,
+      this.props.currentPlayer.socketId
     );
 
     this.props.socket.on("added player", ({ room, roster }) => {
@@ -45,8 +52,15 @@ class GameLobby extends React.Component {
     });
 
     this.props.socket.on("remove player", ({ socketRemove, socketUpdater }) => {
-      console.log("REMOVE PLAYER IS WORKING ON THE SURFACE");
+      console.log(
+        "REMOVE PLAYER IS WORKING ON THE SURFACE, HERE'S socketUPDATER & SOCKET REMOVE",
+        socketUpdater,
+        socketRemove
+      );
       if (this.props.currentPlayer.socketId == socketUpdater) {
+        console.log(
+          "LOGIC WORKS CURRENT PLAYER REMOVING PLAYER THAT LEFT ROOM"
+        );
         let players = this.props.players;
         let removePlayerIndex;
         for (let i = 0; i < players.length; i++) {
@@ -60,6 +74,7 @@ class GameLobby extends React.Component {
           removePlayerIndex
         };
         this.props.removePlayer(payload).then(() => {
+          // this.setState({ creator: true });
           this.props.socket.emit(
             "receive updated game",
             this.props.game.data.roomId
@@ -85,6 +100,12 @@ class GameLobby extends React.Component {
     //   this.handleStartGame();
     // }
   }
+
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.game.data.players.length !== this.props.game.data.players.length) {
+  //     if ()
+  //   }
+  // }
 
   handleStartGame() {
     if (this.props.game.data.players.length === 1) {
@@ -141,10 +162,10 @@ class GameLobby extends React.Component {
     // }
 
     let display =
-      (this.props.game &&
-        this.props.currentUser.id === this.props.game.data.creator) ||
-      (this.props.game.data[0] &&
-        this.props.currentUser.id === this.props.game.data[0].creator) ? (
+      this.props.game &&
+      this.props.currentUser.id === this.props.game.data.creator ? (
+        // || (this.props.game.data[0] &&
+        // this.props.currentUser.id === this.props.game.data[0].creator)
         <div>
           <div>
             <button onClick={this.handleStartButton}>Start Game</button>

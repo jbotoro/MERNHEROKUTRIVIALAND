@@ -23,10 +23,10 @@ router.post(
     const roomId = Math.floor(Math.random() * 10000);
     const isOnePlayerGame = req.body.isOnePlayerGame;
     let user = req.body.user;
-    console.log(
-      "WHAT DOES USER PAYLOAD LOOK LIKE IN BACKEND:   ",
-      req.body.user
-    );
+    // console.log(
+    //   "WHAT DOES USER PAYLOAD LOOK LIKE IN BACKEND:   ",
+    //   req.body.user
+    // );
     // console.log("WHAT USER MODEL LOOKS LIKE IN BACKEND REQUEST: ", user);
     // console.log("CREATING GAME BACKEND, HERE IS WHAT A USER LOOKS LIKE:  ");
 
@@ -178,11 +178,30 @@ router.patch(
           res.json(game);
         });
       } else {
+        let index;
+        for (let i = 0; i < players.length; i++) {
+          if (players[i].username == user.username) {
+            index = i;
+            break;
+          }
+        }
+        game["players"][index] = user;
+        Game.updateOne(
+          { roomId: gameId },
+          {
+            $set: game
+          },
+          function(err, result) {
+            // console.log(err);
+            // console.log(result);
+          }
+        ).then(() => {
+          res.json(game);
+        });
         // console.log(
         //   "ADDING PLAYER IN BACKEND HERES WHAT GAME LOOKS LIKE:   ",
         //   game
         // );
-        res.json(game);
         // res.status(400).json({ error: "User is already in game" });
       }
     });
@@ -242,7 +261,7 @@ router.patch("/:gameId/removePlayer", (req, res) => {
     let roomId = game.roomId;
 
     if (indexToDelete > -1) {
-      players = players.splice(indexToDelete, 1);
+      players.splice(indexToDelete, 1);
       // now check mutated players array if "creator" player id is among any players
       // in current players array, if not, then reassign creator property of game
       // to the id of the first player in the array
@@ -263,10 +282,10 @@ router.patch("/:gameId/removePlayer", (req, res) => {
       game["players"] = players;
 
       game["numberPlayers"] -= 1;
-      console.log(
-        "REMOVED PLAYER FROM LOBBY IN BACKEND, HERE'S NEW GAME POJO:    ",
-        game
-      );
+      // console.log(
+      //   "REMOVED PLAYER FROM LOBBY IN BACKEND, HERE'S NEW GAME POJO:    ",
+      //   game
+      // );
       Game.updateOne(
         { roomId: gameId },
         {
@@ -274,7 +293,7 @@ router.patch("/:gameId/removePlayer", (req, res) => {
         },
         function(err, result) {
           console.log(err);
-          console.log(result);
+          // console.log(result);
         }
       ).then(() => res.json(game));
     } else {
@@ -314,7 +333,7 @@ router.patch(
         },
         function(err, result) {
           console.log(err);
-          console.log(result);
+          // console.log(result);
         }
       ).then(updated => res.json(updated));
 

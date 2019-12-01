@@ -15,6 +15,8 @@ import GameLobbyContainer from "./game/game_lobby_container";
 import { persistStore } from "redux-persist";
 import GameMultiplayerContainer from "./game/multiplayer_game_container";
 import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
+
 import * as GameActions from "../actions/game_actions";
 
 // import { emitSetup, onSetup } from '../util/sockets_util';
@@ -27,10 +29,13 @@ class App extends React.Component {
       message: "ON THE APP PAGE"
     };
 
-    this.socket =
-      process.env.NODE_ENV === "development"
-        ? socketIOClient("localhost:5000")
-        : socketIOClient(window.location);
+    // this.socket =
+    //   process.env.NODE_ENV === "development"
+    //     ? socketIOClient("localhost:5000")
+    //     : socketIOClient(window.location);
+
+    // this.socket = io({ transports: ["websocket"] });
+    this.socket = io();
 
     // this.message = "ON THE APP PAGE";
   }
@@ -66,7 +71,7 @@ class App extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         <NavBarContainer />

@@ -59,9 +59,11 @@ class MultiplayerGame extends React.Component {
     //   socket.to(room).emit("update score", { room, game });
     // });
 
-    this.props.socket.on("remove player", ({ room, game }) => {
-      this.props.removePlayerFromGame(game);
-    });
+    // this.props.socket.on("remove player", ({ room, game }) => {
+    //   this.props.removePlayerFromGame(game);
+    // });
+
+    this.props.socket.off("remove player");
 
     this.props.socket.on("updated score", ({ player, idx }) => {
       // this.props.players[idx] = player;
@@ -249,7 +251,7 @@ class MultiplayerGame extends React.Component {
 
   render() {
     if (!this.props.rnd1Qs) {
-      return <Redirect to="/profile" />
+      return <Redirect to="/profile" />;
     }
 
     //console.log(this.state.currentPlayer.currentScore);
