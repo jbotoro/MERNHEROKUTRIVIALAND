@@ -89,9 +89,15 @@ The app will have splash page with a sign up and login. Once logged in players c
 **The game constist of three rounds**
 - **Round 1**: Lightning round in which player answer as many questions as possibly in the time alotted (default 2:00 minutes). The top 2/3 of players will move on to the second round with their current point totals.
 
+![round 1](https://github.com/jbotoro/markdown_images/blob/master/round-1-markdown.png)
+
 - **Round 2**: A heads up elimation round with at most 3 players (for odd number occurences) where players choose the level of difficulty of each question for different amounts of points. The first player to answer three correct questions moves on to the third with their current points total. Or, if one of the players hits or goes below 0 points, the other player automatically moves on. Each player will have 5 seconds to choose a difficulty with random selection if player does not choose. The player then gets 15 seconds to answer their question after choosing a level of difficulty.
 
+![round 2](https://github.com/jbotoro/markdown_images/blob/master/round%202%20markdown.png)
+
 - **Round 3**: The final round. All players will go in order of rank (highest points first). The next player chooses their category until all players have chosen their final question category. Once all categories have been chosen, each player has ten seconds to wager up to their full amount of points. After ten seconds the final quesion will be revealed, and the players will have 20 seconds to choose their right answers. New scores will be tallied and the winner will be announced, with a second place. 
+
+![round 3](https://github.com/jbotoro/markdown_images/blob/master/markdown%20round%203%20.png)
 
 
 
