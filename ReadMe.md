@@ -96,7 +96,7 @@ Trivialand will only have two models.
 
   questions: {
     type: Object
-  },
+  }
 ```
 
 #### Frontend: React and React Native with Redux
@@ -121,6 +121,7 @@ join game function utilizing websockets
         this.props.history.push(`/game/${roomId}/lobby`);
       });
     });
+   }
 
 ```
 
