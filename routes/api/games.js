@@ -185,7 +185,14 @@ router.patch(
             break;
           }
         }
+        // console.log("")
+        console.log(
+          "JOINING GAME BEFORE ADDING USER AGAIN:  ",
+          game["players"]
+        );
         game["players"][index] = user;
+        console.log("JOINING GAME AFTER ADDING USER AGAIN:  ", game["players"]);
+
         Game.updateOne(
           { roomId: gameId },
           {
