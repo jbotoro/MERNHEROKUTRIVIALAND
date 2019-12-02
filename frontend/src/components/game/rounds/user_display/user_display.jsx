@@ -83,7 +83,7 @@ class HighScore extends React.Component {
 
                 <div className='rnd3_chosen_category'>
                     <h1>Your Category:
-                        <h6 className="user_display_category_title">{this.props.chosenCategory}</h6>
+                        <p className="user_display_category_title">{this.props.chosenCategory}</p>
                     </h1>
                 </div>
 
