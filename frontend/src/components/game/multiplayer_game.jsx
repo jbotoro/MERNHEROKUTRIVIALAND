@@ -135,9 +135,12 @@ class MultiplayerGame extends React.Component {
   }
 
   multiRound2Setup() {
-    let players = this.state.players.map(plyr => {
-      return plyr;
-    });
+    let players = [];
+    if (this.state.players){
+      players = this.state.players.map(plyr => {
+        return plyr;
+      });
+    }
     players.sort((a, b) =>
       a.isActive.currentScore < b.isActive.currentScore ? 1 : -1
     );
