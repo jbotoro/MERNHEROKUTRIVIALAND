@@ -70,7 +70,7 @@ Trivialand will only have two models.
 - By building mobile first we can guarantee that all user experiences will be synchronous, optimized, and uniform.
 
 ### Realtime Communication
-- Websockets will be incorpored with our app to implement real-time gameplay between our users. 
+- Websockets will be incorporated with our app to implement real-time gameplay between our users. 
 
 - Our server will be listening for incoming connections and will establish a connection between clients through the WebSocket handshake when a request is made by a client.
 
