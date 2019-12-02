@@ -186,7 +186,7 @@
 .game-board-rnd3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 100vh;
+  grid-template-rows: auto 1fr;
   position: relative;
   top: 0;
   left: 0;
@@ -360,7 +360,7 @@
   text-shadow: .75px .75px black;
 }
 
-.rnd3_chosen_category h6 {
+.rnd3_chosen_category p {
   color: rgb(245, 126, 122);
   font-weight: 800;
   font-size: 24px;

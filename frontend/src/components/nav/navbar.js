@@ -41,7 +41,7 @@ class NavBar extends React.Component {
       return (
         <div className="navvy">
           <li>
-            <a href="trivialand-app.herokuapp.com">
+            <a href="https://trivialand-app.herokuapp.com/">
               <img src={logo} alt="Logo" />
             </a>
           </li>

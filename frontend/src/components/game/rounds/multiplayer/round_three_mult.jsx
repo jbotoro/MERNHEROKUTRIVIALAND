@@ -1,8 +1,8 @@
 import React from 'react';
-import '../../css/game.css'
-import GameCategoryRow from '../game_category_row';
-import Clock from '../clock';
-import UserDisplay  from './user_display/user_display';
+import '../../../css/game.css'
+import GameCategoryRow from '../../game_category_row';
+import Clock from '../../clock';
+import UserDisplay  from '../user_display/user_display';
 
 class RoundThree extends React.Component {
     constructor(props) {
@@ -95,9 +95,22 @@ class RoundThree extends React.Component {
     chooseCategory(category){
         // console.log(category)
         this.removeCategory(category)
+
+
+        let questionsObject = this.props.questions;
+        let allCategories = Object.keys(questionsObject);
+        //console.log(allCategories)
+        let questions = questionsObject[category]
+        let question;
+        if (questions){
+            questions = (questions["hard"])
+            question = questions[Math.floor(Math.random() * (questions.length+1))]
+        }
+
         this.setState({
             currentUserTurn: true,
             currentUsersCategory: category,
+            question: question,
         })
         
         //this.changeMiniRound();
@@ -198,7 +211,14 @@ class RoundThree extends React.Component {
                 </div>
 
                 <div className="game-board-rnd3-main-user">
-                    <UserDisplay currentUser={this.props.currentUser} updateWager={this.updateWager} ref={this.userDisplay} currentScore={this.props.currentScore} updateScore={this.updateScore} question={question} chosenCategory={this.state.currentUsersCategory}/>
+                    <UserDisplay 
+                        currentUser={this.props.currentUser} 
+                        updateWager={this.updateWager} 
+                        ref={this.userDisplay} 
+                        currentScore={this.props.currentScore} 
+                        updateScore={this.updateScore} 
+                        question={this.state.question}
+                        chosenCategory={this.state.currentUsersCategory}/>
                 </div>
                 
             </div>

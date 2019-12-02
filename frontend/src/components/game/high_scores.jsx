@@ -19,48 +19,17 @@ class HighScore extends React.Component {
     console.log("HIGH SCORES PLAYERS:   ", this.props.players);
 
     this.sortHighScores();
-    if (this.props.socket) {
-      this.props.socket.on("change round", () => this.props.changeRounds());
-    }
-    if (this.props.round === 4) {
-      // console.log("YOU'RE THE ROUND2 VICTOR, ROUND THREE IS NEXT!!!!");
-    }
+    // if (this.props.socket) {
+    //   this.props.socket.on("change round", () => {
+    //     console.log("doing the change")
+    //     this.props.changeRounds()
+    //   });
+    // }
+    // if (this.props.round === 4) {
+    //   // console.log("YOU'RE THE ROUND2 VICTOR, ROUND THREE IS NEXT!!!!");
+    // }
   }
 
-    // render() {
-    //     if (0) {
-    //         return null
-    //     }
-    //     return (
-    //         <div className="high-scores-display-container">
-    //             <div className="high-scores-title-container">
-    //                 <h1>The average score for the last round was: <p className="the-avg-score"></p></h1>
-    //                 <h1>High Scores </h1>
-    //                 <h1> Round: {this.props.round - 1} </h1>
-                        
-    //             </div>
-    //             <div className="high-scores-container">
-    //                 <div className="high-score-names">
-    //                     <p>AAA</p>
-    //                     <p>BBB</p>
-    //                     <p>CCC</p>
-    //                     <p>DDD</p>
-    //                     <p>EEE</p>
-    //                     <p>FFF</p>
-    //                     <p>GGG</p>
-    //                     <p>HHH</p>
-    //                 </div>
-    //                 <div className="high-score-scores">
-    //                     <p>3600</p>
-    //                     <p>2900</p>
-    //                     <p>2700</p>
-    //                     <p>2600</p>
-    //                     <p>2200</p>
-    //                     <p>2000</p>
-    //                     <p>1400</p>
-    //                     <p>1000</p>
-    //                 </div>
-    //             </div>
   componentWillUnmount() {
     clearTimeout(this.hsTimer);
   }
@@ -85,11 +54,17 @@ class HighScore extends React.Component {
 
     if(this.state.players.length !== this.props.players.length) this.setState({players:this.props.players});
 
-    // console.log(this.props.players);
+    if (this.props.playersReady) console.log(Object.values(this.props.playersReady).length < 1);
 
-    // let waitingClass = this.props.round === 4? :"next-round-button "
+    // let disableButton = this.props.round === 4?
+    //   !Object.values(this.props.playersReady).length < 1
+    //   :
+    //   false;
 
     let button = this.props.socket ? (
+      this.props.round === 4 && !Object.values(this.props.playersReady).length < 1?
+      <button className="next-round-button">Waiting For Other Players</button>
+      :
       <button
         onClick={() => {
           this.props.socket.emit("tryChangeRoom", this.props.room);
@@ -119,7 +94,7 @@ class HighScore extends React.Component {
             The average score for the last round was:{" "}
             <p className="the-avg-score"></p>
           </h1>
-          <h1>High Scores Round: {this.props.round - 1}</h1>
+          <h1>High Scores Round: {this.props.round/2}</h1>
         </div>
         <div className="high-scores-container">
           <div className="high-score-names">

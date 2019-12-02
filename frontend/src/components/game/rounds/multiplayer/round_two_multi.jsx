@@ -10,10 +10,10 @@ class RoundTwo extends React.Component {
     this.state = {
       currentUser: this.props.currentUser,
       strikes: 0, // if number becomes three,
-      rightAnswers: 0,
+      rightAnswers: 3,
       opponentStrikes: 0,
       opponentRightAnswers: 0,
-      timerSeconds: 15,
+      timerSeconds: 20,
       currentPlayers: this.props.currentPlayers
     };
     //React hook for Clock
@@ -145,6 +145,20 @@ class RoundTwo extends React.Component {
 
 
     if (this.state.strikes === 3) {
+
+      /*
+        The logic below is for players that are in round two rooms
+        And is to make sure the room is deleted when the strike out
+        we set the index to -1 and check the index at the socket response
+      */
+      if(this.state.currentPlayers[this.props.opponentIndex].username === "Ghost"){
+        this.props.socket.emit("join room 3", {
+          round2Room: this.props.round2RoomNum,
+          room: this.props.socketRoom,
+          idx: -1
+        });
+      }
+
       clearTimeout(this.questionTimer);
       setTimeout(() => {
         this.props.changeRounds("gameover");
@@ -277,7 +291,7 @@ class RoundTwo extends React.Component {
 
         <div className="game-board-rnd2-right">
           <div>
-            <Clock seconds={15} ref={this.clock} />
+            <Clock seconds={20} ref={this.clock} />
           </div>
 
           <div className="rnd2-username">
