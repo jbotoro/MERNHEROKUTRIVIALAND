@@ -61,7 +61,43 @@ On the backend we will be using MongoDB Atlas Cluster to house our data. The bac
 
 Trivialand will only have two models.
 - A User's model which tracks an individual players personal stats, username, and ranking.
+```javascript
+  const UserSchema = new Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  gamesPlayed: {
+    type: Number,
+    default: 0
+  }
+```
 - A game model which tracks a myriad of statistical facts regarding levels, players, and scores.
+
+```javascript
+  const GameSchema = new Schema({
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "users"
+  },
+
+  players: {
+    type: Array,
+    items: {
+      type: Schema.Types.ObjectId,
+      ref: "users"
+    },
+    uniqueItems: true
+  },
+
+  questions: {
+    type: Object
+  },
+```
 
 #### Frontend: React and React Native with Redux
 
@@ -73,6 +109,20 @@ Trivialand will only have two models.
 - Websockets will be incorporated with our app to implement real-time gameplay between our users. 
 
 - Our server will be listening for incoming connections and will establish a connection between clients through the WebSocket handshake when a request is made by a client.
+
+join game function utilizing websockets
+```javascript
+  handleJoinGame(e) {
+    let roomId = this.state.gameId;
+    // console.log("gameID", this.state);
+    this.props.addPlayer(roomId).then(() => {
+      this.props.newPlayerFetchQuestions(roomId).then(() => {
+        this.joinSocket(roomId);
+        this.props.history.push(`/game/${roomId}/lobby`);
+      });
+    });
+
+```
 
 - Our server will manage upstream and downstream information flow regarding gamestate, scores, player performance, and rank.
 
