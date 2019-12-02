@@ -8,19 +8,12 @@ import { fetchAllQuestions } from "../../util/questions_util";
 const msp = (state, ownProps) => {
   let currentUser = state.session.user;
   const socket = ownProps.socket;
-<<<<<<< HEAD
-  let players = state.entities.game.data.players;
-  let currentPlayer = players.find(player => {
-    return currentUser.username == player.username;
-  });
-=======
   let game;
   let players;
-  if (state.entities.game.data){
+  if (state.entities.game.data) {
     game = state.entities.game;
     players = state.entities.game.data.players;
   }
->>>>>>> 7f3d5bcee11791c7224b9be15fd8995b0e4d276c
   return {
     currentUser: currentUser,
     game: game,
