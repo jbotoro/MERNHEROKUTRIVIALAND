@@ -114,7 +114,6 @@ join game function utilizing websockets
 ```javascript
   handleJoinGame(e) {
     let roomId = this.state.gameId;
-    // console.log("gameID", this.state);
     this.props.addPlayer(roomId).then(() => {
       this.props.newPlayerFetchQuestions(roomId).then(() => {
         this.joinSocket(roomId);
