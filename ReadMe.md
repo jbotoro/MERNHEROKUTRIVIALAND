@@ -41,7 +41,7 @@ Trivialand is primarily built with the MERN stack, a combination of following fo
 - [ ] Full three rounds
 - [ ] Post score to FB or Twitter
 - [ ] High Scores (different types: rounds, whole game, fastest win)
-- [ ] Unlockeable asthetic features based on performance
+- [ ] Unlockable asthetic features based on performance
 
 ***
 ## Technologies & Challenges
