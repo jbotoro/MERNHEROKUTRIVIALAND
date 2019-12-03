@@ -401,7 +401,7 @@ class MultiplayerGame extends React.Component {
         {display}
 
         <Marquee players={this.state.players} />
-        <h1>{this.props.currentUser.username}</h1>
+        {/* <h1>{this.props.currentUser.username}</h1> */}
       </div>
     );
   }
