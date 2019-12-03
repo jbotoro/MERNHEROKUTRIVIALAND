@@ -20,7 +20,7 @@ class MultiplayerGame extends React.Component {
     this.state = {
       game: null,
       round: 1,
-      currentScore: 1000,
+      currentScore: 0,
       round1Score: 0,
       round2Score: 0,
       round3Score: 0,

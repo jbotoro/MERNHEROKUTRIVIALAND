@@ -173,8 +173,8 @@ class GameLobby extends React.Component {
       this.props.currentUser.id === this.props.game.data.creator ? (
         // || (this.props.game.data[0] &&
         // this.props.currentUser.id === this.props.game.data[0].creator)
-        <div>
-          <div>
+        <div className="multi_lobby_parent">
+          <div className="multi_lobby">
             <button onClick={this.handleStartButton}>Start Game</button>
           </div>
 
