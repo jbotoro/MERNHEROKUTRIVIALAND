@@ -87,6 +87,7 @@ io.on("connection", socket => {
 
   // socket.room = socket.handshake.query.room;
   // socket.join(socket.room);
+  // io.set("transports", ["websocket"]);
 
   socket.on("join room", room => {
     // console.log("ROOM ID RECIEVED FROM CLIENT SIDE: ", room);
@@ -161,26 +162,32 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     console.log("user disconnected");
     let room = socket.room;
+    // let roster = Object.keys(io.sockets.adapter.rooms[room].sockets);
+
     if (!!room) {
-      console.log("HERE'S THE SOCKET ROOM UPON LEAVING!!:   ", room);
-      console.log("HERES THE SOCKET ID UPON DISCONNECT:  ", socket.id);
-      let socketRemove = socket.id;
-      // now find first socket in rooms that is not socketRemove
-      // who will update the backend to remove that player from the
-      // game model
-      let roster = Object.keys(io.sockets.adapter.rooms[room].sockets);
-      let socketUpdater;
-      for (let i = 0; i < roster.length; i++) {
-        if (roster[i] != socketRemove) {
-          socketUpdater = i;
-          break;
+      if (!!io.sockets.adapter.rooms[room]) {
+        // let rasta = io.sockets.adapter.rooms[room];
+        let roster = Object.keys(io.sockets.adapter.rooms[room].sockets);
+        // console.log("HERE'S THE SOCKET ROOM UPON DISCONNECT:   ", rasta);
+        console.log("HERE'S THE ROSTER: ", roster);
+        console.log("HERES THE SOCKET ROOM AFTER LEAVING ROOM:  ", roster);
+        let socketRemove = socket.id;
+        // now find first socket in rooms that is not socketRemove
+        // who will update the backend to remove that player from the
+        // game model
+        let socketUpdater;
+        for (let i = 0; i < roster.length; i++) {
+          if (roster[i] != socketRemove) {
+            socketUpdater = roster[i];
+            break;
+          }
         }
+        console.log("HERE'S THE SOCKET UPDATER:   ", socketUpdater);
+        // socketUpdater will be in charge of calling thunk action, then emitting
+        // another socket call for all the other players to then recieve
+        // updated game pojo
+        socket.to(room).emit("remove player", { socketRemove, socketUpdater });
       }
-      console.log("HERE'S THE SOCKET UPDATER:   ", socketUpdater);
-      // socketUpdater will be in charge of calling thunk action, then emitting
-      // another socket call for all the other players to then recieve
-      // updated game pojo
-      socket.to(room).emit("remove player", { socketRemove, socketUpdater });
     }
 
     // socket.leave(socket.room);
@@ -188,6 +195,12 @@ io.on("connection", socket => {
   });
 
   socket.on("receive updated game", room => {
+    let roster = Object.keys(io.sockets.adapter.rooms[room].sockets);
+
+    console.log(
+      "NEW ROSTER OF PLAYERS SINCE WE REMOVED A PLAYER, SHOULD BE ONE LESS: ",
+      roster
+    );
     socket.to(room).emit("retrieve updated game");
   });
 
@@ -222,8 +235,6 @@ io.on("connection", socket => {
   // });
 });
 
-// if (process.env.NODE_ENV === "development") {
 // http.listen(port);
-// } else {
+
 server.listen(port);
-// }

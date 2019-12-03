@@ -10,13 +10,16 @@ class RoundTwo extends React.Component {
     this.state = {
       currentUser: this.props.currentUser,
       strikes: 0, // if number becomes three,
-      rightAnswers: 3,
+      rightAnswers: 0,
       opponentStrikes: 0,
       opponentRightAnswers: 0,
-      timerSeconds: 20,
+      timerSeconds: 120,
       currentPlayers: this.props.currentPlayers
     };
     //React hook for Clock
+
+    //this.props.round2Players
+
     this.clock = React.createRef();
 
     // setTimeout(this.props.changeRounds, 6000); // shouldn't have
@@ -26,68 +29,87 @@ class RoundTwo extends React.Component {
     this.setTimer = this.setTimer.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.round2Players) {
+      let prevPlayer = prevProps.round2Players[this.props.opponentIndex];
+      let currentPlayer = this.props.round2Players[this.props.opponentIndex];
+      if (
+        prevPlayer.strikes != currentPlayer.strikes ||
+        prevPlayer.rightAnswers != currentPlayer.rightAnswers
+      ) {
+        // debugger;
+        this.setState({
+          // currentPlayers: this.props.round2Players,
+          opponentStrikes: currentPlayer.strikes,
+          opponentRightAnswers: currentPlayer.rightAnswers
+        });
+      }
+    }
+  }
+
   componentDidMount() {
     console.log("ROUND 2 PLAYERS:   ", this.props);
     // this.props.getQestions();
-    this.props.socket.on(
-      "update round 2 answers",
-      ({ round2Room, players }) => {
-        // console.log("RND 2 DATA PASS: ======", round2Room, players);
-        if (this.props.round2RoomNum === round2Room) {
-          let opponent = players[this.props.opponentIndex];
+    // this.props.socket.on(
+    //   "update round 2 answers",
+    //   ({ round2Room, players }) => {
+    //     // console.log("RND 2 DATA PASS: ======", round2Room, players);
+    //     if (this.props.round2RoomNum === round2Room) {
+    //       let opponent = players[this.props.opponentIndex];
 
-          this.setState({
-            opponentStrikes: opponent.strikes,
-            opponentRightAnswers: opponent.rightAnswers
-          });
-        }
+    //       this.setState({
+    //         opponentStrikes: opponent.strikes,
+    //         opponentRightAnswers: opponent.rightAnswers
+    //       });
+    //     }
 
-        let room2Data = { players: players, round2Room: round2Room };
+    //     let room2Data = { players: players, round2Room: round2Room };
 
-        // this.props.updateRnd2GameStat(room2Data);
-      }
-    );
+    //     // this.props.updateRnd2GameStat(room2Data);
+    //   }
+    // );
   }
 
   componentWillUnmount() {
-    clearTimeout(this.questionTimer);
+    // clearTimeout(this.questionTimer);
   }
 
-  wrongChoice() {
-    let players = this.state.currentPlayers.map(plyr => plyr);
-    let thisPlayer = players[this.props.myIndex];
-    thisPlayer.strikes++;
-    players[this.props.myIndex] = thisPlayer;
-    this.setState({
-      strikes: this.state.strikes + 1,
-      rightAnswers: this.state.rightAnswers + 1
-    });
-    this.props.socket.emit("updateRnd2", {
-      round2Room: this.props.round2RoomNum,
-      players,
-      room: this.props.socketRoom
-    });
-    if (this.state.strikes === 3) {
-      // logic to use this.changeRounds(3)
-      // which that logic will stop the game for the user
-      // back in game
-    }
+  // wrongChoice() {
+  //   let players = this.state.currentPlayers.map(plyr => plyr);
+  //   let thisPlayer = players[this.props.myIndex];
+  //   thisPlayer.strikes++;
+  //   players[this.props.myIndex] = thisPlayer;
+  //   this.setState({
+  //     strikes: this.state.strikes + 1,
+  //     rightAnswers: this.state.rightAnswers + 1
+  //   });
+  //   this.props.socket.emit("updateRnd2", {
+  //     round2Room: this.props.round2RoomNum,
+  //     players,
+  //     room: this.props.socketRoom
+  //   });
+  //   if (this.state.strikes === 3) {
+  //     // logic to use this.changeRounds(3)
+  //     // which that logic will stop the game for the user
+  //     // back in game
+  //   }
 
-    this.wrongAnswersDisplay();
-  }
+  //   this.wrongAnswersDisplay();
+  // }
 
   rightAnswer(answer) {
+    // debugger;
     let players = this.state.currentPlayers.map(plyr => plyr);
-    let thisPlayer = players[this.props.myIndex];
+    let thisPlayer = Object.assign(players[this.props.myIndex], {});
 
     //calling clock child component reset clock function to display new countdown
-    if (this.clock.current && this.state.rightAnswers < 3) {
-      this.clock.current.resetClock();
-    }
-    clearTimeout(this.questionTimer);
-    this.setState({
-      timerSeconds: 15
-    });
+    // if (this.clock.current && this.state.rightAnswers < 3) {
+    //   this.clock.current.resetClock();
+    // }
+    // clearTimeout(this.questionTimer);
+    // this.setState({
+    //   timerSeconds: 7
+    // });
 
     if (answer) {
       thisPlayer.rightAnswers++;
@@ -123,7 +145,6 @@ class RoundTwo extends React.Component {
   }
 
   numWrongRightCheck() {
-
     // if (this.state.strikes === 3 || this.state.opponentRightAnswers === 3) {
     //   clearTimeout(this.questionTimer);
     //   setTimeout(() => {
@@ -141,17 +162,17 @@ class RoundTwo extends React.Component {
     //   });
     //   clearTimeout(this.questionTimer);
     //   setTimeout(this.props.changeRounds, 1200);
-    // } 
-
+    // }
 
     if (this.state.strikes === 3) {
-
       /*
         The logic below is for players that are in round two rooms
         And is to make sure the room is deleted when the strike out
         we set the index to -1 and check the index at the socket response
       */
-      if(this.state.currentPlayers[this.props.opponentIndex].username === "Ghost"){
+      if (
+        this.state.currentPlayers[this.props.opponentIndex].username === "Ghost"
+      ) {
         this.props.socket.emit("join room 3", {
           round2Room: this.props.round2RoomNum,
           room: this.props.socketRoom,
@@ -193,8 +214,6 @@ class RoundTwo extends React.Component {
         this.props.changeRounds("gameover");
       }, 1400);
     }
-
-
   }
 
   wrongAnswersDisplay() {
@@ -225,9 +244,18 @@ class RoundTwo extends React.Component {
     return dispArr;
   }
 
+
+
   setTimer() {
+    let that = this;
     if (this.state.strikes < 3 && this.state.rightAnswers < 3) {
-      this.questionTimer = setTimeout(this.rightAnswer, 15000);
+      this.questionTimer = setTimeout(
+        () =>
+          that.setState({
+            strikes: 3
+          }),
+        120000
+      );
     }
   }
 
@@ -272,10 +300,8 @@ class RoundTwo extends React.Component {
               {this.state.currentPlayers[this.props.opponentIndex].username}
             </h1>
             <h2>
-              Rules: you have 15 seconds to answer a question or you will get
-              one wrong
+              Rules: you have 2 minutes to answer any 3 out of 5 questions right
             </h2>
-            <h2>You must get any 3 out of 5 questions right</h2>
           </div>
           <div className="cat-questions-container">
             <GameCategoryRow
@@ -291,7 +317,7 @@ class RoundTwo extends React.Component {
 
         <div className="game-board-rnd2-right">
           <div>
-            <Clock seconds={20} ref={this.clock} />
+            <Clock seconds={120} ref={this.clock} />
           </div>
 
           <div className="rnd2-username">

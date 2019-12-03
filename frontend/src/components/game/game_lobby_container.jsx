@@ -10,10 +10,19 @@ const msp = (state, ownProps) => {
   const socket = ownProps.socket;
   let game;
   let players;
+  let currentPlayer;
+
   if (state.entities.game.data) {
     game = state.entities.game;
     players = state.entities.game.data.players;
+    for (let i = 0; i < players.length; i++) {
+      if (currentUser.id == players[i]._id) {
+        currentPlayer = players[i];
+        break;
+      }
+    }
   }
+
   return {
     currentUser: currentUser,
     game: game,

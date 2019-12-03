@@ -32,6 +32,8 @@ class App extends React.Component {
     //   process.env.NODE_ENV === "development"
     //     ? socketIOClient("localhost:5000")
     //     : socketIOClient(window.location);
+
+    // this.socket = io({ transports: ["websocket"] });
     this.socket = io();
 
     // this.message = "ON THE APP PAGE";

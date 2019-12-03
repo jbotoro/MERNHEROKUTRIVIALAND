@@ -28,7 +28,9 @@ class MultiplayerGame extends React.Component {
       round2RoomNum: null,
       isActive: true,
       round3Players: [],
-      testRnd3Plyrs: []
+      testRnd3Plyrs: [],
+      round2Players: null
+
       // currentPlayer: {
       //   id: this.props.currentUser.id,
       //   username: this.props.currentUser.username,
@@ -41,6 +43,8 @@ class MultiplayerGame extends React.Component {
       //   clock: 0
       // }
     };
+    // this.variable = 0;
+    // this.round2Players = [];
 
     this.updateScore = this.updateScore.bind(this);
     this.changeRounds = this.changeRounds.bind(this);
@@ -62,9 +66,11 @@ class MultiplayerGame extends React.Component {
     //   socket.to(room).emit("update score", { room, game });
     // });
 
-    this.props.socket.on("remove player", ({ room, game }) => {
-      this.props.removePlayerFromGame(game);
-    });
+    // this.props.socket.on("remove player", ({ room, game }) => {
+    //   this.props.removePlayerFromGame(game);
+    // });
+
+    this.props.socket.off("remove player");
 
     this.props.socket.on("updated score", ({ player, idx }) => {
       // this.props.players[idx] = player;
@@ -76,13 +82,13 @@ class MultiplayerGame extends React.Component {
     });
 
     this.props.socket.on("add player to room 3", ({ idx, round2Room }) => {
-      // console.log("RND 2 DATA PASS", idx);
+      console.log("RND 2 DATA PASS", idx);
 
       //idx = -1 means that a a round two room had only player and they lost
       //We will there for not be adding anyone to a room but just removing the room
       this.props.deleteRound2Rooms(round2Room);
 
-      if (this.props.game && idx>-1) {
+      if (this.props.game && idx > -1) {
         this.props.addToRnd3Room(idx);
 
         this.setState({
@@ -91,8 +97,22 @@ class MultiplayerGame extends React.Component {
       }
     });
 
+    this.props.socket.on(
+      "update round 2 answers",
+      ({ round2Room, players }) => {
+        // console.log("RND 2 DATA PASS: ======", round2Room, players);
+        if (this.state.round2RoomNum === round2Room) {
+          // let opponent = players[this.props.opponentIndex];
+          this.setState({
+            round2Players: players
+          });
+        }
+        // this.props.updateRnd2GameStat(room2Data);
+      }
+    );
+
     this.props.socket.on("change round", () => {
-      console.log("doing the change")
+      console.log("doing the change");
       this.changeRounds();
     });
 
@@ -136,7 +156,7 @@ class MultiplayerGame extends React.Component {
 
   multiRound2Setup() {
     let players = [];
-    if (this.state.players){
+    if (this.state.players) {
       players = this.state.players.map(plyr => {
         return plyr;
       });
@@ -184,7 +204,7 @@ class MultiplayerGame extends React.Component {
   updateAllScores() {}
 
   changeRounds(round = null) {
-    console.log('changing rounds', this.state.round)
+    console.log("changing rounds", this.state.round);
     if (round === "gameover") {
       this.setState({
         round: 10
@@ -302,6 +322,7 @@ class MultiplayerGame extends React.Component {
       questions = this.props.rnd2Qs;
       display = (
         <RoundTwoContainer
+          round2Players={this.state.round2Players}
           socket={this.props.socket}
           // updateRnd2GameStat={this.props.updateRnd2GameStat}
           round2RoomNum={this.state.round2RoomNum}

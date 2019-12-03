@@ -37,6 +37,7 @@ const mapStateToProps = (state, ownProps) => {
     round2Score: 0,
     round3Score: 0,
   } */
+
   console.log("IN MULTIPLAYER GAME CONTAINER:   ", state);
   return {
     currentUser: state.session.user,
